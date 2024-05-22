@@ -1,0 +1,1 @@
+const STORAGE_URL = "https://join-gruppenarbeit-85792-default-rtdb.europe-west1.firebasedatabase.app/";
