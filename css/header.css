@@ -47,12 +47,13 @@ header {
 }
 
 .header_help_logo:hover {
-cursor: pointer;
-transition: transform .2s;
-height: 25px;
-width: 25px;
+  cursor: pointer;
+  transition: transform .2s;
+  height: 25px;
+  width: 25px;
 }
 
 .header_guest_logo:hover {
   cursor: pointer;
+  
 }
