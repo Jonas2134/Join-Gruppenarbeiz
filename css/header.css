@@ -1,10 +1,15 @@
-header {
+body {
+  margin: 0;
   font-family: 'Open Sans', sans-serif;
+}
+
+header {
   display: flex;
   justify-content: space-between;
   height: 96px;
-  width: 1440px;
+  width: 100vw;
   background-color: #4589ff;
+  box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.1);
 }
 
 .header_logo {
@@ -13,10 +18,6 @@ header {
   top: 64px;
   left: 95px;
   padding: 20px 39px 20px 39px;
-}
-
-.header_logo:hover {
-  cursor: pointer;
 }
 
 .header_menu {
@@ -40,13 +41,16 @@ header {
   width: 20px;
 }
 
-.header_help_logo:hover {
-  cursor: pointer;
-}
-
 .header_guest_logo {
   width: 56px;
   height: 56px;
+}
+
+.header_help_logo:hover {
+cursor: pointer;
+transition: transform .2s;
+height: 25px;
+width: 25px;
 }
 
 .header_guest_logo:hover {
