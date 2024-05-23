@@ -1,5 +1,5 @@
 header {
-    font-family: 'Open Sans',sans-serif;
+  font-family: 'Open Sans', sans-serif;
   display: flex;
   justify-content: space-between;
   height: 96px;
@@ -27,6 +27,8 @@ header {
 
 .header_headline {
   color: white;
+  font-weight: 400;
+  font-size: 19px;
 }
 
 .header_help_logo {
