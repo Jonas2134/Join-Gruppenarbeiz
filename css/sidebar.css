@@ -20,21 +20,36 @@
   max-height: 205px;
   max-width: 186px;
   gap: 15px;
-  background-color: red;
 }
 
+/*CSS CLASS CHANGE WHEN CLICKED OFF*/
 .sidebar_option {
   display: flex;
   align-items: center;
-  min-width: 186px;
-  height: 40px;
-  padding: 8px 30px 8px 30px;
   gap: 8px;
-  border-radius: 8px 0px 0px 0px;
+  padding: 8px 30px;
+  min-width: 126px;  
+  min-height: 35px; 
+  border-radius: 8px 0 0 0;
+}
+
+/*CSS CLASS CHANGE WHEN CLICKED ON*/
+.sidebar_option_active {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 30px;
+  min-width: 126px;  
+  min-height: 35px; 
+  border-radius: 8px 0 0 0;
+  background-color: #D2E3FF;
+  border-radius: 8px;
 }
 
 .sidebar_option:hover {
-  background-color: aquamarine;
+  background-color: #D2E3FF;
+  border-radius: 8px;
+
 }
 
 .sidebar_icon {
@@ -45,12 +60,34 @@
 .sidebar_policy {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-height: 35px; 
+  min-width: 126px;  
+  gap: 8px;         
+  padding: 8px;      
+  border-radius: 10px; 
   max-height: 205px;
   max-width: 186px;
-  gap: 30px;
-  margin: 300px 0px 0px 0px;
+  margin: 300px 0 0 0;
+}
+
+
+/*CSS CLASS CHANGE WHEN CLICKED OFF*/
+.privacy_policy {
+  padding: 8px;        
+  border-radius: 10px; 
+}
+
+/*CSS CLASS CHANGE WHEN CLICKED ON*/
+.privacy_policy_active {
+  background-color: #4589ff;
+  color: white;
+  border-radius: 10px;
+  padding: 8px;
 }
 
 .privacy_policy:hover {
   color: #4589ff;
 }
+
+
