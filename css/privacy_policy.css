@@ -1,0 +1,21 @@
+.privacy_policy {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    width: 1032px;
+    height: 145px;
+  }
+
+h2 {
+    color: #005DFF;
+}
+
+.arrow_return {
+    width: 32px;
+    height: 32px;
+}
+
+.arrow_return_div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
