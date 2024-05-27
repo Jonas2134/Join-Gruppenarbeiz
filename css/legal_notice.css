@@ -22,8 +22,16 @@ h1 {
 }
 
 h2 {
-  color: #005dff;
-}
+    color: #005dff;
+    font-weight: 700;
+    font-size: 33px;
+  }
+  
+  h3 {
+    color: #005dff;
+    font-weight: 700;
+    font-size: 19px;
+  }
 
 span {
   color: #4589ff;

@@ -1,10 +1,8 @@
-.privacy_policy {
+.help_section {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   width: 1032px;
-  height: 325px;
-  top: 289px;
-  left: 320px;
+  height: 999px;
 }
 
 .arrow_return {
@@ -23,9 +21,22 @@ h1 {
   font-size: 61px;
 }
 
-h3 {
-    color: #005dff;
-    font-weight: 700;
-    font-size: 19px;
-  }
-  
+h2 {
+  color: #005dff;
+  font-weight: 700;
+  font-size: 33px;
+}
+
+span {
+  color: #4589ff;
+}
+
+.how_to_use {
+  display: flex;
+  gap: 16px;
+}
+
+.how_to_use_steps {
+  width: 29px;
+  height: 40px;
+}
