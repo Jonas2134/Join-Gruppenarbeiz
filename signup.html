@@ -1,13 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign Up</title>
     <link rel="shortcut icon" href="./icons/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="./css/fonts.css">
 </head>
+
 <body>
-    
+    <img class="logo" src="./icons/logo_white.svg" alt="">
+
+    <div class="signup_container">
+        <div class="head_container">
+            <a href="./index.html"><img class="arrow" src="./icons/vector.png" alt=""></a>
+            <h1>Sign up</h1>
+        </div>
+        <div class="blue_underline"></div>
+        <form>
+            <div class="input_container">
+                <input placeholder="Name" type="text" required>
+                <img src="./icons/person.png" alt="User Name">
+            </div>
+            <div class="input_container">
+                <input placeholder="Email" type="email" required>
+                <img src="./icons/mail.png" alt="Email">
+            </div>
+            <div class="input_container">
+                <input placeholder="Password" type="password" required>
+                <img src="./icons/lock.png" alt="Password">
+            </div>
+            <div class="input_container">
+                <input placeholder="Confirm Password" type="password" required>
+                <img src="./icons/lock.png" alt="Confirm Password">
+            </div>
+
+            <div class="button_container">
+                <div class="privacy_container">
+                    <input type="checkbox" required>
+                    <div>
+                        I accept the
+                        <a href="#">Privacy policy</a>
+                    </div>                    
+                </div>
+                <button class="btn blue">Sign up</button>
+            </div>
+        </form>
+    </div>
+
+    <footer class="signup_footer">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Legal notice</a>
+    </footer>
 </body>
+
 </html>

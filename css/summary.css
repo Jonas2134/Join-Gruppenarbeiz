@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+}
+
+.dis_flex {
+    display: flex;
+}
+
+.flex_col {
+    flex-direction: column;
+}
