@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="./icons/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/signup.css">
     <link rel="stylesheet" href="./css/fonts.css">
+    <link rel="stylesheet" href="./css/checkbox.css">
 </head>
 
 <body>
@@ -39,11 +40,15 @@
 
             <div class="button_container">
                 <div class="privacy_container">
-                    <input type="checkbox" required>
+                    <label class="cr-wrapper">
+                        <input type="checkbox" required/>
+                        <div class="cr-input"></div>
+                    </label>
                     <div>
                         I accept the
                         <a href="#">Privacy policy</a>
-                    </div>                    
+                    </div>
+
                 </div>
                 <button class="btn blue">Sign up</button>
             </div>
