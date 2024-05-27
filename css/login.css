@@ -133,15 +133,8 @@ body {
 
 .remember_me {
     display: flex;
+    align-items: center;
     gap: 8px;
-}
-
-.remember_me input:hover {
-    cursor: pointer;
-}
-
-.remember_me p {
-    font-size: 16px;
 }
 
 .btn_container {
