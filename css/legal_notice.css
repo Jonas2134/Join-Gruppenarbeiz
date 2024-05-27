@@ -1,3 +1,30 @@
 .legal_notice {
-    
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  width: 1032px;
+  height: 145px;
+}
+
+.arrow_return {
+  width: 32px;
+  height: 32px;
+}
+
+.arrow_return_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 61px;
+}
+
+h2 {
+  color: #005dff;
+}
+
+span {
+  color: #4589ff;
 }
