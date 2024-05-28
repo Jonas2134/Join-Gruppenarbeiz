@@ -41,7 +41,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 440px;
-  height: 361px;
+  /* height: 361px; */
   gap: 12px;
   background-color: bisque;
 }
@@ -78,7 +78,6 @@ body {
   height: 103px;
   border-radius: 0px 10px 10px 10px;
   border: 1px solid #d1d1d1;
-  background-color: #ffffff;
   padding: 10px;
   font-weight: 400;
   font-size: 19px;
@@ -100,12 +99,76 @@ body {
   gap: 4px;
 }
 
+.input_add_date {
+  /* display: flex;
+  justify-content: space-between; */
+  width: 440px;
+  height: 48px;
+  padding: 12px 16px 12px 16px;
+  font-weight: 400;
+  font-size: 19px;
+  color: #d1d1d1;
+  line-height: 23px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #d1d1d1;
+  outline: none;
+  /* gap: 24px; */
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(25%) sepia(94%) saturate(2685%) hue-rotate(202deg)
+    brightness(90%) contrast(90%);
+  height: 24px;
+  width: 24px;
+}
+
 .add_priority {
   display: flex;
+  flex-direction: column;
   width: 440px;
   height: 82px;
   gap: 8px;
   background-color: hotpink;
+}
+
+.add_priority_span {
+  display: flex;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 23px;
+}
+
+.priority_buttons {
+    display: flex;
+    gap: 16px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 136px;
+    height: 51px;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 23px;
+    border: solid 1px #d1d1d1;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 18px 10px 18px 10px;
+    gap: 10px;
+}
+
+.prio_icon_medium_span {
+    font-size: 30px;
+    color: #FFA800;
+}
+
+.prio_icons {
+    width: 20px;
+    height: 14px;
 }
 
 .add_assigned_to {
@@ -117,7 +180,7 @@ body {
   background-color: azure;
 }
 
-.add_cateogry {
+.add_category {
   display: flex;
   width: 440px;
   height: 79px;
