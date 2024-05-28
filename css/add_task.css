@@ -171,6 +171,18 @@ button {
     height: 14px;
 }
 
+.button_urgent:hover {
+    box-shadow: 0px 2px 0px #FF3D00;
+}
+
+.button_medium:hover {
+    box-shadow: 0px 2px 0px #FFA800;
+}
+
+.button_low:hover {
+    box-shadow: 0px 2px 0px #7AE229;
+}
+
 .add_assigned_to {
   display: flex;
   width: 440px;
