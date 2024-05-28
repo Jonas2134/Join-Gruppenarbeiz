@@ -1,0 +1,81 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #646066 #ffffff;
+  }
+
+  *::-webkit-scrollbar {
+    width: 24px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #646066;
+    border-radius: 8px;
+    border: 3px none #ffffff;
+  }
+
+.add_task {
+    display: flex;
+    flex-direction: column;
+    width: 488px; 
+    height: 928px; 
+    position: fixed; 
+    top: 96px; 
+    left: 232px; 
+    padding: 64px 24px 0 24px; 
+    gap: 24px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: aquamarine;
+}
+
+.add_class_top_section {
+    display: flex;
+    width: 440px;
+    height: 361px;
+    gap: 12px;
+    background-color: bisque;
+}
+
+.add_priority {
+    display: flex;
+    width: 440px;
+    height: 82px;
+    gap: 8px;        
+    background-color: hotpink;
+}
+
+.add_assigned_to {
+    display: flex;
+    width: 440px;
+    height: 79px;
+    /* position: fixed; */
+    gap: 8px;
+    background-color: azure;
+}
+
+.add_cateogry {
+    display: flex;
+    width: 440px;
+    height: 79px;
+    /* position: fixed; */
+    gap: 8px;
+    background-color: yellowgreen;
+}
+
+.add_subtasks {
+    display: flex;
+    width: 440px;
+    height: 79px;
+    /* position: fixed; */
+    gap: 8px;
+    background-color: violet;
+}
