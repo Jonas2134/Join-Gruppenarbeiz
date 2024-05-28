@@ -1,81 +1,136 @@
 body {
-    font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 * {
-    scrollbar-width: thin;
-    scrollbar-color: #646066 #ffffff;
-  }
+  scrollbar-width: thin;
+  scrollbar-color: #646066 #ffffff;
+}
 
-  *::-webkit-scrollbar {
-    width: 24px;
-  }
+*::-webkit-scrollbar {
+  width: 24px;
+}
 
-  *::-webkit-scrollbar-track {
-    background: #ffffff;
-  }
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
 
-  *::-webkit-scrollbar-thumb {
-    background-color: #646066;
-    border-radius: 8px;
-    border: 3px none #ffffff;
-  }
+*::-webkit-scrollbar-thumb {
+  background-color: #646066;
+  border-radius: 8px;
+  border: 3px none #ffffff;
+}
 
 .add_task {
-    display: flex;
-    flex-direction: column;
-    width: 488px; 
-    height: 928px; 
-    position: fixed; 
-    top: 96px; 
-    left: 232px; 
-    padding: 64px 24px 0 24px; 
-    gap: 24px;
-    box-sizing: border-box;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+  width: 488px;
+  height: 928px;
+  position: fixed;
+  top: 96px;
+  left: 232px;
+  padding: 64px 24px 0 24px;
+  gap: 24px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: aquamarine;
 }
 
 .add_class_top_section {
-    display: flex;
-    width: 440px;
-    height: 361px;
-    gap: 12px;
-    background-color: bisque;
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+  height: 361px;
+  gap: 12px;
+  background-color: bisque;
+}
+
+.input_add_task {
+  display: flex;
+  border: none;
+  border-bottom: 1px solid #d1d1d1;
+  /* width: 172px; */
+  height: 38px;
+  padding: 13px 16px 13px 16px;
+  line-height: 38px;
+  font-weight: 400;
+  font-size: 32px;
+  outline: none;
+  gap: 4px;
+}
+
+::placeholder {
+  color: #d1d1d1;
+}
+
+.add_description_span {
+  display: flex;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+  margin: 4px 0px 4px 0px;
+  gap: 4px;
+}
+
+.add_description_textfield {
+  width: 440px;
+  height: 103px;
+  border-radius: 0px 10px 10px 10px;
+  border: 1px solid #d1d1d1;
+  background-color: #ffffff;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 22px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+::-webkit-resizer {
+  display: none;
+}
+
+.add_date_span {
+  display: flex;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 23px;
+  margin: 4px 0px 4px 0px;
+  gap: 4px;
 }
 
 .add_priority {
-    display: flex;
-    width: 440px;
-    height: 82px;
-    gap: 8px;        
-    background-color: hotpink;
+  display: flex;
+  width: 440px;
+  height: 82px;
+  gap: 8px;
+  background-color: hotpink;
 }
 
 .add_assigned_to {
-    display: flex;
-    width: 440px;
-    height: 79px;
-    /* position: fixed; */
-    gap: 8px;
-    background-color: azure;
+  display: flex;
+  width: 440px;
+  height: 79px;
+  /* position: fixed; */
+  gap: 8px;
+  background-color: azure;
 }
 
 .add_cateogry {
-    display: flex;
-    width: 440px;
-    height: 79px;
-    /* position: fixed; */
-    gap: 8px;
-    background-color: yellowgreen;
+  display: flex;
+  width: 440px;
+  height: 79px;
+  /* position: fixed; */
+  gap: 8px;
+  background-color: yellowgreen;
 }
 
 .add_subtasks {
-    display: flex;
-    width: 440px;
-    height: 79px;
-    /* position: fixed; */
-    gap: 8px;
-    background-color: violet;
+  display: flex;
+  width: 440px;
+  height: 79px;
+  /* position: fixed; */
+  gap: 8px;
+  background-color: violet;
 }
