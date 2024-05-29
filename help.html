@@ -5,9 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/help.css" />
     <link rel="stylesheet" href="./css/fonts.css" />
+    <link rel="stylesheet" href="./css/template_header.css">
+    <link rel="stylesheet" href="./css/template_sidebar.css">
+    <script src="js/include_html.js"></script>
     <title>Join</title>
   </head>
-  <body>
+  <body onload="includeHTML()">
+    <div w3-include-html="template_header.html"></div>
+    <div w3-include-html="template_sidebar.html"></div>
     <div class="help_section">
       <div class="arrow_return_div">
         <h1>Help</h1>
@@ -41,8 +46,10 @@
       <p>Here is a step-by-step guide on how to use <span>Join</span>:</p>
       <div class="how_to_use">
         <div class="how_to_use_steps">
-          <h2>1.</h2>
-        </div>
+        <p class="how_to_use_number">
+          1.
+        </p>
+      </div>
         <p>
           <b>Exploring the Board</b><br />
           When you log in to <span>Join</span>, you'll find a default board.
@@ -53,7 +60,7 @@
 
       <div class="how_to_use">
         <div class="how_to_use_steps">
-          <h2>2.</h2>
+         <p class="how_to_use_number">2.</p>
         </div>
         <p>
           <b>Creating Contacts</b><br />
@@ -66,7 +73,7 @@
 
       <div class="how_to_use">
         <div class="how_to_use_steps">
-          <h2>3.</h2>
+          <p class="how_to_use_number">3.</p>
         </div>
         <p>
           <b>Adding Cards</b><br />
@@ -79,7 +86,7 @@
 
       <div class="how_to_use">
         <div class="how_to_use_steps">
-          <h2>4.</h2>
+          <p class="how_to_use_number">4.</p>
         </div>
         <p>
           <b>Moving Cards</b><br />
@@ -90,7 +97,7 @@
 
       <div class="how_to_use">
         <div class="how_to_use_steps">
-          <h2>5.</h2>
+          <p class="how_to_use_number">5.</p>
         </div>
         <p>
           <b>Deleting Cards</b><br />

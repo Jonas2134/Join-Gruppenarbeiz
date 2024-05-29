@@ -1,8 +1,19 @@
+
+
 .help_section {
-  margin: 0;
+  margin: 0 auto;
   font-family: 'Open Sans', sans-serif;
+  position: fixed;
   width: 1032px;
-  height: 999px;
+  max-height: calc(100vh - 145px);
+  top: 145px;
+  left: 320px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .arrow_return {
@@ -37,6 +48,15 @@ span {
 }
 
 .how_to_use_steps {
+  display: flex;
   width: 29px;
   height: 40px;
+}
+
+.how_to_use_number {
+  display: flex;
+  align-items: center;
+  color: #005dff;
+  font-weight: 700;
+  font-size: 33px;
 }

@@ -34,7 +34,7 @@
 }
 
 /*CSS CLASS CHANGE WHEN CLICKED ON*/
-.sidebar_option_active {
+/* .sidebar_option_active {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -44,12 +44,17 @@
   border-radius: 8px 0 0 0;
   background-color: #D2E3FF;
   border-radius: 8px;
-}
+} */
 
 .sidebar_option:hover {
+  cursor: pointer;
   background-color: #D2E3FF;
   border-radius: 8px;
 
+}
+
+.header_span {
+  color: #42526e;
 }
 
 .sidebar_icon {
@@ -74,19 +79,21 @@
 
 /*CSS CLASS CHANGE WHEN CLICKED OFF*/
 .privacy_policy {
+  color: #42526e;
   padding: 8px;        
   border-radius: 10px; 
 }
 
 /*CSS CLASS CHANGE WHEN CLICKED ON*/
-.privacy_policy_active {
+/* .privacy_policy_active {
   background-color: #4589ff;
   color: white;
   border-radius: 10px;
   padding: 8px;
 }
-
+ */
 .privacy_policy:hover {
+  cursor: pointer;
   color: #4589ff;
 }
 
