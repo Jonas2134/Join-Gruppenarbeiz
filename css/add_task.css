@@ -35,7 +35,6 @@ body {
   box-sizing: border-box;
   overflow-y: scroll;
   overflow-x: hidden;
-  background-color: aquamarine;
 }
 
 .add_class_top_section {
@@ -44,7 +43,6 @@ body {
   width: 440px;
   /* height: 361px; */
   gap: 12px;
-  background-color: bisque;
 }
 
 .input_add_task {
@@ -130,7 +128,6 @@ body {
   width: 440px;
   height: 82px;
   gap: 8px;
-  background-color: hotpink;
 }
 
 .add_priority_span {
@@ -190,7 +187,6 @@ button {
   height: 79px;
   /* position: fixed; */
   gap: 8px;
-  background-color: azure;
 }
 
 .add_assigned_to_span {
@@ -225,7 +221,6 @@ button {
   height: 79px;
   /* position: fixed; */
   gap: 8px;
-  background-color: yellowgreen;
 }
 
 .add_category_span {
@@ -243,7 +238,6 @@ button {
   height: 79px;
   /* position: fixed; */
   gap: 8px;
-  background-color: violet;
 }
 
 .add_subtask_span {
