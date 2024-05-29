@@ -3,11 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./icons/logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="./css/privacy_policy.css" />
     <link rel="stylesheet" href="./css/fonts.css" />
+    <link rel="stylesheet" href="./css/template_header.css">
+    <link rel="stylesheet" href="./css/template_sidebar.css">
+    <script src="./js/include_html.js"></script>
     <title>Join</title>
   </head>
-  <body>
+  <body onload="includeHTML()">
+    <div w3-include-html="template_header.html"></div>
+    <div w3-include-html="template_sidebar.html"></div>
     <div class="privacy_policy">
       <div class="arrow_return_div">
         <h1>Privacy Policy</h1>

@@ -7,7 +7,7 @@
   width: 1032px;
   max-height: calc(100vh - 145px);
   top: 145px;
-  left: 320px;
+  left: 350px;
   overflow-y: scroll;
   overflow-x: hidden;
 }

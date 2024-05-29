@@ -78,21 +78,21 @@
 
 
 /*CSS CLASS CHANGE WHEN CLICKED OFF*/
-.privacy_policy {
+.sidebar_privacy_policy {
   color: #42526e;
   padding: 8px;        
   border-radius: 10px; 
 }
 
 /*CSS CLASS CHANGE WHEN CLICKED ON*/
-/* .privacy_policy_active {
+/* .sidebar_privacy_policy_active {
   background-color: #4589ff;
   color: white;
   border-radius: 10px;
   padding: 8px;
 }
  */
-.privacy_policy:hover {
+.sidebar_privacy_policy:hover {
   cursor: pointer;
   color: #4589ff;
 }
