@@ -280,7 +280,6 @@ button {
   gap: 20px;
 }
 
-/*CSS CLICKED OFF */
 .form_button {
   width: 136px;
   height: 60px;
@@ -294,29 +293,36 @@ button {
   box-shadow: none;
 }
 
-/*CSS CLICKED ON */
-/* .form_button_active {
-  width: 136px;
-  height: 60px;
-  font-weight: 400;
-  font-size: 23px;
-  line-height: 28px;
-  color: white;
-  background-color: #4589FF;
-} */
-
+.form_button:hover {
+  cursor: pointer;
+  border: 3px solid #4589FF;
+  color: #4589FF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  transition: all 0,9ms ease;
+}
 
 /*CSS CLICKED OFF */
 .form_create_button {
   width: 174px;
   height: 60px;
   box-shadow: none;
-  border: 1px solid #647188;
+  border: 1px solid #4589FF;
   font-weight: 400;
   font-size: 23px;
   line-height: 28px;
-  color: #647188;
+  color: white;
+  background-color: #4589FF;
 }
+
+.form_create_button:hover {
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  transition: all 0,9ms ease;
+  background-color: #005DFF;
+}
+
 
 /*CSS CLICKED ON */
 /* .form_create_button_active {
@@ -326,6 +332,7 @@ button {
   font-weight: 400;
   font-size: 23px;
   line-height: 28px;
-  color: white;
-  background-color: #4589FF;
+  color: #4589FF;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 } */

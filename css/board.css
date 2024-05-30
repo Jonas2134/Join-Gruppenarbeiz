@@ -1,0 +1,11 @@
+.board_top_section {
+    display: flex;
+    position: fixed;
+    width: 1208px;
+    height: 215px;
+    top: 96px;
+    left: 232px;
+    padding: 72px 0px 16px 0px;
+    gap: 48px;
+    background-color: hotpink;
+}
