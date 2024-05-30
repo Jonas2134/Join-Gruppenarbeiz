@@ -1,10 +1,11 @@
 
-
 .help_section {
   margin: 0 auto;
+  padding: 0px 140px 0px 0px;
   font-family: 'Open Sans', sans-serif;
   position: fixed;
-  width: 1032px;
+  /* width: 1032px; */
+  box-sizing: border-box;
   max-height: calc(100vh - 145px);
   top: 145px;
   left: 350px;
