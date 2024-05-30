@@ -5,15 +5,13 @@ body {
 * {
   scrollbar-width: thin;
   scrollbar-color: #A8A8A8 #ffffff;
+  
 }
 
-*::-webkit-scrollbar {
-  width: 24px;
-  height: 20px;
-}
 
 *::-webkit-scrollbar-track {
   background: #ffffff;
+  
 }
 
 *::-webkit-scrollbar-thumb {
@@ -270,3 +268,64 @@ button {
   width: 25px;
   height: 25px;
 }
+
+.add_task_form_buttons {
+  display: flex;
+  position: fixed;
+  width: 375px;
+  height: 61px;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 50px;
+  gap: 20px;
+}
+
+/*CSS CLICKED OFF */
+.form_button {
+  width: 136px;
+  height: 60px;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 28px;
+  color: #647188;
+  border: 1px solid #647188;
+  padding: 16px 10px 16px 10px;
+  gap: 10px;
+  box-shadow: none;
+}
+
+/*CSS CLICKED ON */
+/* .form_button_active {
+  width: 136px;
+  height: 60px;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 28px;
+  color: white;
+  background-color: #4589FF;
+} */
+
+
+/*CSS CLICKED OFF */
+.form_create_button {
+  width: 174px;
+  height: 60px;
+  box-shadow: none;
+  border: 1px solid #647188;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 28px;
+  color: #647188;
+}
+
+/*CSS CLICKED ON */
+/* .form_create_button_active {
+  width: 174px;
+  height: 60px;
+  box-shadow: none;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 28px;
+  color: white;
+  background-color: #4589FF;
+} */

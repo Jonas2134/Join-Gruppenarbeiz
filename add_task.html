@@ -14,6 +14,8 @@
   <body onload="includeHTML()">
     <div w3-include-html="template_header.html"></div>
     <div w3-include-html="template_sidebar.html"></div>
+    
+    <div>
     <form class="add_task">
       <div class="add_class_top_section">
         <input type="text" required class="input_add_task" placeholder="Enter a title" />
@@ -87,9 +89,20 @@
         <div class="add_subtask_input_div">
         <input type="text" class="input_subtasks" placeholder="Add new subtask" />
         <img src="/icons/plus_icon.png" alt="add" class="add_subtask_icon">
-
-        
-      </div>
+  </div>
     </form>
+  </div>
+
+
+    <div class="add_task_form_buttons">
+      <button class="form_button">
+        Clear &#10005;
+      </button>
+      <button class="form_create_button">
+        Create Task &#10004;
+      </button>
+
+    </div>
+
   </body>
 </html>
