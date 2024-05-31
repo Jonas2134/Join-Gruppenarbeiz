@@ -1,6 +1,5 @@
 .board_top_section {
-    display: flex;
-    position: fixed;
+     position: fixed;
     width: 1208px;
     height: 215px;
     top: 96px;
@@ -8,4 +7,65 @@
     padding: 72px 0px 16px 0px;
     gap: 48px;
     background-color: hotpink;
+}
+
+.board_input_section {
+display: flex;
+align-items: center;
+width: 312px;
+height: 48px;
+border-radius: 10px;
+border: 1px solid #E8E8E8;
+background-color: white;
+}
+
+.board_input_section:hover {
+    cursor: pointer;
+    border: 1px solid #4589FF;
+}
+
+.find_task_input {
+    display: flex;
+    justify-content: space-between;
+    width: 280px;
+    height: 32px;
+    padding: 8px 16px 8px 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    border: none;
+    outline: none;
+}
+
+.find_task_input:hover {
+    cursor: pointer;
+}
+
+.input_divider {
+    width: 2px;
+    height: calc(100% - 10px); /* Subtracting 10px to provide 5px padding on top and bottom */
+    background-color: #E8E8E8;
+    margin: 5px 0;
+    flex-shrink: 0; }
+
+
+.find_task_input::placeholder {
+    color: #E8E8E8;
+}
+
+.input_search_icon {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    margin: 0px 16px 0px 16px;
+}
+
+.input_search_icon:hover {
+background-color: #D2E3FF;
+border-radius: 10px;
+}
+
+.add_task_button_icon {
+    width: 20px;
+    height: 20px;
 }
