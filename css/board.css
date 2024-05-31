@@ -7,7 +7,6 @@
   left: 232px;
   padding: 72px 0px 16px 48px;
   gap: 32px;
-  background-color: hotpink;
 }
 
 .board_input_section {
@@ -30,10 +29,12 @@
   justify-content: space-between;
   width: 280px;
   height: 32px;
+  margin: 4px;
   padding: 8px 16px 8px 16px;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
+  border-radius: 10px;
   border: none;
   outline: none;
 }
@@ -95,4 +96,63 @@
 .add_task_button_icon {
   width: 23px;
   height: 23px;
+}
+
+.task_status_bar {
+display: flex;
+position: fixed;
+justify-content: space-between;
+box-sizing: border-box;
+height: 28px;
+margin: 100px 0px 0px 0px;
+gap: 18px;
+}
+
+.task_status {
+display: flex;
+width: 244px;
+height: 28px;
+
+}
+
+.task_status_span {
+margin: 0;
+width: 244px;
+height: 28px;
+font-weight: 700;
+font-size: 23px;
+line-height: 28px;
+}
+
+.task_button {
+  margin: 3px 0px;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 28px;
+  border: 2px solid #4589ff;
+  color: #4589ff;
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.task_button:hover { 
+  cursor: pointer;
+  border: 2px solid #0038ff;
+  color: #0038ff;
+}
+
+.task_content {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 1208px;
+  height: 700px;
+  position: fixed;
+  top: 323px;
+  left: 232px;
+  padding: 0px 64px;
+  gap: 24px;
+
 }
