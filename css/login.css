@@ -131,6 +131,11 @@ body {
     font-size: 20px;
 }
 
+.hidden_container {
+    color: #ff0000;
+    font-size: 12px;
+}
+
 .remember_me {
     display: flex;
     align-items: center;
@@ -198,7 +203,6 @@ body {
     color: #29ABE2;
 }
 
-
 h1 {
     margin: 0;
     font-family: Open Sans;
@@ -212,6 +216,14 @@ a {
 
 p {
     margin: 0;
+}
+
+.red_underline {
+    border-color: #ff0000;
+}
+
+.d_none {
+    display: none;
 }
 
 @media(max-width: 750px) {
@@ -303,6 +315,10 @@ p {
         width: 88px;
     }
 
+    .signup_container {
+        bottom: 10%;
+    }
+
     .login_container {
         padding: 20px 40px;
     }
@@ -327,5 +343,6 @@ p {
 @media(max-width: 330px) {
     .signup_container div {
         flex-direction: column;
+        gap: 16px;
     }
 }
