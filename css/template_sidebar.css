@@ -1,3 +1,7 @@
+a {
+  text-decoration: none;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -11,14 +15,14 @@
   z-index: 1000;
   box-shadow: 0px 5px 2px 1px rgba(0, 0, 0, 0.1);
   padding: 66px 0px 66px 0px;
-/*   gap: 235px; */
+  /*   gap: 235px; */
 }
 
 .sidebar_options {
   display: flex;
   flex-direction: column;
-  max-height: 205px;
-  max-width: 186px;
+  height: 205px;
+  width: 186px;
   gap: 15px;
 }
 
@@ -28,8 +32,8 @@
   align-items: center;
   gap: 8px;
   padding: 8px 30px;
-  min-width: 126px;  
-  min-height: 35px; 
+  width: 126px;
+  min-height: 35px;
   border-radius: 8px 0 0 0;
 }
 
@@ -48,9 +52,8 @@
 
 .sidebar_option:hover {
   cursor: pointer;
-  background-color: #D2E3FF;
+  background-color: #d2e3ff;
   border-radius: 8px;
-
 }
 
 .header_span {
@@ -66,22 +69,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 35px; 
-  min-width: 126px;  
-  gap: 8px;         
-  padding: 8px;      
-  border-radius: 10px; 
+  min-height: 35px;
+  min-width: 126px;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 10px;
   max-height: 205px;
   max-width: 186px;
   margin: 300px 0 0 0;
 }
 
-
 /*CSS CLASS CHANGE WHEN CLICKED OFF*/
 .sidebar_privacy_policy {
   color: #42526e;
-  padding: 8px;        
-  border-radius: 10px; 
+  padding: 8px;
+  border-radius: 10px;
 }
 
 /*CSS CLASS CHANGE WHEN CLICKED ON*/
@@ -97,4 +99,44 @@
   color: #4589ff;
 }
 
+@media (max-width: 430px) {
+  .sidebar {
+    height: 76px;
+    width: 100vw;
+    padding: 0px;
+    /*     width: 398px; */
+    /*   top: 675px; */
+    box-shadow: 0px 0px 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: green;
+    overflow: hidden;
+  }
 
+  .sidebar_options {
+    flex-direction: row;
+    padding: 0px 16px 0px 16px;
+    background-color: hotpink;
+    width: fit-content;
+  }
+
+  .sidebar_option {
+    flex-direction: column;
+    gap: 4px;
+    width: 75px;
+    padding: 15px 0px 15px 0px;
+    background-color: blue;
+    border-radius: 0px;
+  }
+
+  .sidebar_span {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .sidebar_policy {
+    display: none;
+  }
+
+  .board_top_section {
+    display: none;
+  }
+}
