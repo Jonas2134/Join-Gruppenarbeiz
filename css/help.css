@@ -18,6 +18,7 @@
 }
 
 .arrow_return {
+  cursor: pointer;
   width: 32px;
   height: 32px;
 }
@@ -61,3 +62,49 @@ span {
   font-weight: 700;
   font-size: 33px;
 }
+
+
+@media (max-width: 768px) {
+  .help_section {
+  padding: 0px 100px 0px 0px;
+  left: 320px;
+}
+}
+@media (max-width: 700px) {
+  .help_section {  
+    font-size: 15px;
+    left: 280px;
+  }
+}
+ 
+@media (max-width: 585px) {
+  .help_section {
+    left: 240px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  h2 {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 500px) {
+  .help_section {
+    left: 190px;
+  }
+}
+
+@media (max-width: 460px) {
+  .help_section {
+    left: 180px; 
+   }
+  }
+
+   @media (max-width: 430px) {
+    .help_section { 
+    left: 100px; 
+     }
+    }

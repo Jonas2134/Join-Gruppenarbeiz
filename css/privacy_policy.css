@@ -16,6 +16,7 @@
 }
 
 .arrow_return {
+  cursor: pointer;
   width: 32px;
   height: 32px;
 }
@@ -37,3 +38,48 @@ h3 {
     font-size: 19px;
   }
   
+  @media (max-width: 768px) {
+    .privacy_policy {
+    padding: 0px 100px 0px 0px;
+    left: 320px;
+  } }
+
+  @media (max-width: 700px) {
+    .privacy_policy {  
+      font-size: 15px;
+      left: 280px;
+    }
+  }
+
+  @media (max-width: 585px) {
+    .privacy_policy {
+      left: 240px;
+    }
+  
+    h1 {
+      font-size: 50px;
+    }
+  
+    h2 {
+      font-size: 25px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .privacy_policy {
+      left: 190px;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .privacy_policy {
+      left: 180px; 
+     }
+    }
+  
+
+    @media (max-width: 430px) {
+      .privacy_policy { 
+      left: 100px; 
+       }
+      }
