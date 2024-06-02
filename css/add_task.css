@@ -1,0 +1,338 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #A8A8A8 #ffffff;
+  
+}
+
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+  
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #646066;
+  border-radius: 8px;
+  border: 3px none #ffffff;
+}
+
+.add_task {
+  display: flex;
+  flex-direction: column;
+  width: 488px;
+  max-height: calc(100vh - 96px);
+  position: fixed;
+  top: 96px;
+  left: 232px;
+  padding: 64px 24px 64px 24px;
+  gap: 24px;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.add_class_top_section {
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+  /* height: 361px; */
+  gap: 12px;
+}
+
+.input_add_task {
+  display: flex;
+  border: none;
+  border-bottom: 1px solid #d1d1d1;
+  /* width: 172px; */
+  height: 38px;
+  padding: 13px 16px 13px 16px;
+  line-height: 38px;
+  font-weight: 400;
+  font-size: 32px;
+  outline: none;
+  gap: 4px;
+}
+
+::placeholder {
+  color: #d1d1d1;
+}
+
+.add_description_span {
+  display: flex;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+  margin: 4px 0px 4px 0px;
+  gap: 4px;
+}
+
+.add_description_textfield {
+  width: 440px;
+  height: 103px;
+  border-radius: 0px 10px 10px 10px;
+  border: 1px solid #d1d1d1;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 22px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+::-webkit-resizer {
+  display: none;
+}
+
+.add_date_span {
+  display: flex;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 23px;
+  margin: 4px 0px 4px 0px;
+  gap: 4px;
+}
+
+.input_add_date {
+  /* display: flex;
+  justify-content: space-between; */
+  width: 440px;
+  height: 48px;
+  padding: 12px 16px 12px 16px;
+  font-weight: 400;
+  font-size: 19px;
+  color: #d1d1d1;
+  line-height: 23px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #d1d1d1;
+  outline: none;
+  /* gap: 24px; */
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(25%) sepia(94%) saturate(2685%) hue-rotate(202deg)
+    brightness(90%) contrast(90%);
+  height: 24px;
+  width: 24px;
+}
+
+.add_priority {
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+  height: 82px;
+  gap: 8px;
+}
+
+.add_priority_span {
+  display: flex;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 23px;
+}
+
+.priority_buttons {
+  display: flex;
+  gap: 16px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 136px;
+  height: 51px;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+  border: solid 1px #d1d1d1;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 18px 10px 18px 10px;
+  gap: 10px;
+}
+
+.prio_icon_medium_span {
+  font-size: 30px;
+  color: #ffa800;
+}
+
+.prio_icons {
+  width: 20px;
+  height: 14px;
+}
+
+.button_urgent:hover {
+  box-shadow: 0px 2px 0px #ff3d00;
+}
+
+.button_medium:hover {
+  box-shadow: 0px 2px 0px #ffa800;
+}
+
+.button_low:hover {
+  box-shadow: 0px 2px 0px #7ae229;
+}
+
+.add_assigned_to {
+  display: flex;
+  width: 440px;
+  height: 79px;
+  /* position: fixed; */
+  gap: 8px;
+}
+
+.add_assigned_to_span {
+  font-size: 19px;
+  line-height: 23px;
+}
+
+.dropdown {
+  margin-top: 8px;
+  width: 440px;
+}
+
+.dropdown_header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #d1d1d1;
+  padding: 12px 4px 12px 16px;
+}
+
+.dropdown_span {
+  font-size: 19px;
+  line-height: 23px;
+}
+
+.dropdown_arrow {
+  color: #4589FF;
+}
+
+.add_category {
+  display: flex;
+  width: 440px;
+  height: 79px;
+  /* position: fixed; */
+  gap: 8px;
+}
+
+.add_category_span {
+  display: flex;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 23px;
+}
+
+
+.add_subtasks {
+  display: flex;
+  flex-direction: column;
+  width: 440px;
+  height: 79px;
+  /* position: fixed; */
+  gap: 8px;
+}
+
+.add_subtask_span {
+  display: flex;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 23px;
+}
+
+.add_subtask_input_div {
+  display: flex;
+  border-bottom: 1px solid #d1d1d1;
+  align-items: center;
+}
+
+.input_subtasks {
+  display: flex;
+  border: none;
+  width: 440px;
+  height: 48px;
+  padding: 12px 16px 12px 16px;
+  box-sizing: border-box;
+  line-height: 23px;
+  font-weight: 400;
+  font-size: 19px;
+  outline: none;
+}
+
+.add_subtask_icon {
+  width: 25px;
+  height: 25px;
+}
+
+.add_task_form_buttons {
+  display: flex;
+  position: fixed;
+  width: 375px;
+  height: 61px;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 50px;
+  gap: 20px;
+}
+
+.form_button {
+  width: 136px;
+  height: 60px;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 28px;
+  color: #647188;
+  border: 1px solid #647188;
+  padding: 16px 10px 16px 10px;
+  gap: 10px;
+  box-shadow: none;
+}
+
+.form_button:hover {
+  cursor: pointer;
+  border: 3px solid #4589FF;
+  color: #4589FF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  transition: all 0,9ms ease;
+}
+
+/*CSS CLICKED OFF */
+.form_create_button {
+  width: 174px;
+  height: 60px;
+  box-shadow: none;
+  border: 1px solid #4589FF;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 28px;
+  color: white;
+  background-color: #4589FF;
+}
+
+.form_create_button:hover {
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  transition: all 0,9ms ease;
+  background-color: #005DFF;
+}
+
+
+/*CSS CLICKED ON */
+/* .form_create_button_active {
+  width: 174px;
+  height: 60px;
+  box-shadow: none;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 28px;
+  color: #4589FF;
+  background-color: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+} */
