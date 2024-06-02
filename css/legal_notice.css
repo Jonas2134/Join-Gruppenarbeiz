@@ -79,6 +79,7 @@ span {
 @media (max-width: 500px) {
   .legal_notice {
     left: 190px;
+    max-height: 70vh;
   }
 }
 
@@ -92,4 +93,16 @@ span {
     .legal_notice { 
     left: 100px; 
      }
+    }
+
+    @media (max-width: 400px) {
+      .legal_notice { 
+        left: 80px; 
+         }
+    }
+
+    @media (max-width: 350px) {
+      .legal_notice { 
+        left: 55px; 
+         }
     }

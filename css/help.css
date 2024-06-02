@@ -70,6 +70,7 @@ span {
   left: 320px;
 }
 }
+
 @media (max-width: 700px) {
   .help_section {  
     font-size: 15px;
@@ -94,6 +95,7 @@ span {
 @media (max-width: 500px) {
   .help_section {
     left: 190px;
+    max-height: 70vh;
   }
 }
 
@@ -107,4 +109,16 @@ span {
     .help_section { 
     left: 100px; 
      }
+    }
+
+    @media (max-width: 400px) {
+      .help_section { 
+        left: 80px; 
+         }
+    }
+
+    @media (max-width: 350px) {
+      .help_section { 
+        left: 55px; 
+         }
     }

@@ -123,7 +123,7 @@ a {
     height: 76px;
     width: 100vw;
     padding: 0px;
-    top: 686px;
+    top: calc(100vh - 76px);
     box-shadow: 0px 0px 2px 5px rgba(0, 0, 0, 0.1);
     background-color: white;
     overflow: hidden;
@@ -164,8 +164,10 @@ a {
   .sidebar_option:hover {
     background-color: white;
   }
+}
 
-
-
-
+@media (max-width: 350px) {
+.sidebar_options{
+  gap: 5px;
+}
 }
