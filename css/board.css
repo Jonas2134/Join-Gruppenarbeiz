@@ -155,5 +155,34 @@ line-height: 28px;
   left: 232px;
   padding: 0px 64px;
   gap: 24px;
+  background-color: #4589ff;
+}
 
+
+
+
+
+
+.task_bar_content {
+background-color:  violet;
+height: 700px;
+width: 244px;
+}
+
+.task_card {
+  background-color: palegreen;
+  width: 200px;
+  height: 244;
+  border-radius: 24px;
+  padding: 16px;
+  gap: 10px;
+}
+
+.task_card_2 {
+  background-color: rgb(0, 177, 201);
+  width: 200px;
+  height: 244;
+  border-radius: 24px;
+  padding: 16px;
+  gap: 10px;
 }
