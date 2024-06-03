@@ -1,11 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./icons/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/add_task.css" />
+    <link rel="stylesheet" href="./css/fonts.css" />
+    <link rel="stylesheet" href="./css/template_header.css" />
+    <link rel="stylesheet" href="./css/template_sidebar.css" />
+    <script src="./js/include_html.js"></script>
+    <title>Join</title>
+  </head>
+  <body onload="includeHTML()">
+    <div w3-include-html="template_header.html"></div>
+    <div w3-include-html="template_sidebar.html"></div>
     
-</body>
+    <div>
+    <form class="add_task">
+      <div class="add_class_top_section">
+        <input type="text" required class="input_add_task" placeholder="Enter a title" />
+
+        <div>
+          <span class="add_description_span"
+            ><b>Description</b> (optional)</span
+          >
+          <textarea
+            class="add_description_textfield"
+            placeholder="Enter a Description"
+          ></textarea>
+        </div>
+
+        <div>
+          <span class="add_date_span"><b>Due Date</b></span>
+          <input type="date" required class="input_add_date" />
+        </div>
+      </div>
+
+      <div class="add_priority">
+        <div>
+          <span class="add_priority_span"><b>Priority</b></span>
+        </div>
+        <div class="priority_buttons">
+          <button class="button_urgent">
+            Urgent<img src="icons/prio_red.png" class="prio_icons" />
+          </button>
+          <button class="button_medium">
+            Medium<span class="prio_icon_medium_span">=</span>
+          </button>
+          <button class="button_low">
+            Low<img src="icons/prio_green.png" class="prio_icons" />
+          </button>
+        </div>
+      </div>
+
+      <div class="add_assigned_to">
+        <div>
+          <span class="add_assigned_to_span"
+            ><b>Assigned to</b> (optional)</span
+          >
+
+          <div class="dropdown">
+            <div class="dropdown_header">
+              <span class="dropdown_span">Select contacts to assign</span>
+              <span class="dropdown_arrow">&#9660;</span>
+            </div>
+            <div class="assigned_to_dropdown_content"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="add_category">
+        <div>
+          <span class="add_category_span">Content Category</span>
+
+          <div class="dropdown">
+            <div class="dropdown_header">
+              <span class="dropdown_span">Select task category</span>
+              <span class="dropdown_arrow">&#9660;</span>
+            </div>
+            <div class="cateogry_to_dropdown_content"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="add_subtasks">
+        
+        <span class="add_subtask_span">Subtasks</span>
+        <div class="add_subtask_input_div">
+        <input type="text" class="input_subtasks" placeholder="Add new subtask" />
+        <img src="/icons/plus_icon.png" alt="add" class="add_subtask_icon">
+  </div>
+    </form>
+  </div>
+
+
+    <div class="add_task_form_buttons">
+      <button class="form_button">
+        Clear &#10005;
+      </button>
+      <button class="form_create_button">
+        Create Task &#10004;
+      </button>
+
+    </div>
+
+  </body>
 </html>
