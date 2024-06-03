@@ -122,6 +122,7 @@ height: 28px;
 font-weight: 700;
 font-size: 23px;
 line-height: 28px;
+background-color: antiquewhite;
 }
 
 .task_button {
@@ -136,6 +137,7 @@ line-height: 28px;
   background-color: white;
   border-radius: 8px;
   padding: 3px;
+  background-color: antiquewhite;
 }
 
 .task_button:hover { 
@@ -146,15 +148,14 @@ line-height: 28px;
 
 .task_content {
   display: flex;
-  justify-content: space-between;
   box-sizing: border-box;
   width: 1208px;
   height: 700px;
   position: fixed;
   top: 323px;
   left: 232px;
-  padding: 0px 64px;
-  gap: 24px;
+  padding: 0px 48px;
+  gap: 18px;
   background-color: #4589ff;
 }
 
@@ -164,9 +165,13 @@ line-height: 28px;
 
 
 .task_bar_content {
+  display: flex;
+  flex-direction: column;
+    align-items: center;
 background-color:  violet;
 height: 700px;
 width: 244px;
+gap: 16px;
 }
 
 .task_card {
@@ -178,11 +183,3 @@ width: 244px;
   gap: 10px;
 }
 
-.task_card_2 {
-  background-color: rgb(0, 177, 201);
-  width: 200px;
-  height: 244;
-  border-radius: 24px;
-  padding: 16px;
-  gap: 10px;
-}
