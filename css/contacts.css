@@ -3,6 +3,14 @@
     display: flex;
     flex-direction: column;
 }
+
+.row {
+    flex-direction: row;
+}
+
+.s-gap {
+    gap: 8px;
+}
 /* *-*-*-* */
 
 body {
@@ -96,3 +104,36 @@ body {
     background-color: purple;
 }
 /* END contact-book */
+
+/* START selected container */
+.selected-contact-container {
+    margin:  40px 32px;
+    flex-direction: column;
+}
+
+.selected-contact-profil-top {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
+.selected-contact-profil-name {
+    font-size: 2em;
+}
+
+.selected-contact-profil-right {
+    gap: 16px;
+}
+
+.selected-contact-profil-nav {
+    gap: 16px;
+}
+
+.selected-contact-profil-bottom {
+    gap: 16px;
+}
+
+.selected-contact-headline {
+    margin-bottom: 0;
+}
+/* END selected container */
