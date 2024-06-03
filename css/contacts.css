@@ -39,7 +39,7 @@ body {
 
 .add-contact-button:hover {
     cursor: pointer;
-    background-color: #005eff;
+    background-color: rgb(0, 94, 255);
 }
 /* -*-*-*- */
 
@@ -48,16 +48,15 @@ body {
     width: 360px;
     height: 600px;
     overflow: auto;
-/*     flex: 1; */
 }
 
 .filter-number {
-    margin-left: 40px;
+    margin-left: 60px;
     font-size: 1.2em;
 }
 
 .seperator {
-    background-color: rgb(128, 128, 128, 0.3);
+    background-color: rgb(128, 128, 128, 0.2);
     height: 1.7px;
     margin-right: 20px;
     margin-top: 12px;
@@ -67,10 +66,21 @@ body {
     flex-direction: row;
     align-items: center;
     gap: 22px;
+    border-radius: 12px;
+    margin: 0 22px;
+    height: 70px;
 }
 
+.filter-card {
+    margin-bottom: 22px;
+    gap: 8px;
+}
+
+.contact-container:hover {
+    background-color: #d2e3ff;
+} 
+
 .contact-container-img circle {
-    fill: green;
 }
 
 .contact-container-text {
@@ -83,5 +93,6 @@ body {
 
 .contact-container-text-email {
     color: blue;
+    background-color: purple;
 }
 /* END contact-book */
