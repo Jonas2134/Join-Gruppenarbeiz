@@ -140,7 +140,7 @@ body {
   gap: 16px;
 }
 
-button {
+.button_low, .button_medium, .button_urgent {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,14 +168,17 @@ button {
 }
 
 .button_urgent:hover {
+  cursor: pointer;
   box-shadow: 0px 2px 0px #ff3d00;
 }
 
 .button_medium:hover {
+  cursor: pointer;
   box-shadow: 0px 2px 0px #ffa800;
 }
 
 .button_low:hover {
+  cursor: pointer;
   box-shadow: 0px 2px 0px #7ae229;
 }
 
@@ -288,6 +291,7 @@ button {
   line-height: 28px;
   color: #647188;
   border: 1px solid #647188;
+  border-radius: 10px;
   padding: 16px 10px 16px 10px;
   gap: 10px;
   box-shadow: none;
@@ -308,6 +312,7 @@ button {
   height: 60px;
   box-shadow: none;
   border: 1px solid #4589FF;
+  border-radius: 10px;
   font-weight: 400;
   font-size: 23px;
   line-height: 28px;

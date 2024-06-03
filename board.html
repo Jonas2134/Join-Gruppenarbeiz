@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="./css/fonts.css" />
     <link rel="stylesheet" href="./css/template_header.css" />
     <link rel="stylesheet" href="./css/template_sidebar.css" />
-    <script src="./js/include_html.js"></script>
+    <link rel="stylesheet" href="./css/template_add_task.css">
+    <script src="./js/help_function.js"></script>
     <title>Join</title>
   </head>
   <body onload="includeHTML()">
@@ -38,17 +39,17 @@
       <div class="task_status_bar">
         <div class="task_status">
           <p class="task_status_span">To do</p>
-          <button class="task_button">+</button>
+          <button class="task_button" onclick="moveDiv()">+</button>
         </div>
 
         <div class="task_status">
           <span class="task_status_span">In progress</span>
-          <button class="task_button">+</button>
+          <button class="task_button" onclick="moveDiv()">+</button>
         </div>
 
         <div class="task_status">
           <p class="task_status_span">Await feedback</p>
-          <button class="task_button">+</button>
+          <button class="task_button" onclick="moveDiv()">+</button>
         </div>
 
         <div class="task_status">
