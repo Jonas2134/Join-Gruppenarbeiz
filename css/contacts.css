@@ -134,6 +134,7 @@ body {
 }
 
 .selected-contact-headline {
-    margin-bottom: 0;
+    font-size: 1.5em;
+    margin-top: 36px;
 }
 /* END selected container */
