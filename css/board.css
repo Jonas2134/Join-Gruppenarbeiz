@@ -281,8 +281,8 @@ overflow-x: hidden;
 
 
 
-.card_top_overlay {
-  display: none; /* Standardmäßig ausgeblendet */
+.overlay_top {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -295,10 +295,9 @@ overflow-x: hidden;
   justify-content: center;
 }
 
-
-.overlay_content_top {
-  width: 528px;
-  height: 872px;
+.overlay_top_content {
+  width: 500px;
+  height: 700px;
   background-color: white;
   border-radius: 30px;
   padding: 48px 40px;
@@ -310,4 +309,8 @@ overflow-x: hidden;
   box-sizing: border-box;
   gap: 24px;
   background-color: violet;
+}
+
+.overlay_top_header {
+  
 }

@@ -22,6 +22,11 @@
   height: 32px;
 }
 
+.arrow_return:hover {
+  background-color: #d2e3ff;
+  border-radius: 50%;
+}
+
 .arrow_return_div {
   display: flex;
   justify-content: space-between;
