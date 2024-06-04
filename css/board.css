@@ -47,7 +47,7 @@
   width: 2px;
   height: calc(
     100% - 10px
-  ); /* Subtracting 10px to provide 5px padding on top and bottom */
+  ); 
   background-color: #e8e8e8;
   margin: 5px 0;
   flex-shrink: 0;
@@ -187,14 +187,79 @@ gap: 16px;
   cursor: pointer;
 }
 
-.add-task-overlay {
+
+
+
+.add_task_overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.5);
+z-index: 1000;
+}
+
+.overlay_content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay_left {
+  width: 60%;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.overlay_right {
+width: 40vw;
+background: white;
+opacity: 1; 
+border-radius: 30px 0px 0px 30px;
+padding-top: 156px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+position: relative;
+overflow-y: auto;
+overflow-x: hidden;
+}
+
+.overlay_right {
+  h1 {
+    font-size: 48px;
+    margin: 0px;
+  }
+}
+
+.add_task_header {
   display: flex;
   justify-content: center;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 518px;
-  height: 100vh;
+  width: 40vw;
+  height: 156px;
+  padding: 0px 0px 40px 0px;
+  gap: 49px;
+  z-index: 1001;
+  left: 60%;
+  background: white;
+  position: sticky;
+}
+
+.add_task_escape_img {
+  height: 30px;
+  width: 30px;
+}
+
+.add_task_footer {
+  display: flex;
+  justify-content: center;
+  justify-content: flex-end;
   background-color: white;
-  z-index: 999;
+  width: 100%;
+  height: 90px;
+  padding: 5px 30px 15px 0px;
+  z-index: 1001;
+  position: sticky;
+  bottom: 0;
 }

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./css/fonts.css" />
     <link rel="stylesheet" href="./css/template_header.css" />
     <link rel="stylesheet" href="./css/template_sidebar.css" />
-    <link rel="stylesheet" href="./css/template_add_task.css">
+    <link rel="stylesheet" href="./css/add_task.css">
     <script src="./js/help_function.js"></script>
     <title>Join</title>
   </head>
@@ -39,17 +39,17 @@
       <div class="task_status_bar">
         <div class="task_status">
           <p class="task_status_span">To do</p>
-          <button class="task_button" onclick="moveDiv()">+</button>
+          <button class="task_button" onclick="openOverlay()">+</button>
         </div>
 
         <div class="task_status">
           <span class="task_status_span">In progress</span>
-          <button class="task_button" onclick="moveDiv()">+</button>
+          <button class="task_button" onclick="openOverlay()">+</button>
         </div>
 
         <div class="task_status">
           <p class="task_status_span">Await feedback</p>
-          <button class="task_button" onclick="moveDiv()">+</button>
+          <button class="task_button" onclick="openOverlay()">+</button>
         </div>
 
         <div class="task_status">
@@ -80,19 +80,50 @@
         </div>
 
         <div class="task_bar_content" id="drag_await_feedback" draggable="true">
-          
         </div>
         <div class="task_bar_content" id="drag_done" draggable="true">
-          
         </div>
 
+      </div>
+    </div>
+
+        
+    <div class="add_task_overlay" id="add_task_overlay">
+      <div class="overlay_content">
+          <div class="overlay_left" onclick="closeOverlay()"></div>
+          <div class="overlay_right">
+              <div class="add_task_header">
+                <h1>Add Task</h1>
+                <div><img src="./icons/add_task_escape_img.png" alt="close"
+                  class="add_task_escape_img" onclick="closeOverlay()"></div>
+              </div>
+
+                <div w3-include-html="template_add_task.html"></div>
+
+                <div class="add_task_footer">
+                  <button class="form_create_button">
+                    Create Task &#10004;
+                  </button>
+                </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+
           
 
 
-    </div>
-    </div>
+   
+    <script>
+      function openOverlay() {
+          document.getElementById('add_task_overlay').style.display = 'block';
+      }
 
-    
+      function closeOverlay() {
+          document.getElementById('add_task_overlay').style.display = 'none';
+      }
+  </script>
 
   </body>
 </html>
