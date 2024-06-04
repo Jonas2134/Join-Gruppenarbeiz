@@ -253,6 +253,44 @@ body {
   border-radius: 50%;
 }
 
+
+
+.category_to_dropdown_content {
+  display: none;
+  background-color: white;
+  padding: 12px;
+  position: absolute;
+  z-index: 1;
+  width: 90vw;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.category_to_dropdown_content span:hover {
+  background-color: #d2e3ff;
+}
+
+.category_to_dropdown_content span {
+  cursor: pointer;
+  display: block;
+  font-size: 19px;
+    line-height: 23px;
+  padding: 5px 0px 5px 10px;
+  margin: 0px 0px 0px -9px;
+  border-radius: 10px;
+}
+
+.category_to_dropdown_content.show {
+  display: block;
+  width: 432px;
+  max-height: 200px; 
+  padding: 10px 0px 4px 10px;
+}
+
+
+
+
 .add_category {
   display: flex;
   width: 440px;
