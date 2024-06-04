@@ -250,7 +250,7 @@ overflow-x: hidden;
   justify-content: center;
   width: 40vw;
   height: 156px;
-  padding: 0px 0px 40px 0px;
+  padding: 40px 0px 40px 0px;
   gap: 49px;
   z-index: 1001;
   left: 60%;
@@ -262,6 +262,12 @@ overflow-x: hidden;
   height: 30px;
   width: 30px;
 }
+
+.add_task_escape_img:hover {
+    background-color: #d2e3ff;
+    border-radius: 50%;
+  }
+
 
 .add_task_footer {
   display: flex;
@@ -312,5 +318,5 @@ overflow-x: hidden;
 }
 
 .overlay_top_header {
-  
+
 }
