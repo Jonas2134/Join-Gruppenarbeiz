@@ -46,3 +46,18 @@ async function includeHTML() {
 });
 
 
+function openOverlay() {
+  document.getElementById('add_task_overlay').style.display = 'block';
+}
+
+function closeOverlay() {
+  document.getElementById('add_task_overlay').style.display = 'none';
+}
+
+window.addEventListener('load', function() {
+  closeOverlay(); // Schließt das Overlay, wenn die Seite geladen wird
+});
+
+window.addEventListener('beforeunload', function() {
+  closeOverlay(); // Schließt das Overlay, wenn die Seite verlassen wird
+});
