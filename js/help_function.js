@@ -2,7 +2,7 @@ async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
   for (let i = 0; i < includeElements.length; i++) {
     const element = includeElements[i];
-    file = element.getAttribute('w3-include-html'); // "includes/header.html"
+    file = element.getAttribute('w3-include-html'); 
     let resp = await fetch(file);
     if (resp.ok) {
       element.innerHTML = await resp.text();
@@ -12,6 +12,8 @@ async function includeHTML() {
   }
 }
 
+
+// DRAG & DROP FUNCTION
 document.addEventListener('DOMContentLoaded', (event) => {
   const taskCards = document.querySelectorAll('.task_card');
   const taskBarContents = document.querySelectorAll('.task_bar_content');
@@ -38,14 +40,43 @@ document.addEventListener('DOMContentLoaded', (event) => {
       const draggableElement = document.getElementById(id);
       if (draggableElement) {
         bar.appendChild(draggableElement);
+
+
+        const noTaskElement = bar.querySelector('.no_task_to_do');
+        if (noTaskElement) {
+          noTaskElement.style.display = 'none';
+        }
       }
       bar.style.backgroundColor = '';
+
+  
+      taskBarContents.forEach((content) => {
+        const noTaskElement = content.querySelector('.no_task_to_do');
+        const taskCards = content.querySelectorAll('.task_card');
+        if (noTaskElement && taskCards.length === 0) {
+          noTaskElement.style.display = 'block';
+        }
+      });
+    });
+  });
+
+
+  taskCards.forEach((card) => {
+    card.addEventListener('dragend', (event) => {
+      taskBarContents.forEach((content) => {
+        const noTaskElement = content.querySelector('.no_task_to_do');
+        const taskCards = content.querySelectorAll('.task_card');
+        if (noTaskElement && taskCards.length === 0) {
+          noTaskElement.style.display = 'block';
+        }
+      });
     });
   });
 });
 
 
 
+//OVERLAY FUNCTION
 function openOverlay() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
@@ -73,7 +104,7 @@ window.addEventListener('beforeunload', function() {
 });
 
 
-
+//TOGGLE DROPDOWN FUNCTION
 function toggleDropdown() {
   let content = document.getElementById("categoryDropdown");
   if (content) {
