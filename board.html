@@ -39,17 +39,17 @@
       <div class="task_status_bar">
         <div class="task_status">
           <p class="task_status_span">To do</p>
-          <button class="task_button" onclick="openOverlay()">+</button>
+          <button class="task_button" onclick="openOverlayRight()">+</button>
         </div>
 
         <div class="task_status">
           <span class="task_status_span">In progress</span>
-          <button class="task_button" onclick="openOverlay()">+</button>
+          <button class="task_button" onclick="openOverlayRight()">+</button>
         </div>
 
         <div class="task_status">
           <p class="task_status_span">Await feedback</p>
-          <button class="task_button" onclick="openOverlay()">+</button>
+          <button class="task_button" onclick="openOverlayRight()">+</button>
         </div>
 
         <div class="task_status">
@@ -70,7 +70,7 @@
         </div>
 
         <div class="task_bar_content" id="drag_in_progress">
-          <div class="task_card" id="task2" draggable="true">
+          <div class="task_card" id="task2" draggable="true" onclick="openOverlayTop()">
             <span>User Story</span>
             <p>Contact Form & Imprint</p>
             <p>dudel duuu...</p>
@@ -78,7 +78,7 @@
         </div>
 
         <div class="task_bar_content" id="drag_await_feedback" draggable="true">
-          <div class="task_card" id="task1" draggable="true">
+          <div class="task_card" id="task1" draggable="true" onclick="openOverlayTop()">
             <span>User Story</span>
             <p>Mach JS</p>
             <p>los los los..</p>
@@ -92,13 +92,13 @@
 
         
     <div class="add_task_overlay" id="add_task_overlay">
-      <div class="overlay_content">
-          <div class="overlay_left" onclick="closeOverlay()"></div>
+      <div class="overlay_content_right">
+          <div class="overlay_left" onclick="closeOverlayRight()"></div>
           <div class="overlay_right">
               <div class="add_task_header">
                 <h1>Add Task</h1>
                 <div><img src="./icons/add_task_escape_img.png" alt="close"
-                  class="add_task_escape_img" onclick="closeOverlay()"></div>
+                  class="add_task_escape_img" onclick="closeOverlayRight()"></div>
               </div>
 
                 <div w3-include-html="template_add_task.html"></div>
@@ -108,10 +108,19 @@
                     Create Task &#10004;
                   </button>
                 </div>
-
               </div>
           </div>
       </div>
+
+
+      <div class="card_top_overlay" id="card_top_overlay" style="display: none;">
+        <div class="overlay_content_top">
+            <p>Zentrierter Inhalt des Overlays</p>
+        </div>
+    </div>
+
+
+
   </div>
 
 

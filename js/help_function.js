@@ -76,32 +76,61 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 
-//OVERLAY FUNCTION
-function openOverlay() {
+
+
+//OVERLAY RIGHT FUNCTION
+function openOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
       overlay.style.display = 'block';
-  } else {
-      console.error("Overlay element not found");
-  }
+  } 
 }
 
-function closeOverlay() {
+function closeOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
       overlay.style.display = 'none';
-  } else {
-      console.error("Overlay element not found");
   }
 }
 
 window.addEventListener('load', function() {
-  closeOverlay();
+  closeOverlayRight(); 
 });
 
 window.addEventListener('beforeunload', function() {
-  closeOverlay(); 
+  closeOverlayRight(); 
 });
+
+
+
+//OVERLAY TOP FUNCTION 
+function openOverlayTop() {
+  let overlay = document.getElementById('card_top_overlay');
+  if (overlay) {
+      overlay.style.display = 'block';
+  } 
+}
+
+function closeOverlayTop() {
+  let overlay = document.getElementById('card_top_overlay');
+  if (overlay) {
+      overlay.style.display = 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const cardOverlay = document.getElementById('card_top_overlay');
+  if (cardOverlay) {
+    cardOverlay.addEventListener('click', () => {
+      closeOverlayTop();
+    });
+  }
+});
+
+
+
+
+
 
 
 //TOGGLE DROPDOWN FUNCTION
@@ -113,9 +142,7 @@ function toggleDropdown() {
       } else {
           content.classList.add("show");
       }
-  } else {
-      console.error("Dropdown content element not found");
-  }
+  } 
 }
 
 window.onclick = function(event) {
@@ -129,3 +156,9 @@ window.onclick = function(event) {
       }
   }
 };
+
+
+
+
+
+
