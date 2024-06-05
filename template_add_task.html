@@ -1,19 +1,19 @@
 <form class="add_task_form">
       <div class="add_class_top_section">
-        <input type="text" required class="input_add_task" placeholder="Enter a title" />
+        <input type="text" required class="input_add_task" placeholder="Enter a title" id="taskTitle" />
         <div>
           <span class="add_description_span"
             ><b>Description</b> (optional)</span
           >
           <textarea
             class="add_description_textfield"
-            placeholder="Enter a Description"
+            placeholder="Enter a Description" id="taskDescription"
           ></textarea>
         </div>
 
         <div>
           <span class="add_date_span"><b>Due Date</b></span>
-          <input type="date" required class="input_add_date" />
+          <input type="date" required class="input_add_date" id="taskDueDate"/>
         </div>
       </div>
 
@@ -22,13 +22,13 @@
           <span class="add_priority_span"><b>Priority</b></span>
         </div>
         <div class="priority_buttons">
-          <button class="button_urgent">
+          <button class="button_urgent priority_inactive" id="urgentPriority" onclick="selectPriority('urgent')">
             Urgent<img src="icons/prio_red.png" class="prio_icons" />
           </button>
-          <button class="button_medium">
+          <button class="button_medium priority_active" id="mediumPriority" onclick="selectPriority('medium')">
             Medium<span class="prio_icon_medium_span">=</span>
           </button>
-          <button class="button_low">
+          <button class="button_low priority_inactive" id="lowPriority" onclick="selectPriority('low')">
             Low<img src="icons/prio_green.png" class="prio_icons" />
           </button>
         </div>
@@ -36,7 +36,7 @@
 
       <div class="add_assigned_to">
         <div>
-          <span class="add_assigned_to_span"
+          <span class="add_assigned_to_span" id="taskAssignedTo"
             ><b>Assigned to</b> (optional)</span
           >
 
