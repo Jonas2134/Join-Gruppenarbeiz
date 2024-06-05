@@ -59,20 +59,18 @@
 
           <div class="dropdown">
             <div class="dropdown_header" onclick="toggleDropdown()">
-              <span class="dropdown_span">Select task category</span>
+              <span class="dropdown_span" id="addCategoryInputField">Select task category</span>
               <span class="dropdown_arrow">&#9660;</span>
             </div>
-            <div class="category_to_dropdown_content" id="categoryDropdown">
-        
-                <span>Technical Task</span>
-                <span>User Story</span>
-            
+            <div class="category_to_dropdown_content" id="categoryDropdown">        
+                <span onclick="selectCategory('Technical Task')">Technical Task</span>
+                <span onclick="selectCategory('User Story')">User Story</span>            
             </div>
           </div>
         </div>
       </div>
 
-      <div class="add_subtasks">
+      <div class="add_subtasks" id="add_subtasks">
         
         <span class="add_subtask_span">Subtasks</span>
         <div class="add_subtask_input_div">

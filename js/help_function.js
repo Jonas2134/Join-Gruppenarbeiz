@@ -12,7 +12,6 @@ async function includeHTML() {
   }
 }
 
-
 // DRAG & DROP FUNCTION
 document.addEventListener('DOMContentLoaded', (event) => {
   const taskCards = document.querySelectorAll('.task_card');
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const noTaskElement = content.querySelector('.no_task_to_do');
         const taskCards = content.querySelectorAll('.task_card');
         if (noTaskElement && taskCards.length === 0) {
-          noTaskElement.style.display = 'block';
+          noTaskElement.style.display = 'flex';
         }
       });
     });
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const noTaskElement = content.querySelector('.no_task_to_do');
         const taskCards = content.querySelectorAll('.task_card');
         if (noTaskElement && taskCards.length === 0) {
-          noTaskElement.style.display = 'block';
+          noTaskElement.style.display = 'flex';
         }
       });
     });
@@ -82,7 +81,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 function openOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
-      overlay.style.display = 'block';
+      overlay.style.display = 'flex';
   } 
 }
 
@@ -107,7 +106,7 @@ window.addEventListener('beforeunload', function() {
 function openOverlayTop() {
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {
-      overlay.style.display = 'block';
+      overlay.style.display = 'flex';
   } 
 }
 
@@ -120,9 +119,14 @@ function closeOverlayTop() {
 
 document.addEventListener('DOMContentLoaded', () => {
   const cardOverlay = document.getElementById('card_top_overlay');
-  if (cardOverlay) {
-    cardOverlay.addEventListener('click', () => {
-      closeOverlayTop();
+  const overlayContent = document.getElementById('overlay_top_content');
+
+  if (cardOverlay && overlayContent) {
+    cardOverlay.addEventListener('click', (event) => {
+      // Überprüfen, ob der Klick nicht auf das Overlay-Inhaltsbereich erfolgt
+      if (!overlayContent.contains(event.target)) {
+        closeOverlayTop();
+      }
     });
   }
 });
@@ -136,11 +140,16 @@ document.addEventListener('DOMContentLoaded', () => {
 //TOGGLE DROPDOWN FUNCTION
 function toggleDropdown() {
   let content = document.getElementById("categoryDropdown");
+  let add_subtasks = document.getElementById("add_subtasks");
   if (content) {
       if (content.classList.contains("show")) {
           content.classList.remove("show");
+          add_subtasks.style.marginTop = "0px";
       } else {
           content.classList.add("show");
+          let dropdownHeight = content.offsetHeight;
+          console.log(dropdownHeight);
+          add_subtasks.style.marginTop = dropdownHeight + "px";
       }
   } 
 }
@@ -148,14 +157,22 @@ function toggleDropdown() {
 window.onclick = function(event) {
   if (!event.target.closest('.dropdown_header')) {
       let dropdowns = document.getElementsByClassName("category_to_dropdown_content");
+      let add_subtasks = document.getElementById("add_subtasks");
       for (i = 0; i < dropdowns.length; i++) {
           let openDropdown = dropdowns[i];
           if (openDropdown.classList.contains("show")) {
               openDropdown.classList.remove("show");
           }
       }
+      add_subtasks.style.marginTop = "0px";
   }
 };
+
+// SELECT CATEGORY FUNCTION
+function selectCategory(text) {
+  let inputField = document.getElementById("addCategoryInputField");
+  inputField.innerHTML = text;
+}
 
 
 

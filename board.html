@@ -15,7 +15,6 @@
   <body onload="includeHTML()">
     <div w3-include-html="template_header.html"></div>
     <div w3-include-html="template_sidebar.html"></div>
-
     <div class="board_top_section">
       <div class="board_input_section">
         <input type="text" placeholder="Find Task" class="find_task_input" />
@@ -92,36 +91,32 @@
 
         
     <div class="add_task_overlay" id="add_task_overlay">
-      <div class="overlay_content_right">
           <div class="overlay_left" onclick="closeOverlayRight()"></div>
           <div class="overlay_right">
-              <div class="add_task_header">
-                <h1>Add Task</h1>
-                <div><img src="./icons/add_task_escape_img.png" alt="close"
-                  class="add_task_escape_img" onclick="closeOverlayRight()"></div>
-              </div>
 
-                <div w3-include-html="template_add_task.html"></div>
-
+            <div class="add_task_header">
+              <h1 class="add_task_header_title">Add Task</h1>
+              <div><img src="./icons/add_task_escape_img.png" alt="close"
+                class="add_task_escape_img" onclick="closeOverlayRight()"></div>
+            </div>
+                <div class="add_task_overlay_content" w3-include-html="template_add_task.html"></div>
                 <div class="add_task_footer">
                   <button class="form_create_button">
                     Create Task &#10004;
                   </button>
                 </div>
               </div>
-          </div>
       </div>
 
 
-      <div class="overlay_top" id="card_top_overlay" style="display: none;">
-        <div class="overlay_top_content">
+      <div class="overlay_top" id="card_top_overlay" style="display: none">
+        <div class="overlay_top_content" id="overlay_top_content">
+          <div class="overlay_top_header">
 
+          </div>
             
         </div>
     </div>
-
-
-
   </div>
 
 

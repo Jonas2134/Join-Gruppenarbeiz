@@ -344,7 +344,7 @@ body {
   outline: none;
 }
 
-.input_subtasks {
+.input_subtasks:hover {
   cursor: pointer;
 }
 
