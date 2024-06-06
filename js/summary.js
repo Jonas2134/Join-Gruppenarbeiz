@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     await includeHTML();
     await loadCurrentUsers();
 
+
+    document.getElementById("log_out").addEventListener('click', logOut)
+
     document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
 
     window.addEventListener('click', function (event) {

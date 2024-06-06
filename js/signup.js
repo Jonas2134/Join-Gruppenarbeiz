@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         setTimeout(() => {
             window.location.href = 'index.html';
-        }, 4000);
+        }, 2000);
     });
 
     document.getElementById("user_password_confirm").addEventListener('keyup', function () {

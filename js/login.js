@@ -19,6 +19,7 @@ function removeClasses() {
 document.addEventListener("DOMContentLoaded", async function () {
     await loadUsers();
     await loadCurrentUsers();
+    populateRememberMe();
 
     document.getElementById("myForm").addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -26,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const formData = new FormData(document.getElementById("myForm"));
         const email = formData.get("user_email");
         const password = formData.get("user_password");
+        const rememberMe = formData.get("remember_me_checkbox") === "on";
 
         let found = false;
 
@@ -33,12 +35,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             const user = users[i];
             if (user.user_email === email && user.user_password === password) {
                 currentUser = user;
-                found = true;
+                found = true;                
                 break;
             }
         }
 
         if (found) {
+            if (rememberMe) {
+                setCookie("currentUser", JSON.stringify({ email: email , password: password }), 7);
+            } else {
+                eraseCookie("currentUser");
+            }
+
             await deleteData("/currentUser");
             await postData("/currentUser", currentUser);
             window.location.href = 'summary.html';
