@@ -28,7 +28,7 @@
       </div>
 
       <div>
-        <button class="add_task_button">
+        <button class="add_task_button" onclick="openOverlayRight()">
           Add task<img
             src="/icons/plus_icon_white.png"
             class="add_task_button_icon"
@@ -102,7 +102,7 @@
             </div>
                 <div class="add_task_overlay_content" w3-include-html="template_add_task.html"></div>
                 <div class="add_task_footer">
-                  <button class="form_create_button">
+                  <button class="form_create_button" onclick="sendTask()">
                     Create Task &#10004;
                   </button>
                 </div>
