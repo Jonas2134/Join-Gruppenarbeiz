@@ -42,6 +42,20 @@
     align-items: center;
 }
 
-.create-button-hook {
-    background-color: blue;
+.create-button-container {
+    background-color: #4689fe;
+    padding: 8px;
+    color: white;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+}
+
+.cancel-button-container {
+    background-color: #4689fe;
+    padding: 8px;
+    color: white;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
 }
