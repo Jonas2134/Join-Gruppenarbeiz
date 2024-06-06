@@ -120,6 +120,10 @@ body {
     color: black;
 }
 
+.blue_name {
+    color: #4589FF;
+}
+
 .font_numbers {
     font-family: Open Sans;
     font-size: 48px;

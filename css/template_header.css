@@ -68,6 +68,12 @@ header {
   color: #005DFF;
 }
 
+.drop-logo:hover {
+  cursor: pointer;
+  background-color: #E2E8F0;
+  outline-color: #E2E8F0;
+}
+
 .dropdown-content {
   display: none;
   position: absolute;
