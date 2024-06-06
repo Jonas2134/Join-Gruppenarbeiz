@@ -75,13 +75,22 @@ function openOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
     overlay.style.display = 'flex';
+    setTimeout(() => {
+      overlay.classList.add('show');
+    }, 10); // Short delay to ensure the transition effect
   }
 }
 
 function closeOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
-    overlay.style.display = 'none';
+    overlay.classList.remove('show');
+    overlay.addEventListener('transitionend', function handleTransitionEnd() {
+      if (!overlay.classList.contains('show')) {
+        overlay.style.display = 'none';
+        overlay.removeEventListener('transitionend', handleTransitionEnd);
+      }
+    });
   }
 }
 
@@ -93,18 +102,28 @@ window.addEventListener('beforeunload', function () {
   closeOverlayRight();
 });
 
+
 //OVERLAY TOP FUNCTION
 function openOverlayTop() {
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {
     overlay.style.display = 'flex';
+    setTimeout(() => {
+      overlay.classList.add('show');
+    }, 10); // Short delay to ensure the transition effect
   }
 }
 
 function closeOverlayTop() {
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {
-    overlay.style.display = 'none';
+    overlay.classList.remove('show');
+    overlay.addEventListener('transitionend', function handleTransitionEnd() {
+      if (!overlay.classList.contains('show')) {
+        overlay.style.display = 'none';
+        overlay.removeEventListener('transitionend', handleTransitionEnd);
+      }
+    });
   }
 }
 
@@ -168,6 +187,7 @@ function selectPriority(priority) {
   let urgentPriority = document.getElementById('urgentPriority');
   let mediumPriority = document.getElementById('mediumPriority');
   let lowPriority = document.getElementById('lowPriority');
+  let mediumSpan = document.getElementById('mediumSpan');
 
   urgentPriority.classList.remove('priority_inactive', 'priority_active');
   mediumPriority.classList.remove('priority_active', 'priority_inactive'); 
@@ -178,8 +198,12 @@ function selectPriority(priority) {
   mediumPriority.classList.add('priority_inactive');
   lowPriority.classList.add('priority_inactive');
 } else if (priority == 'medium') {
-
+  mediumPriority.classList.add('priority_active');
+  urgentPriority.classList.add('priority_inactive');
+  lowPriority.classList.add('priority_inactive');
 } else if (priority == 'low') {
-  
+  lowPriority.classList.add('priority_active');
+  urgentPriority.classList.add('priority_inactive');
+  mediumPriority.classList.add('priority_inactive');
 }
 }
