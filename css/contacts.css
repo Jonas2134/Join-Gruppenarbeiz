@@ -4,12 +4,26 @@
     flex-direction: column;
 }
 
+.d-flex_row {
+    display:  flex;
+    flex-direction: row;
+}
+
+.d-flex_column {
+    display: flex;
+    flex-direction: column;
+}
+
 .row {
     flex-direction: row;
 }
 
 .s-gap {
     gap: 8px;
+}
+
+.d-none {
+    display: none;
 }
 /* *-*-*-* */
 
@@ -138,3 +152,69 @@ body {
     margin-top: 36px;
 }
 /* END selected container */
+
+/* START add_contact-overlay */
+#close-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 40vw;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.top-area {
+    background-color: #005eff;
+    width: max-content;
+    height: 40vh;
+    width: 42vw;
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 25px 0 0 0;
+    border-left: solid gray 1px;
+}
+
+.bottom-area {
+    height: 60vh;
+    width: 42vw;
+    display: flex;
+    position: absolute;
+    top: 40vh;
+    right: 0;
+    border-radius: 0 0 25px 25px;
+    border-left: solid gray 1px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.create-button-container {
+    background-color: #4689fe;
+    padding: 8px;
+    color: white;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+}
+
+.create-button-container:hover {
+    background-color: #005eff;
+    cursor: pointer;
+} 
+
+.cancel-button-container {
+    background-color: #4689fe;
+    padding: 8px;
+    color: white;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+}
+
+.cancel-button-container:hover {
+    background-color: #005eff;
+    cursor: pointer;
+}
+/* END add_contact-overlay */

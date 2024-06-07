@@ -28,6 +28,11 @@ function clearForm() {
 }
 
 function openAddContactOverlay() {
-    let addContactOverlay = document.getElementById("overlay_add-contact");
-    addContactOverlay.style.display = "flex";
+    let contactOverlay = document.getElementById("overlay_add-contact");
+    contactOverlay.classList.remove('d-none');
+}
+
+function closeAddContactOverlay() {
+    let contactOverlay = document.getElementById("overlay_add-contact");
+    contactOverlay.classList.add('d-none');
 }
