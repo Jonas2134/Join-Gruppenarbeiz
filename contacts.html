@@ -9,6 +9,7 @@
     <!-- script implementation -->
     <script src="./js/storage.js"></script>
     <script src="./js/w3include.js"></script>
+    <script src="./js/contacts.js"></script>
     <!-- *-*-*-* -->
 
     <link rel="stylesheet" href="./css/contacts.css">
@@ -16,13 +17,13 @@
 
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), loadContacts()">
 
     <header w3-include-html="header.html"></header>
 
     <div class="main-container d-flex row">
         <!-- contacts main-side -->
-        <div class="contacts-main-container d-flex">
+        <div onclick="openAddContactOverlay()" class="contacts-main-container d-flex">
             <div class="add-contact-button d-flex">
                 <div class="add-contact-button-text">
                     Add new contact
@@ -254,7 +255,7 @@
 
 
     <!-- overlay_add-contact -->
-    <div class="overlay_add-contact" style="display: none;">
+    <div id="overlay_add-contact" style="display: none;">
         <div class="top-area">
             <div class="close-contacts"></div>
             <div class="headline-text"></div>

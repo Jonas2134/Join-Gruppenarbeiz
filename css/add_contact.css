@@ -12,7 +12,7 @@
 
 /* -*-*- */
 
-.overlay_add-contact {
+#overlay_add-contact {
     display: flex;
 }
 
@@ -51,6 +51,11 @@
     align-items: center;
 }
 
+.create-button-container:hover {
+    background-color: #005eff;
+    cursor: pointer;
+} 
+
 .cancel-button-container {
     background-color: #4689fe;
     padding: 8px;
@@ -59,3 +64,8 @@
     display: flex;
     align-items: center;
 }
+
+.cancel-button-container:hover {
+    background-color: #005eff;
+    cursor: pointer;
+} 
