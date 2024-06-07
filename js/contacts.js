@@ -1,7 +1,22 @@
 function renderContacts() {
+    let contactContainer = document.getElementById("loaded-filter-card");
+    contactContainer.innerHTML = '';
+
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
         console.log(contact);
+        contactContainer.innerHTML += `
+        <div>
+            <svg class="contact-container-img" width="100" height="100">
+                <circle cx="50" cy="50" r="25" fill="#fe7b02" />
+                <text x="39" y="56" font-size="1em" fill="#ffffff">AB</text>
+            </svg>
+        </div>
+        <div class="contact-container-text d-flex">
+            <div class="contact-container-text-name">${contact.name}</div>
+            <a href="mailto:email@example.com">${contact.email}</a>
+        </div>
+        `
     }
 }
 
