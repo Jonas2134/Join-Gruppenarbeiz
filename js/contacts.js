@@ -33,36 +33,49 @@ for (const letter in groupedContacts) {
     }
 }
 
+function getInitials(name) {
+    const nameParts = name.split(' ');
+    return nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+}
+
 
 function renderContacts() {
     groupContacts();
 
-    let contactContainer = document.getElementById("contact-container_test");
+    let contactsContainer = document.getElementById("contact-filter");
     contactContainer.innerHTML = '';
 
     for (const letter in groupedContacts) {
         if (groupedContacts.hasOwnProperty(letter)) {
-            let contactHtml = '';
+            let contactsHtml = '';
             for (let i = 0; i < groupedContacts[letter].length; i++) {
                 const contact = contacts[i];
+                let initials = getInitials(contact.name)
                 console.log(contact);
-                contactHtml += `
+                contactsHtml += `
                 <div class="contact-container d-flex_column">
                     <div>
                         <svg class="contact-container-img" width="100" height="100">
                             <circle cx="50" cy="50" r="25" fill="#fe7b02" />
-                            <text x="39" y="56" font-size="1em" fill="#ffffff">AB</text>
+                            <text x="39" y="56" font-size="1em" fill="#ffffff">${initials}</text>
                         </svg>
                     </div>
                     <div class="contact-container-text d-flex">
                         <div class="contact-container-text-name">${contact.name}</div>
-                        <a href="mailto:email@example.com">${contact.email}</a>
+                        <a href="mailto:${contact.email}">${contact.email}</a>
                     </div>
                 </div>   
                 `
             }
 
-            let sectionHtml = '';
+            const sectionHtml = `
+            <div class="filter-card d-flex">
+                <div class="filter-number">${letter}</div>
+                <div class="seperator"></div>
+                <div id="contact-container">${contactsHtml}</div>
+             </div>
+            `;
+            contactsContainer.innerHTML += sectionHtml;
         }
     }
 }
