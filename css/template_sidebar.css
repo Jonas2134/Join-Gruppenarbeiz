@@ -6,22 +6,16 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   color: #42526e;
-  height: 932px;
   width: 232px;
-  position: fixed;
-  top: 92px;
-  left: 0;
-  z-index: 1000;
+  height: calc(100vh - 96px);
   box-shadow: 0px 5px 2px 1px rgba(0, 0, 0, 0.1);
-  padding: 66px 0px 66px 0px;
-  /*   gap: 235px; */
 }
 
 .sidebar_options {
   display: flex;
   flex-direction: column;
-  height: 205px;
   width: 186px;
   gap: 15px;
 }
@@ -76,7 +70,7 @@ a {
   border-radius: 10px;
   max-height: 205px;
   max-width: 186px;
-  margin: 300px 0 0 0;
+
 }
 
 /*CSS CLASS CHANGE WHEN CLICKED OFF*/
@@ -99,30 +93,34 @@ a {
   color: #4589ff;
 }
 
-@media (max-width: 768px) {
+
+/*Move container*/
+.main {
+  display: flex;
+  flex: 1;
+}
+
+/**/
+
+
+@media (max-width: 1200px) {
   .sidebar {
     width: 200px;
   }
 }
 
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 190px;
+  }
+}
+
 @media (max-width: 600px) {
-  .sidebar {
-    width: 180px;
-  }
-}
-
-@media (max-width: 500px) {
-  .sidebar {
-    width: 150px;
-  }
-}
-
-
-@media (max-width: 430px) {
   .sidebar {
     height: 76px;
     width: 100vw;
     padding: 0px;
+    position: fixed;
     top: calc(100vh - 76px);
     box-shadow: 0px 0px 2px 5px rgba(0, 0, 0, 0.1);
     background-color: white;
@@ -167,7 +165,7 @@ a {
 }
 
 @media (max-width: 350px) {
-.sidebar_options{
-  gap: 5px;
-}
+  .sidebar_options {
+    gap: 5px;
+  }
 }
