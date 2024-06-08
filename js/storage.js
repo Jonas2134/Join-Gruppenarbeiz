@@ -1,6 +1,10 @@
 const STORAGE_URL = "https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/";
 const users = [];
 let currentUser = null;
+
+const contacts = [];
+let groupedContacts = {};
+
 let tasks = [];
 
 async function updateData(path = "", data = {}) {
@@ -13,6 +17,7 @@ async function updateData(path = "", data = {}) {
     });
     return (responseToJson = await response.json());
 }
+
 
 async function postData(path = "", data = {}) {
     let response = await fetch(STORAGE_URL + path + ".json", {
@@ -172,6 +177,15 @@ async function loadUsers() {
     }
 }
 
+async function loadContacts() {
+    let loadedContacts = await getData("/contacts");
+    for (const key in loadedContacts) {
+        if (Object.hasOwnProperty.call(loadedContacts, key)) {
+            contacts.push(loadedContacts[key]);
+        }
+    }
+}
+
 async function loadCurrentUsers() {
     let loadedCurrentUser = await getData("/currentUser");
     for (const key in loadedCurrentUser) {
@@ -180,7 +194,3 @@ async function loadCurrentUsers() {
         }
     }
 }
-
-
-
-
