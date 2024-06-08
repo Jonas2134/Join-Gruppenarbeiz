@@ -72,7 +72,6 @@ postData('/tasks', task);
 
 function renderAllTasks() {
     let currentTask = document.getElementById('drag_to_do');
-    currentTask.innerHTML = '';
     for (let i = 0; i < tasks.length; i++) {
 
         currentTask.innerHTML += renderTask(tasks[i]);

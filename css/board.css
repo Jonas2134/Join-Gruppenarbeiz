@@ -315,7 +315,6 @@
   transition: bottom 0.3s ease;
   box-sizing: border-box;
   gap: 24px;
-  background-color: violet;
 }
 
 .overlay_top_header {

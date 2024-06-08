@@ -77,7 +77,7 @@ function openOverlayRight() {
     overlay.style.display = 'flex';
     setTimeout(() => {
       overlay.classList.add('show');
-    }, 10); // Short delay to ensure the transition effect
+    }, 10); 
   }
 }
 
@@ -110,7 +110,7 @@ function openOverlayTop() {
     overlay.style.display = 'flex';
     setTimeout(() => {
       overlay.classList.add('show');
-    }, 10); // Short delay to ensure the transition effect
+    }, 10); 
   }
 }
 
