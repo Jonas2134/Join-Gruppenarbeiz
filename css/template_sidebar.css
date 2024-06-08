@@ -16,7 +16,6 @@ a {
 .sidebar_options {
   display: flex;
   flex-direction: column;
-  
   width: 186px;
   gap: 15px;
 }
@@ -71,7 +70,7 @@ a {
   border-radius: 10px;
   max-height: 205px;
   max-width: 186px;
-  
+
 }
 
 /*CSS CLASS CHANGE WHEN CLICKED OFF*/
@@ -100,29 +99,23 @@ a {
   display: flex;
   flex: 1;
 }
+
 /**/
 
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .sidebar {
     width: 200px;
   }
 }
 
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 190px;
+  }
+}
+
 @media (max-width: 600px) {
-  .sidebar {
-    width: 180px;
-  }
-}
-
-@media (max-width: 500px) {
-  .sidebar {
-    width: 150px;
-  }
-}
-
-
-@media (max-width: 430px) {
   .sidebar {
     height: 76px;
     width: 100vw;
@@ -172,7 +165,7 @@ a {
 }
 
 @media (max-width: 350px) {
-.sidebar_options{
-  gap: 5px;
-}
+  .sidebar_options {
+    gap: 5px;
+  }
 }

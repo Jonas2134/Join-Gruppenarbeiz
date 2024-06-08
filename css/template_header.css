@@ -109,6 +109,9 @@ header {
   display: block;
 }
 
+.help {
+  display: none !important;
+}
 
 /*Move container*/
 .container {
@@ -140,6 +143,11 @@ header {
   .header_headline {
     font-size: 16px;
   }
+  
+  .header_logo {
+    width: 36px;
+    height: 46px;
+  }
 }
 
 @media (max-width: 550px) {
@@ -166,7 +174,17 @@ header {
   .header_menu {
     display: flex;
     justify-content: flex-end;
-    padding: 20px 25px 0px 25px;
+    padding: 10px 25px 0 0;
+  }
+
+  .drop-logo {
+    height: 34px;
+    width: 34px;
+  }
+
+  .help {
+    display: flex !important;
+    justify-content: right;
   }
 
   .header_help_logo {
