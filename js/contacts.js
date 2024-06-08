@@ -43,13 +43,15 @@ function renderContacts() {
     groupContacts();
 
     let contactsContainer = document.getElementById("contact-filter");
-    contactContainer.innerHTML = '';
+    contactsContainer.innerHTML = '';
 
-    for (const letter in groupedContacts) {
+    const sortedLetters = Object.keys(groupedContacts).sort();
+
+    for (const letter of sortedLetters) {
         if (groupedContacts.hasOwnProperty(letter)) {
             let contactsHtml = '';
             for (let i = 0; i < groupedContacts[letter].length; i++) {
-                const contact = contacts[i];
+                const contact = groupedContacts[letter][i];
                 let initials = getInitials(contact.name)
                 console.log(contact);
                 contactsHtml += `

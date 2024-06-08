@@ -2,7 +2,7 @@ const STORAGE_URL = "https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.
 const users = [];
 let currentUser = null;
 const contacts = [];
-const groupedContacts = {};
+let groupedContacts = {};
 
 async function postData(path = "", data = {}) {
     let response = await fetch(STORAGE_URL + path + ".json", {
