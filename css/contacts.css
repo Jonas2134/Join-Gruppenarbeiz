@@ -1,0 +1,140 @@
+/* general classes */
+.d-flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.s-gap {
+    gap: 8px;
+}
+/* *-*-*-* */
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.contacts-main-container {
+    margin-left: 260px;
+    width: 360px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 0px 2.6px;
+}
+
+.add-contact-button-img {
+}
+
+.contact-container-text-name {
+}
+
+/* add-new-button */
+.add-contact-button {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2em;
+    background-color: #4689fe;
+    margin: 22px;
+    border-radius: 10px;
+    padding: 8px 50px;
+}
+
+.add-contact-button-text {
+    color: white;
+}
+
+.add-contact-button:hover {
+    cursor: pointer;
+    background-color: rgb(0, 94, 255);
+}
+/* -*-*-*- */
+
+/* START contact-book */
+.contact-book {
+    width: 360px;
+    height: 600px;
+    overflow: auto;
+}
+
+.filter-number {
+    margin-left: 60px;
+    font-size: 1.2em;
+}
+
+.seperator {
+    background-color: rgb(128, 128, 128, 0.2);
+    height: 1.7px;
+    margin-right: 20px;
+    margin-top: 12px;
+}
+
+.contact-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 22px;
+    border-radius: 12px;
+    margin: 0 22px;
+    height: 70px;
+}
+
+.filter-card {
+    margin-bottom: 22px;
+    gap: 8px;
+}
+
+.contact-container:hover {
+    background-color: #d2e3ff;
+} 
+
+.contact-container-img circle {
+}
+
+.contact-container-text {
+
+}
+
+.contact-container-text-name {
+    
+}
+
+.contact-container-text-email {
+    color: blue;
+    background-color: purple;
+}
+/* END contact-book */
+
+/* START selected container */
+.selected-contact-container {
+    margin:  40px 32px;
+    flex-direction: column;
+}
+
+.selected-contact-profil-top {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
+.selected-contact-profil-name {
+    font-size: 2em;
+}
+
+.selected-contact-profil-right {
+    gap: 16px;
+}
+
+.selected-contact-profil-nav {
+    gap: 16px;
+}
+
+.selected-contact-profil-bottom {
+    gap: 16px;
+}
+
+.selected-contact-headline {
+    font-size: 1.5em;
+    margin-top: 36px;
+}
+/* END selected container */
