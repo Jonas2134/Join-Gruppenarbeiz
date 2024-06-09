@@ -180,6 +180,12 @@ header {
   .drop-logo {
     height: 34px;
     width: 34px;
+    font-size: 16px;
+  }
+
+  .dropdown-content {
+    right: -20px;
+    top: 64px;
   }
 
   .help {

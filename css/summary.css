@@ -235,6 +235,7 @@ h1 {
 @media (max-width: 920px) {
     h1 {
         font-size: 40px;
+        text-align: center;
     }
 
     .summary_container {
@@ -260,6 +261,61 @@ h1 {
         flex-direction: row;
         align-items: center;
         gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .summary_container {
+        overflow: hidden;
+        position: relative;
+    }
+
+    #good_morning {
+        animation: moveUp 3s forwards;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .button_section {
+        animation: moveIn 3s forwards;
+        position: relative;
+        opacity: 0;
+    }
+
+    @keyframes moveUp {
+        0% {
+            top: 30%;
+            opacity: 1;
+        }
+
+        33% {
+            top: 30%;
+            opacity: 1;
+        }
+
+        100% {
+            top: -100%;
+            opacity: 0;
+        }
+    }
+
+    @keyframes moveIn {
+        0% {
+            top: 100vh;
+            opacity: 0;
+        }
+
+        33% {
+            top: 100vh;
+            opacity: 1;
+        }
+
+        100% {
+            top: 0;
+            opacity: 1;
+        }
     }
 }
 
