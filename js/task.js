@@ -156,6 +156,7 @@ async function addTaskContacs() {
   }
 }
 
+
 function templateBuildContactDropdown(contact) {
   let contactName = contact['name'];
   let contactId = contact['ID'];
@@ -169,22 +170,33 @@ function templateBuildContactDropdown(contact) {
         </ul>`;
 }
 
+
+
 function selectContact(contactId) {
   let assignedContact = document.getElementById(contactId);
-
-  if (assignedContact.classList.contains('active')) {
-    assignedContact.classList.remove('active');
-
-    assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
-
-    console.log(assignedContacts);
-  } else {
-    assignedContact.classList.add('active');
+  let index = assignedContacts.indexOf(contactId);
+console.log(index);
+  if (index == -1) {
     assignedContacts.push(contactId);
-    console.log(assignedContacts);
+    assignedContact.classList.add('active');
+    
+  }  else {
+    assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
+    assignedContact.classList.remove('active');
   }
-}
+    renderAssignedContact();
+  }
 
+
+function renderAssignedContact() {
+  let content = document.getElementById('selectedContact');
+  content.innerHTML = ''
+  for (let i = 0; i < assignedContacts.length; i++) {
+    content.innerHTML += `${assignedContacts[i]}`; 
+    
+  }
+  
+}
 
 
 function addSubtask() {
