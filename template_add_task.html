@@ -1,6 +1,6 @@
 <form class="add_task_form">
       <div class="add_class_top_section">
-        <input type="text" required class="input_add_task" placeholder="Enter a title" id="taskTitle" />
+        <input type="text" required class="input_add_task" placeholder="Enter a title" id="taskTitle"/>
         <div>
           <span class="add_description_span"
             ><b>Description</b> (optional)</span
@@ -41,11 +41,11 @@
           >
 
           <div class="dropdown">
-            <div class="dropdown_header">
-              <span class="dropdown_span">Select contacts to assign</span>
+            <div class="dropdown_header" onclick="toggleContacsDropdown()">
+              <span class="dropdown_span" id="selectAssignedTo">Select contacts to assign</span>
               <span class="dropdown_arrow">&#9660;</span>
             </div>
-            <div class="assigned_to_dropdown_content">
+            <div class="assigned_to_dropdown_content" id="assignedDropdown">
                </div>
 
             </div>
@@ -53,12 +53,12 @@
         </div>
       </div>
 
-      <div class="add_category">
+      <div class="add_category" id="addCategory">
         <div>
           <span class="add_category_span">Content Category</span>
 
           <div class="dropdown">
-            <div class="dropdown_header" onclick="toggleDropdown()">
+            <div class="dropdown_header" onclick="toggleCategoryDropdown()">
               <span class="dropdown_span" id="addCategoryInputField">Select task category</span>
               <span class="dropdown_arrow">&#9660;</span>
             </div>
@@ -74,7 +74,9 @@
         
         <span class="add_subtask_span">Subtasks</span>
         <div class="add_subtask_input_div">
-        <input type="text" class="input_subtasks" placeholder="Add new subtask" />
-        <img src="/icons/plus_icon.png" alt="add" class="add_subtask_icon">
+        <input type="text" class="input_subtasks" placeholder="Add new subtask" id="inputSubtasks" />
+        <button class="add_subtask_delete_icon" onclick="clearInput('inputSubtasks')"><b>&#8722;</b></button>
+        <img src="/icons/plus_icon.png" alt="add" class="add_subtask_icon" onclick="addSubtask()">
   </div>
+  <div class="add_subtask_content" id="subtaskContent"></div>
     </form>

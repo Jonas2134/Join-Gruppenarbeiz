@@ -1,60 +1,59 @@
 async function init() {
-    includeHTML();
-    await loadContacts();
-    renderContacts();
+  includeHTML();
+  await loadContacts();
+  renderContacts();
 }
 
 function groupContacts() {
-    groupedContacts = {};
+  groupedContacts = {};
 
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        const firstLetter = contact.name.charAt(0).toUpperCase();
-        if (!groupedContacts[firstLetter]) {
-            groupedContacts[firstLetter] = [];
-        }
-        groupedContacts[firstLetter].push(contact);
+  for (let i = 0; i < contacts.length; i++) {
+    const contact = contacts[i];
+    const firstLetter = contact.name.charAt(0).toUpperCase();
+    if (!groupedContacts[firstLetter]) {
+      groupedContacts[firstLetter] = [];
     }
+    groupedContacts[firstLetter].push(contact);
+  }
 }
 
 for (const letter in groupedContacts) {
-    if (groupedContacts.hasOwnProperty(letter)) {
-        let contactsHtml = '';
-        for (let i = 0; i < groupedContacts[letter].length; i++) {
-            contactsHtml += `<li>${groupedContacts[letter][i]}</li>`;
-        }
-        const sectionHtml = `
+  if (groupedContacts.hasOwnProperty(letter)) {
+    let contactsHtml = '';
+    for (let i = 0; i < groupedContacts[letter].length; i++) {
+      contactsHtml += `<li>${groupedContacts[letter][i]}</li>`;
+    }
+    const sectionHtml = `
             <div>
                 <h2>${letter}</h2>
                 <ul>${contactsHtml}</ul>
             </div>
         `;
-        container.innerHTML += sectionHtml;
-    }
+    container.innerHTML += sectionHtml;
+  }
 }
 
 function getInitials(name) {
-    const nameParts = name.split(' ');
-    return nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+  const nameParts = name.split(' ');
+  return nameParts.map((part) => part.charAt(0).toUpperCase()).join('');
 }
 
-
 function renderContacts() {
-    groupContacts();
+  groupContacts();
 
-    let contactsContainer = document.getElementById("contact-filter");
-    contactsContainer.innerHTML = '';
+  let contactsContainer = document.getElementById('contact-filter');
+  contactsContainer.innerHTML = '';
 
-    const sortedLetters = Object.keys(groupedContacts).sort();
+  const sortedLetters = Object.keys(groupedContacts).sort();
 
-    for (const letter of sortedLetters) {
-        if (groupedContacts.hasOwnProperty(letter)) {
-            let contactsHtml = '';
-            for (let i = 0; i < groupedContacts[letter].length; i++) {
-                const contact = groupedContacts[letter][i];
-                let initials = getInitials(contact.name)
-                console.log(contact);
-                contactsHtml += `
+  for (const letter of sortedLetters) {
+    if (groupedContacts.hasOwnProperty(letter)) {
+      let contactsHtml = '';
+      for (let i = 0; i < groupedContacts[letter].length; i++) {
+        const contact = groupedContacts[letter][i];
+        let initials = getInitials(contact.name);
+        console.log(contact);
+        contactsHtml += `
                 <div class="contact-container d-flex_column">
                     <div>
                         <svg class="contact-container-img" width="100" height="100">
@@ -67,49 +66,49 @@ function renderContacts() {
                         <a href="mailto:${contact.email}">${contact.email}</a>
                     </div>
                 </div>   
-                `
-            }
+                `;
+      }
 
-            const sectionHtml = `
+      const sectionHtml = `
             <div class="filter-card d-flex">
                 <div class="filter-number">${letter}</div>
                 <div class="seperator"></div>
                 <div id="contact-container">${contactsHtml}</div>
              </div>
             `;
-            contactsContainer.innerHTML += sectionHtml;
-        }
+      contactsContainer.innerHTML += sectionHtml;
     }
+  }
 }
 
 function addContact() {
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let mobile = document.getElementById('mobile').value;
+  let name = document.getElementById('name').value;
+  let email = document.getElementById('email').value;
+  let mobile = document.getElementById('mobile').value;
 
-    let contact = {
-        name: name,
-        email: email,
-        mobile: mobile,
-    };
+  let contact = {
+    name: name,
+    email: email,
+    mobile: mobile,
+  };
 
-    console.log('contact', contact);
-    clearForm();
-    postData("/contacts", contact);
+  console.log('contact', contact);
+  clearForm();
+  postData('/contacts', contact);
 }
 
 function clearForm() {
-    document.getElementById('name').value = '';
-    document.getElementById('email').value = '';
-    document.getElementById('mobile').value = '';
+  document.getElementById('name').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('mobile').value = '';
 }
 
 function openAddContactOverlay() {
-    let contactOverlay = document.getElementById("overlay_add-contact");
-    contactOverlay.classList.remove('d-none');
+  let contactOverlay = document.getElementById('overlay_add-contact');
+  contactOverlay.classList.remove('d-none');
 }
 
 function closeAddContactOverlay() {
-    let contactOverlay = document.getElementById("overlay_add-contact");
-    contactOverlay.classList.add('d-none');
+  let contactOverlay = document.getElementById('overlay_add-contact');
+  contactOverlay.classList.add('d-none');
 }

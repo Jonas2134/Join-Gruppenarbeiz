@@ -234,12 +234,67 @@ body {
   gap: 8px;
 }
 
+.assigned_to_dropdown_content {
+  display: none;
+  background-color: white;
+  padding: 12px;
+  position: absolute;
+  z-index: 1;
+  width: 90vw;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.assigned_to_dropdown_content.show {
+  display: block;
+  width: 432px;
+  max-height: 200px; 
+  /* padding: 1px 0px 4px 10px; */
+  padding: 0px;
+  overflow: scroll;
+}
+
 .add_assigned_to_span {
   font-size: 19px;
   line-height: 23px;
 }
 
-.add_assigned_to_span {
+.add_assigned_to_span:hover {
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0px 0px 0px 0px;
+  display: flex;
+}
+
+ul:hover {
+  cursor: pointer;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  width: 434px;
+/*   padding: 6px 6px 6px 6px; */
+  border-radius: 10px;
+  font-size: 19px;
+    line-height: 23px;
+    padding: 5px 0px 5px 10px;
+}
+
+li:hover {
+  background-color: #d2e3ff;
+}
+
+.checkbox {
+  --checkbox-border-color: #4589FF;
+  /* border-color: #4589FF; */
+}
+
+.checkbox:hover {
   cursor: pointer;
 }
 
@@ -376,6 +431,20 @@ body {
 }
 
 .add_subtask_icon:hover {
+  background-color: #d2e3ff;
+  border-radius: 50%;
+}
+
+.add_subtask_delete_icon {
+  /* display: none; */
+  font-weight: 400;
+  font-size: 19px;
+  color: #4589FF;
+  border: none;
+  background-color: white; 
+}
+
+.add_subtask_delete_icon:hover {
   background-color: #d2e3ff;
   border-radius: 50%;
 }

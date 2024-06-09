@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="./css/template_header.css" />
     <link rel="stylesheet" href="./css/template_sidebar.css" />
     <link rel="stylesheet" href="./css/add_task.css">
-    <script src="./js/help_function.js"></script>
+    <script src="./js/w3include.js"></script>
     <script src="./js/storage.js"></script>
+    <script src="./js/task.js"></script>
+    <script src="./js/board.js"></script>
     <title>Join</title>
   </head>
-  <body onload="includeHTML(), showTasks()">
+  <body onload="includeHTML(), showTasks(), addTaskContacs()">
     <div w3-include-html="template_header.html"></div>
     <div w3-include-html="template_sidebar.html"></div>
     <div class="board_top_section">
