@@ -1,4 +1,4 @@
-/* const STORAGE_URL = "https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/"; */
+const STORAGE_URL = "https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/";
 const users = [];
 let currentUser = null;
 const contacts = [];

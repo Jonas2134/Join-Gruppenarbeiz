@@ -151,6 +151,17 @@ body {
     font-size: 1.5em;
     margin-top: 36px;
 }
+
+.edit:hover, .delete:hover {
+    cursor: pointer;
+    font-weight: bold;
+    color: #4689fe;
+}
+
+.edit:hover svg, .delete:hover svg {
+    stroke: #4689fe;
+    stroke-width: 1;
+}
 /* END selected container */
 
 /* START add_contact-overlay */
@@ -169,7 +180,7 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.top-area {
+.add-contact_top-area {
     background-color: #005eff;
     width: max-content;
     height: 40vh;
@@ -216,15 +227,16 @@ body {
 }
 
 /* bottom-area */
-.bottom-area {
+.add-contact_bottom-area {
     height: 60vh;
     width: 42vw;
     display: flex;
     position: absolute;
     top: 40vh;
     right: 0;
-    border-radius: 0 0 25px 25px;
+    border-radius: 0 0 25px 0px;
     border-left: solid gray 1px;
+    border-right: solid gray 1px;
     justify-content: center;
     align-items: center;
     background-color: white;
@@ -243,6 +255,8 @@ body {
     border-radius: 9px;
     display: flex;
     align-items: center;
+    width: 100px;
+    justify-content: center;
 }
 
 .create-button-container:hover {
@@ -284,15 +298,58 @@ body {
 
 /* START edit_contact-overlay */
 #overlay_edit-contact {
-    display: flex;
+
+
+}
+
+.edit-contact_main-container {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
 }
 
+#close-edit-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
 .edit-br {
     border-radius: 0 12px 12px 0;
 }
 
+.edit-area_top-area {
+    background-color: #005eff;
+    width: max-content;
+    height: 40vh;
+    width: 42vw;
+    display: flex;
+    border-right: solid gray 1px;
+
+    border-radius: 0 25px 0 0;
+    border-left: solid gray 1px;
+}
+
+.edit-area_bottom-area {
+    height: 60vh;
+    width: 42vw;
+    display: flex;
+    position: absolute;
+    top: 40vh;
+    right: 0;
+    border-radius: 0 0 25px 0px;
+    border-right: solid gray 1px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.close-edit-contacts svg:hover {
+    background-color: rgb(255, 255, 255, 0.6);
+    border-radius: 100%;
+}
 /* END edit_contact-overlay */
