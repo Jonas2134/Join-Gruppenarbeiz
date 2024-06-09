@@ -1,8 +1,7 @@
-const STORAGE_URL = "https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/";
+/* const STORAGE_URL = "https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/"; */
 const users = [];
 let currentUser = null;
 const contacts = [];
-let groupedContacts = {};
 
 async function postData(path = "", data = {}) {
     let response = await fetch(STORAGE_URL + path + ".json", {

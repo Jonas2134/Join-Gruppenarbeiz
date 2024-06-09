@@ -43,8 +43,8 @@
                 </div>
             </div>
             <div class="contact-book d-flex">
-                <div id="contact-filter" class="filter d-flex">                    
-                    
+                <div id="contact-filter" class="filter d-flex">
+
                     <!-- generated contacts here -->
 
                     <div class="filter-card d-flex">
@@ -194,16 +194,18 @@
         <!-- *-*-*-* -->
 
         <!-- selected contact template -->
-        <div class="selected-contact-container d-flex d-none">
+        <div id="selected-container" class="selected-contact-container d-flex d-none">
             <div class="selected-contact-profil-top d-flex row">
-                <svg class="selected-contact-profil-img" width="100" height="100">
-                    <circle cx="50" cy="50" r="50" fill="#fe7b02" />
-                    <text x="24" y="64" font-size="2.5em" fill="#ffffff">AB</text>
-                </svg>
+                <div id="selected-img">
+                    <svg class="selected-contact-profil-img" width="100" height="100">
+                        <circle cx="50" cy="50" r="50" fill="#fe7b02" />
+                        <text x="24" y="64" font-size="2.5em" fill="#ffffff">AB</text>
+                    </svg>
+                </div>
                 <div class="selected-contact-profil-right d-flex">
-                    <div class="selected-contact-profil-name">Anton Mayer</div>
+                    <div id="selected-name" class="selected-contact-profil-name">Anton Mayer</div>
                     <div class="selected-contact-profil-nav d-flex row">
-                        <div class="edit d-flex row s-gap">
+                        <div id="edit" class="edit d-flex row s-gap">
                             <div class="edit-img">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -218,7 +220,7 @@
                                     </g>
                                 </svg>
                             </div>
-                            <div class="edit-text">Edit</div>
+                            <div onclick="editContact(i)" class="edit-text">Edit</div>
                         </div>
                         <div class="delete d-flex row s-gap">
                             <div class="delete-img">
@@ -244,11 +246,11 @@
                 <div class="selected-contact-headline">Contact Information</div>
                 <div class="selected-contact-email-container d-flex s-gap">
                     <div class="selected-contact-email-name">Email:</div>
-                    <a href="mailto:email@example.com">anton(at)gmail.com</a>
+                    <a id="selected-mail" href="mailto:email@example.com">anton(at)gmail.com</a>
                 </div>
                 <div class="selected-contact-phone-container d-flex s-gap">
                     <div class="selected-contact-phone-name">Phone</div>
-                    <div class="selected-contact-phone-adress">+49 111 111 11</div>
+                    <div id="selected-mobile" class="selected-contact-phone-adress">+49 111 111 11</div>
                 </div>
 
             </div>
