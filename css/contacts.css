@@ -154,12 +154,18 @@ body {
 /* END selected container */
 
 /* START add_contact-overlay */
+.add-contact_main-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 #close-add-area {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
-    right: 40vw;
+    right: 0;
     background-color: rgba(0, 0, 0, 0.6);
 }
 
@@ -169,9 +175,7 @@ body {
     height: 40vh;
     width: 42vw;
     display: flex;
-    position: absolute;
-    top: 0;
-    right: 0;
+
     border-radius: 25px 0 0 0;
     border-left: solid gray 1px;
 }
@@ -212,7 +216,6 @@ body {
 }
 
 /* bottom-area */
-
 .bottom-area {
     height: 60vh;
     width: 42vw;
@@ -278,3 +281,18 @@ body {
     margin-top: 8px;
 }
 /* END add_contact-overlay */
+
+/* START edit_contact-overlay */
+#overlay_edit-contact {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.edit-br {
+    border-radius: 0 12px 12px 0;
+}
+
+/* END edit_contact-overlay */
