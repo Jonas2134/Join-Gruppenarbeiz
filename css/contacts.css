@@ -154,7 +154,7 @@ body {
 /* END selected container */
 
 /* START add_contact-overlay */
-#close-area {
+#close-add-area {
     position: absolute;
     top: 0;
     left: 0;
@@ -176,6 +176,43 @@ body {
     border-left: solid gray 1px;
 }
 
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.headline-text {
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.close-container {
+    align-items: flex-end;
+    padding: 8px;
+}
+
+.close-contacts svg:hover {
+    background-color: rgb(255, 255, 255, 0.6);
+    border-radius: 100%;
+}
+
+.logo {
+    margin-top: 24px;
+    justify-content: center;
+}
+
+.underline-text {
+    color: white;
+    font-size: 1.2em;
+    margin-top: 12px
+}
+
+/* bottom-area */
+
 .bottom-area {
     height: 60vh;
     width: 42vw;
@@ -188,6 +225,11 @@ body {
     justify-content: center;
     align-items: center;
     background-color: white;
+}
+
+.button_container {
+    gap: 12px;
+    margin-top: 14px;
 }
 
 .create-button-container {
@@ -205,12 +247,16 @@ body {
 } 
 
 .cancel-button-container {
-    background-color: #4689fe;
     padding: 8px;
     color: white;
     border-radius: 9px;
     display: flex;
     align-items: center;
+    border: solid #005eff 0.5px;
+}
+
+.cancel-button-text {
+    color: #005eff;
 }
 
 .cancel-button-container:hover {

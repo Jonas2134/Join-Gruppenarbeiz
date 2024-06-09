@@ -103,6 +103,11 @@ function closeAddContactOverlay() {
     contactOverlay.classList.add('d-none');
 }
 
+function closeEditContactOverlay() {
+    let contactOverlay = document.getElementById("overlay_edit-contact");
+    contactOverlay.classList.add('d-none');
+}
+
 function openContact(i) {
     document.getElementById('selected-container').classList.remove('d-none');
     document.getElementById('selected-name').innerHTML = `${sortedContacts[i]['name']}`;
