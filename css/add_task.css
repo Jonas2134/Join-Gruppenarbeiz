@@ -289,6 +289,10 @@ li:hover {
   background-color: #d2e3ff;
 }
 
+li.active {
+  background-color: #4589FF;
+}
+
 .checkbox {
   --checkbox-border-color: #4589FF;
   /* border-color: #4589FF; */

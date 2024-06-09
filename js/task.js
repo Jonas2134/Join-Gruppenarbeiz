@@ -1,3 +1,5 @@
+let assignedContacts = [];
+
 //SELECT PRIORITY BUTTON
 function selectPriority(priority) {
   let urgentPriority = document.getElementById('urgentPriority');
@@ -21,12 +23,6 @@ function selectPriority(priority) {
     urgentPriority.classList.add('priority_inactive');
     mediumPriority.classList.add('priority_inactive');
   }
-}
-
-// SELECT CATEGORY FUNCTION
-function selectCategory(text) {
-  let inputField = document.getElementById('addCategoryInputField');
-  inputField.innerHTML = text;
 }
 
 //TOGGLE CATEGORY DROPDOWN FUNCTION
@@ -121,40 +117,74 @@ function clearInput(id) {
   document.getElementById(id).value = '';
 }
 
+
 function clearAddTask() {
   clearInput('taskTitle');
   clearInput('taskDescription');
   clearInput('taskDueDate');
   clearInput('inputSubtasks');
-  /* document.getElementById('mediumPriority') */
-  document.getElementById('selectAssignedTo').innerHTML = `Select contacts to assign`;
-  document.getElementById('addCategoryInputField').innerHTML = `Select task category`;
-  document.getElementById('subtaskContent').innerHTML = '';
+
+  document.getElementById('mediumPriority').classList.add('priority_active');
+  document
+    .getElementById('mediumPriority')
+    .classList.remove('priority_inactive');
+  document.getElementById('urgentPriority').classList.remove('priority_active');
+  document.getElementById('urgentPriority').classList.add('priority_inactive');
+  document.getElementById('lowPriority').classList.remove('priority_active');
+  document.getElementById('lowPriority').classList.add('priority_inactive');
+  clearHtml('selectAssignedTo', `Select contacts to assign`);
+  clearHtml('addCategoryInputField', `Select task category`);
+  clearHtml('subtaskContent', '');
+
+
 }
 
+function clearHtml(id, html) {
+document.getElementById(id).innerHTML = html;
+}
 
 
 async function addTaskContacs() {
   await loadContacts();
 
   for (i = 0; i < contacts.length; i++) {
-    const contact = contacts[i]['name'];
+    const contact = contacts[i];
 
-    let assignedContact = document.getElementById('assignedDropdown');
+    let contactDropwdown = document.getElementById('assignedDropdown');
 
-    assignedContact.innerHTML += templateBuildContactDropdown(contact);
+    contactDropwdown.innerHTML += templateBuildContactDropdown(contact);
   }
 }
 
 function templateBuildContactDropdown(contact) {
+  let contactName = contact['name'];
+  let contactId = contact['ID'];
+
   return `
         <ul>
-        <li>
-        ${contact}
+        <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
+        ${contactName}
         <input class="checkbox" type="checkbox">
         </li>
         </ul>`;
 }
+
+function selectContact(contactId) {
+  let assignedContact = document.getElementById(contactId);
+
+  if (assignedContact.classList.contains('active')) {
+    assignedContact.classList.remove('active');
+
+    assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
+
+    console.log(assignedContacts);
+  } else {
+    assignedContact.classList.add('active');
+    assignedContacts.push(contactId);
+    console.log(assignedContacts);
+  }
+}
+
 
 
 function addSubtask() {
@@ -164,4 +194,10 @@ function addSubtask() {
 
   subtaskContent.innerHTML += subtask;
   clearInput('inputSubtasks');
+}
+
+// SELECT CATEGORY FUNCTION
+function selectCategory(text) {
+  let inputField = document.getElementById('addCategoryInputField');
+  inputField.innerHTML = text;
 }

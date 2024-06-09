@@ -105,6 +105,7 @@ async function loadContacts() {
   let loadedContacts = await getData('/contacts');
   for (const key in loadedContacts) {
     if (Object.hasOwnProperty.call(loadedContacts, key)) {
+      loadedContacts[key].ID = key;
       contacts.push(loadedContacts[key]);
     }
   }
