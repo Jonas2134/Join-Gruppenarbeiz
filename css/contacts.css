@@ -230,6 +230,7 @@ body {
 .button_container {
     gap: 12px;
     margin-top: 14px;
+    margin-bottom: 14px;
 }
 
 .create-button-container {
@@ -262,5 +263,18 @@ body {
 .cancel-button-container:hover {
     background-color: #005eff;
     cursor: pointer;
+}
+
+#name, #email, #mobile {
+    border: none;
+}
+
+.name-contacts, .email-contacts, .phone-contacts  {
+    border-bottom: solid gray 1px;
+    margin-top: 8px;
+}
+
+#add-contact-form {
+    margin-top: 8px;
 }
 /* END add_contact-overlay */
