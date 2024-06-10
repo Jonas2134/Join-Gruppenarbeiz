@@ -1,4 +1,5 @@
 let assignedContacts = [];
+let subtasks = [];
 
 //SELECT PRIORITY BUTTON
 function selectPriority(priority) {
@@ -162,12 +163,11 @@ function templateBuildContactDropdown(contact) {
   let contactId = contact['ID'];
 
   return `
-        <ul>
         <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
         ${contactName}
-        <input class="checkbox" type="checkbox">
+        <input class="custom_checkbox" type="checkbox">
         </li>
-        </ul>`;
+        `;
 }
 
 
@@ -175,7 +175,7 @@ function templateBuildContactDropdown(contact) {
 function selectContact(contactId) {
   let assignedContact = document.getElementById(contactId);
   let index = assignedContacts.indexOf(contactId);
-console.log(index);
+
   if (index == -1) {
     assignedContacts.push(contactId);
     assignedContact.classList.add('active');
@@ -200,13 +200,51 @@ function renderAssignedContact() {
 
 
 function addSubtask() {
-  let subtask = document.getElementById('inputSubtasks').value;
+  let subtaskInput = document.getElementById('inputSubtasks');
+  let subtask = subtaskInput.value.trim();
+  
+  if (subtask === "") return; 
+  
+  let index = subtasks.indexOf(subtask);
 
-  let subtaskContent = document.getElementById('subtaskContent');
+  if (index == -1) {
+    subtasks.push(subtask);
+    renderSubtasks();
+  } else {
+    subtasks.splice(index, 1); // UNNÖTIG? 
+    renderSubtasks();
+  }
 
-  subtaskContent.innerHTML += subtask;
   clearInput('inputSubtasks');
 }
+
+
+function renderSubtasks() {
+  let subtaskContent = document.getElementById('subtaskContent');
+  subtaskContent.innerHTML = '';
+
+  subtasks.forEach(subtask => {
+    subtaskContent.innerHTML += templateBuildSubtask(subtask);
+  });
+
+}
+
+
+
+function templateBuildSubtask(subtask) {
+  return `
+  <div class="build_subtask">
+  <li class="build_subtask_span">${subtask}</li>
+  <div class="subtask_icons_div">
+  <img src="/icons/edit_icon.png" alt="delete" class="subtask_icon">
+  <div class="subtask_divider"></div>
+  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon">
+  </div>
+  </div>
+  `;
+}
+
+
 
 // SELECT CATEGORY FUNCTION
 function selectCategory(text) {

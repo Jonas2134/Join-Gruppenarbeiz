@@ -277,12 +277,10 @@ ul:hover {
 li {
   display: flex;
   justify-content: space-between;
-  width: 434px;
-/*   padding: 6px 6px 6px 6px; */
   border-radius: 10px;
   font-size: 19px;
-    line-height: 23px;
-    padding: 5px 0px 5px 10px;
+  line-height: 23px;
+  padding: 5px 10px 5px 10px;
 }
 
 li:hover {
@@ -293,9 +291,13 @@ li.active {
   background-color: #4589FF;
 }
 
-.checkbox {
-  --checkbox-border-color: #4589FF;
-  /* border-color: #4589FF; */
+.custom_checkbox label {
+  border: 2px solid #4589FF;
+}
+
+.custom_checkbox input:checked + label {
+  border-color: #4589FF; /* Rahmenfarbe bei aktivierter Checkbox */
+  background-color: #4589FF; /* Hintergrundfarbe bei aktivierter Checkbox */
 }
 
 .checkbox:hover {
@@ -452,6 +454,56 @@ li.active {
   background-color: #d2e3ff;
   border-radius: 50%;
 }
+
+.build_subtask {
+  display: flex;
+  width: 432px;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 2px 10px 2px 0px;
+}
+
+.build_subtask_span {
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 23px;
+  
+}
+
+.build_subtask:hover {
+  background-color: #d2e3ff;
+}
+
+.subtask_icons_div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.subtask_icons_div:hover {
+  cursor: pointer;
+}
+
+.subtask_icon_div {
+  display: flex;
+  align-items: center;
+
+}
+
+.subtask_icon {
+  height: 18px;
+  width: 16px;
+}
+
+.subtask_divider {
+  width: 2px;
+  height: calc(100% - 10px);
+  background-color: #e8e8e8;
+  margin: 5px 0;
+  flex-shrink: 0;
+}
+
+
 
 .add_task_form_buttons {
   display: flex;
