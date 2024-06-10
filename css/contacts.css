@@ -358,4 +358,31 @@ body {
     height: 120px;
     margin-bottom: 20px;
 }
+
+#edit-name, #edit-email, #edit-mobile {
+    border: none;
+}
+
+.name-edit-contacts, .email-edit-contacts, .phone-edit-contacts  {
+    border-bottom: solid gray 1px;
+    margin-top: 8px;
+}
+
+.delete-button-container {
+    padding: 8px;
+    color: white;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    border: solid #005eff 0.5px;
+}
+
+.delete-button-text {
+    color: #005eff;
+}
+
+.delete-button-container:hover {
+    background-color: #005eff;
+    cursor: pointer;
+}
 /* END edit_contact-overlay */
