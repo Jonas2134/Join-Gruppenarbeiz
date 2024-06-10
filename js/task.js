@@ -165,7 +165,7 @@ function templateBuildContactDropdown(contact) {
   return `
         <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
         ${contactName}
-        <input class="custom_checkbox" type="checkbox">
+        <input class="custom_checkbox" type="checkbox" id="cb${contactId}" onclick="event.stopPropagation();">
         </li>
         `;
 }
@@ -175,14 +175,17 @@ function templateBuildContactDropdown(contact) {
 function selectContact(contactId) {
   let assignedContact = document.getElementById(contactId);
   let index = assignedContacts.indexOf(contactId);
+  let checkbox = document.getElementById('cb' + contactId);
 
   if (index == -1) {
     assignedContacts.push(contactId);
     assignedContact.classList.add('active');
+    checkbox.checked = !checkbox.checked;
     
   }  else {
     assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
     assignedContact.classList.remove('active');
+    checkbox.checked = !checkbox.checked;
   }
     renderAssignedContact();
   }
@@ -198,22 +201,20 @@ function renderAssignedContact() {
   
 }
 
+function getContactById(Id) {
+  return contacts.find(obj => obj.id === Id);
+}
+
+
 
 function addSubtask() {
   let subtaskInput = document.getElementById('inputSubtasks');
   let subtask = subtaskInput.value.trim();
   
   if (subtask === "") return; 
-  
-  let index = subtasks.indexOf(subtask);
 
-  if (index == -1) {
-    subtasks.push(subtask);
-    renderSubtasks();
-  } else {
-    subtasks.splice(index, 1); // UNNÖTIG? 
-    renderSubtasks();
-  }
+  subtasks.push(subtask);
+  renderSubtasks();
 
   clearInput('inputSubtasks');
 }
