@@ -152,7 +152,7 @@ function openContact(i) {
     document.getElementById('edit-mobile').value = `${sortedContacts[i]['mobile']}`;
     
     
-    document.getElementById('edit-button-container').innerHTML = `
+    document.getElementById('edit-button-container').innerHTML = editButtonsHTML(i);`
         <div onclick="deleteContact(${i})" id="delete" class="delete-button-container d-flex_row">
             <div class="delete-button-text">Delete</div>
         </div>
@@ -188,5 +188,6 @@ function openContact(i) {
 
 /* function deleteContact(i) {
     let contact = contact[i];
+
     deleteData("/contacts[i]/")
 } */
