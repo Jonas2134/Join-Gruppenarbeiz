@@ -16,9 +16,45 @@ function removeClasses() {
     }
 }
 
+function populateRememberMe() {
+    const userData = getCookie("currentUser");
+    if (userData) {
+        const user = JSON.parse(userData);
+        document.getElementById("user_email").value = user.email;
+        document.getElementById("user_password").value = user.password;
+        document.getElementById("remember_me").checked = true;        
+    }
+}
+
+function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        const c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
     await loadUsers();
     await loadCurrentUsers();
+    populateRememberMe();
 
     document.getElementById("myForm").addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -26,6 +62,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const formData = new FormData(document.getElementById("myForm"));
         const email = formData.get("user_email");
         const password = formData.get("user_password");
+        const rememberMe = formData.get("remember_me_checkbox") === "on";
 
         let found = false;
 
@@ -33,12 +70,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             const user = users[i];
             if (user.user_email === email && user.user_password === password) {
                 currentUser = user;
-                found = true;
+                found = true;                
                 break;
             }
         }
 
         if (found) {
+            if (rememberMe) {
+                setCookie("currentUser", JSON.stringify({ email: email , password: password }), 7);
+            } else {
+                eraseCookie("currentUser");
+            }
+
             await deleteData("/currentUser");
             await postData("/currentUser", currentUser);
             window.location.href = 'summary.html';
