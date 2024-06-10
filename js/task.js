@@ -60,7 +60,6 @@ function toggleContacsDropdown() {
 
 async function sendTask() {
   let task = {
-    id: null,
     title: '',
     description: '',
     dueDate: '',
@@ -92,27 +91,24 @@ async function sendTask() {
   ) {
     taskPriority = 'low';
   }
-  let taskAssignedTo = '';
   let taskContentCategory = document.getElementById(
     'addCategoryInputField'
   ).innerHTML;
-  let taskSubtask = '';
+  
 
   task.title = taskTitle;
   task.description = taskDescription;
   task.dueDate = taskDueDate;
   task.priority = taskPriority;
-  task.assignedTo = taskAssignedTo;
+  task.assignedTo = assignedContacts;
   task.content = taskContentCategory;
-  task.subtasks = taskSubtask;
-  // maxID oops
-  /* let incMaxId = await getMaxTaskId() + 1;
-    let path = '/tasks/' + incMaxId + '/task';
-    task.id = incMaxId;
-    await postData(path, task);
-    await setMaxTaskId(incMaxId); */
+  task.subtasks = subtasks;
+ 
   postData('/tasks', task);
+  clearAddTask();
 }
+
+
 
 function clearInput(id) {
   document.getElementById(id).value = '';
@@ -195,14 +191,13 @@ function renderAssignedContact() {
   let content = document.getElementById('selectedContact');
   content.innerHTML = ''
   for (let i = 0; i < assignedContacts.length; i++) {
-    content.innerHTML += `${assignedContacts[i]}`; 
-    
+    content.innerHTML += getContactById(assignedContacts[i])['name'];     
   }
   
 }
 
 function getContactById(Id) {
-  return contacts.find(obj => obj.id === Id);
+  return contacts.find(obj => obj.ID === Id);
 }
 
 
