@@ -131,6 +131,11 @@ body {
     font-size: 20px;
 }
 
+.hidden_container {
+    color: #ff0000;
+    font-size: 12px;
+}
+
 .remember_me {
     display: flex;
     align-items: center;
@@ -198,7 +203,6 @@ body {
     color: #29ABE2;
 }
 
-
 h1 {
     margin: 0;
     font-family: Open Sans;
@@ -212,4 +216,133 @@ a {
 
 p {
     margin: 0;
+}
+
+.red_underline {
+    border-color: #ff0000;
+}
+
+.d_none {
+    display: none;
+}
+
+@media(max-width: 750px) {
+    @keyframes top-left-glide {
+        from {
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 122px;
+        }
+
+        to {
+            top: 8%;
+            left: 20%;
+            width: 70px;
+            height: 92px;
+        }
+    }
+
+    .logo {
+        width: 100px;
+        height: 122px;
+    }
+
+    .signup_container {
+        top: auto;
+        right: auto;
+        bottom: 12%;
+        justify-content: center;
+    }
+
+    .login_container {
+        padding: 40px 80px;
+        margin: 0 16px;
+    }
+
+    .blue_underline {
+        width: 200px;
+    }
+}
+
+@media(max-width: 650px) {
+    .login_container {
+        padding: 30px 40px;
+        gap: 26px;
+    }
+
+    .btn_container {
+        flex-direction: column;
+    }
+
+    .blue_underline {
+        width: 150px;
+    }
+
+    .input_container {
+        width: auto;
+        padding: 8px 17px;
+    }
+
+    .btn_container {
+        gap: 25px;
+    }
+}
+
+@media(max-width: 400px) {
+    @keyframes top-left-glide {
+        from {
+            top: 50%;
+            left: 50%;
+            width: 70px;
+            height: 92px;
+        }
+
+        to {
+            top: 6%;
+            left: 20%;
+            width: 40px;
+            height: 62px;
+        }
+    }
+
+    .logo {
+        width: 70px;
+        height: 92px;
+    }
+
+    .blue_underline {
+        width: 88px;
+    }
+
+    .signup_container {
+        bottom: 10%;
+    }
+
+    .login_container {
+        padding: 20px 40px;
+    }
+
+    .login_form {
+        gap: 10px;
+    }
+
+    .btn_container {
+        gap: 15px;
+    }
+
+    .btn {
+        padding: 5px 35px;
+    }
+
+    .login-footer {
+        padding: 20px;
+    }
+}
+
+@media(max-width: 330px) {
+    .signup_container div {
+        flex-direction: column;
+        gap: 16px;
+    }
 }

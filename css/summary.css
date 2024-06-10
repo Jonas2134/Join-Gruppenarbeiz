@@ -1,19 +1,136 @@
 body {
     margin: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.summary_container {
+    margin-left: 100px;
+}
+
+.button_section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.first_section {
+    gap: 36px;
+}
+
+.second_section {
+    gap: 32px;
+}
+
+.btn {
+    justify-content: center;
+    padding: 28px 48px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px #00000029;
+    color: #4589FF;
+    transition: all .2s ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.08);
+    border-radius: 0 30px 30px 30px;
+    background-color: #005DFF;
+    color: #FFFFFF;
+}
+
+.btn:hover .col_bla {
+    color: #FFFFFF;
 }
 
 .blue_button {
+    align-items: center;
+    gap: 40px;
     background-color: #4589FF;
+    border-radius: 30px;    
+    padding: 28px 80px;
+    color: white;
+    transition: all .2s ease-in-out;
+}
 
-    
+.blue_button:hover {
+    transform: scale(1.08);
+    border-radius: 0 30px 30px 30px;
+    background-color: white;
+    box-shadow: 0px 0px 4px 0px #00000029;
+    color: #4589FF;
+}
+
+.blue_button:hover .parting_line {
+    background-color: #4589FF;
+}
+
+.blue_border_btn {
+    justify-content: center;
     padding: 28px 48px;
-    gap: 35px;
     border-radius: 30px;
+    background-color: #D2E3FF;
+    color: #4589FF;
+    transition: all .2s ease-in-out;
+}
+
+.blue_border_btn:hover {
+    transform: scale(1.08);
+    border-radius: 0 30px 30px 30px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 4px 0px #00000029;
+    color: #005DFF;
+}
+
+.blue_border_btn:hover .col_bla {
+    color: #005DFF;
 }
 
 .parting_line {
     height: 145px;
-    
+    width: 3px;
+    background-color: #FFFFFF;
+}
+
+.border {
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+    background-color: #4589FF;
+}
+
+.b_border {
+    border: 3px solid #4589FF;
+    border-radius: 50%;
+    background-color: #4589FF;
+}
+
+.number_container {
+    align-items: center;
+    gap: 20px;
+}
+
+.col_bla {
+    color: black;
+}
+
+.font_numbers {
+    font-family: Open Sans;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.font_700 {
+    font-family: Open Sans;
+    font-size: 33px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.font_400 {
+    font-family: Open Sans;
+    font-size: 23px;
+    font-weight: 400;
+    text-align: center;
 }
 
 .dis_flex {
