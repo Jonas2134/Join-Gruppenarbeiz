@@ -106,6 +106,13 @@ function openEditContactOverlay(i) {
     let editOverlay = document.getElementById("overlay_edit-contact");
     editOverlay.classList.remove('d-none');
 
+    changeProfile(i);
+}
+
+function changeProfile(i)  {
+    let contact = sortedContacts[i];
+    let color = contactColors[contact.name];
+
 
 }
 
@@ -137,6 +144,7 @@ function openContact(i) {
     });
 
     document.getElementById('selected-contact-profil-img').setAttribute('fill', color);
+    document.getElementById('edit-contact-profil-img').setAttribute('fill', color);
     document.getElementById('selected-contact-profil-text').innerHTML = `${getInitials(sortedContacts[i]['name'])}`;
 
 }
