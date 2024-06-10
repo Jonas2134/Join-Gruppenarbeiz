@@ -25,6 +25,11 @@
 .d-none {
     display: none;
 }
+
+.select-contact {
+    background-color: #4986fe !important;
+    color: white !important;
+}
 /* *-*-*-* */
 
 body {
@@ -35,12 +40,6 @@ body {
     margin-left: 260px;
     width: 360px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 0px 2.6px;
-}
-
-.add-contact-button-img {
-}
-
-.contact-container-text-name {
 }
 
 /* add-new-button */
@@ -100,17 +99,11 @@ body {
 
 .contact-container:hover {
     background-color: #d2e3ff;
+    cursor: pointer;
 } 
 
-.contact-container-img circle {
-}
-
-.contact-container-text {
-
-}
-
-.contact-container-text-name {
-    
+.contact-container-mail {
+    text-decoration: none;
 }
 
 .contact-container-text-email {

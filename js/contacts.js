@@ -1,6 +1,7 @@
 let sortedContacts = [];
 const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2', '#462f89', '#ff4646']
 const contactColors = {};
+let selectedContact = null;
 
 async function init() {
     includeHTML();
@@ -48,7 +49,7 @@ function renderContacts() {
                 contactColors[contact.name] = color;
                 console.log(contact);
                 contactsHtml += `
-                <div onclick="openContact(${sortedContacts.length - 1})" class="contact-container d-flex_column">
+                <div id="contact-container(${sortedContacts.length - 1})" onclick="openContact(${sortedContacts.length - 1})" class="contact-container d-flex_column">
                     <div>
                         <svg class="contact-container-img" width="100" height="100">
                             <circle cx="50" cy="50" r="25" fill="${color}" />
@@ -57,7 +58,7 @@ function renderContacts() {
                     </div>
                     <div class="contact-container-text d-flex">
                         <div class="contact-container-text-name">${contact.name}</div>
-                        <a href="mailto:${contact.email}">${contact.email}</a>
+                        <a class="contact-container-mail" href="mailto:${contact.email}">${contact.email}</a>
                     </div>
                 </div>  
                 `
@@ -130,6 +131,8 @@ function openContact(i) {
     let contact = sortedContacts[i];
     let color = contactColors[contact.name];
 
+    selectContact(i);
+
     document.getElementById('selected-container').classList.remove('d-none');
     document.getElementById('selected-name').innerHTML = `${sortedContacts[i]['name']}`;
     document.getElementById('selected-mail').innerHTML = `${sortedContacts[i]['email']}`;
@@ -152,7 +155,7 @@ function openContact(i) {
     document.getElementById('edit-mobile').value = `${sortedContacts[i]['mobile']}`;
     
     
-    document.getElementById('edit-button-container').innerHTML = editButtonsHTML(i);`
+    document.getElementById('edit-button-container').innerHTML =`
         <div onclick="deleteContact(${i})" id="delete" class="delete-button-container d-flex_row">
             <div class="delete-button-text">Delete</div>
         </div>
@@ -174,6 +177,16 @@ function openContact(i) {
             </div>
         </div>
     `;
+}
+
+function selectContact(i) {
+    let contactContainer = document.getElementById(`contact-container(${i})`);
+
+    if (selectedContact !== null) {
+        selectedContact.classList.remove('select-contact');
+    }
+    contactContainer.classList.add('select-contact');
+    selectedContact = contactContainer;
 }
 
 /* function editContact(i) {
