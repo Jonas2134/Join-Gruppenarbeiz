@@ -472,6 +472,10 @@ li.active:hover {
   padding: 2px 10px 2px 0px;
 }
 
+.build_subtask.inactive {
+  display: none;
+}
+
 .build_subtask_span {
   font-weight: 400;
   font-size: 19px;
@@ -504,6 +508,14 @@ li.active:hover {
   width: 16px;
 }
 
+.subtask_icons {
+
+}
+
+.subtask_icons.inactive {
+  display: none;
+}
+
 .subtask_divider {
   width: 2px;
   height: calc(100% - 10px);
@@ -511,6 +523,8 @@ li.active:hover {
   margin: 5px 0;
   flex-shrink: 0;
 }
+
+
 
 
 

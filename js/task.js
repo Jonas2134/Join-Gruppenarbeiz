@@ -31,7 +31,6 @@ function selectPriority(priority) {
     lowPriority.classList.add('priority_active');
     urgentPriority.classList.add('priority_inactive');
     mediumPriority.classList.add('priority_inactive');
-   
     document.getElementById('prioRed').src = "icons/prio_red.png";
     document.getElementById('prioOrange').src = "icons/prio_orange.png";
     document.getElementById('prioGreen').src = "icons/prio_green_white.png";
@@ -142,10 +141,13 @@ function clearAddTask() {
   document.getElementById('lowPriority').classList.remove('priority_active');
   document.getElementById('lowPriority').classList.add('priority_inactive');
   clearHtml('selectAssignedTo', `Select contacts to assign`);
-  assignedContacts = [];
+    assignedContacts = [];
+    renderAssignedContact();
   clearHtml('addCategoryInputField', `Select task category`);
   clearHtml('subtaskContent', '');
   subtasks = [];
+
+  
   
 }
 
@@ -223,8 +225,8 @@ function addSubtask() {
 
   subtasks.push(subtask);
   renderSubtasks();
-
   clearInput('inputSubtasks');
+  onInputSubtask();
 }
 
 
@@ -235,19 +237,6 @@ function deleteSubtask(index) {
     renderSubtasks();
 }
 
-
-function editSubtask(index) {
-  let subtaskContent = document.getElementById(`subtask-${index}`);
-  let subtaskText = subtaskContent.querySelector('.build_subtask_span');
-
-  let newText = prompt("Bearbeiten Sie die Subtask:", subtaskText.textContent);
-  if (newText !== null && newText.trim() !== "") {
-      subtaskText.textContent = newText.trim();
-      subtasks[index] = newText.trim();
-  }
-}
-
-
 function renderSubtasks() {
   let subtaskContent = document.getElementById('subtaskContent');
   subtaskContent.innerHTML = '';
@@ -255,20 +244,59 @@ function renderSubtasks() {
   subtasks.forEach((subtask, index) => {
     subtaskContent.innerHTML += templateBuildSubtask(subtask, index);
 });
+}
 
+
+function editSubtask(index) {
+  let subTaskContent = document.getElementById(`subtask_${index}`);
+  let subTaskText = document.getElementById(`subtask_edit_${index}`);
+
+  subTaskContent.classList.add('inactive');
+  subTaskText.classList.remove('inactive');
+}
+
+function saveSubtask(index) {
+let subtaskInput = document.getElementById(`subtask_input_${index}`).value;
+
+if (subtaskInput !== null && subtaskInput.trim() !== "") {
+  subtasks[index] = subtaskInput.trim();
+
+  renderSubtasks();
+} 
+}
+
+function onInputSubtask() {
+let subtaskInput = document.getElementById('inputSubtasks').value;
+let subtaskIconActive = document.getElementById('subtaskIconsActive');
+let subtaskIconInactive = document.getElementById('subtaskIconsInactive');
+
+if (subtaskInput.trim() !== '') {
+subtaskIconActive.classList.add('inactive');
+subtaskIconInactive.classList.remove('inactive');
+} else {
+  subtaskIconActive.classList.remove('inactive');
+subtaskIconInactive.classList.add('inactive');
+}
 
 }
 
 
-
 function templateBuildSubtask(subtask, index) {
   return `
-  <div class="build_subtask" id="subtask-${index}">
+  <div class="build_subtask" id="subtask_${index}">
   <li class="build_subtask_span">${subtask}</li>
   <div class="subtask_icons_div">
   <img src="/icons/edit_icon.png" alt="edit" class="subtask_icon" onclick="editSubtask(${index})">
   <div class="subtask_divider"></div>
   <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index})">
+  </div>
+  </div>
+  <div class="build_subtask inactive" id="subtask_edit_${index}">
+  <input class="build_subtask_span" value="${subtask}" id="subtask_input_${index}"></input>
+  <div class="subtask_icons_div">
+  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index})">
+  <div class="subtask_divider"></div>
+  <span onclick="saveSubtask(${index})">O</span>
   </div>
   </div>
   `;
