@@ -202,7 +202,10 @@ body {
   gap: 10px;
 }
 
-
+.prio_urgent {
+  height: 200px;
+  width: 200px;
+}
  
 .prio_icon_medium_span {
   font-size: 30px;
