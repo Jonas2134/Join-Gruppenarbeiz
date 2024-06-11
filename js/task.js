@@ -15,14 +15,26 @@ function selectPriority(priority) {
     urgentPriority.classList.add('priority_active');
     mediumPriority.classList.add('priority_inactive');
     lowPriority.classList.add('priority_inactive');
+    document.getElementById('prioRed').src = "icons/prio_red_white.png";
+    document.getElementById('prioOrange').src = "icons/prio_orange.png";
+    document.getElementById('prioGreen').src = "icons/prio_green.png";
+
   } else if (priority == 'medium') {
     mediumPriority.classList.add('priority_active');
     urgentPriority.classList.add('priority_inactive');
     lowPriority.classList.add('priority_inactive');
+    document.getElementById('prioRed').src = "icons/prio_red.png";
+    document.getElementById('prioOrange').src = "icons/prio_orange_white.png";
+    document.getElementById('prioGreen').src = "icons/prio_green.png";
+
   } else if (priority == 'low') {
     lowPriority.classList.add('priority_active');
     urgentPriority.classList.add('priority_inactive');
     mediumPriority.classList.add('priority_inactive');
+   
+    document.getElementById('prioRed').src = "icons/prio_red.png";
+    document.getElementById('prioOrange').src = "icons/prio_orange.png";
+    document.getElementById('prioGreen').src = "icons/prio_green_white.png";
   }
 }
 
