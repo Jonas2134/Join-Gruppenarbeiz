@@ -130,10 +130,11 @@ function clearAddTask() {
   document.getElementById('lowPriority').classList.remove('priority_active');
   document.getElementById('lowPriority').classList.add('priority_inactive');
   clearHtml('selectAssignedTo', `Select contacts to assign`);
+  assignedContacts = [];
   clearHtml('addCategoryInputField', `Select task category`);
   clearHtml('subtaskContent', '');
-
-
+  subtasks = [];
+  
 }
 
 function clearHtml(id, html) {
@@ -215,26 +216,47 @@ function addSubtask() {
 }
 
 
+
+
+function deleteSubtask(index) {
+  subtasks.splice(index, 1);
+    renderSubtasks();
+}
+
+
+function editSubtask(index) {
+  let subtaskContent = document.getElementById(`subtask-${index}`);
+  let subtaskText = subtaskContent.querySelector('.build_subtask_span');
+
+  let newText = prompt("Bearbeiten Sie die Subtask:", subtaskText.textContent);
+  if (newText !== null && newText.trim() !== "") {
+      subtaskText.textContent = newText.trim();
+      subtasks[index] = newText.trim();
+  }
+}
+
+
 function renderSubtasks() {
   let subtaskContent = document.getElementById('subtaskContent');
   subtaskContent.innerHTML = '';
 
-  subtasks.forEach(subtask => {
-    subtaskContent.innerHTML += templateBuildSubtask(subtask);
-  });
+  subtasks.forEach((subtask, index) => {
+    subtaskContent.innerHTML += templateBuildSubtask(subtask, index);
+});
+
 
 }
 
 
 
-function templateBuildSubtask(subtask) {
+function templateBuildSubtask(subtask, index) {
   return `
-  <div class="build_subtask">
+  <div class="build_subtask" id="subtask-${index}">
   <li class="build_subtask_span">${subtask}</li>
   <div class="subtask_icons_div">
-  <img src="/icons/edit_icon.png" alt="delete" class="subtask_icon">
+  <img src="/icons/edit_icon.png" alt="edit" class="subtask_icon" onclick="editSubtask(${index})">
   <div class="subtask_divider"></div>
-  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon">
+  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index})">
   </div>
   </div>
   `;
