@@ -2,10 +2,8 @@ const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2'
 const contactColors = {};
 let selectedContact = null;
 let contactsWithIds = {};
-const contactsWithInitials = {};
 
 async function init() {
-
     includeHTML();
     await loadContactsWithIds();
     await loadContacts();
