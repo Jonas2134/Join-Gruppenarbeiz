@@ -291,12 +291,12 @@ function templateBuildSubtask(subtask, index) {
   <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index})">
   </div>
   </div>
-  <div class="build_subtask inactive" id="subtask_edit_${index}">
-  <input class="build_subtask_span" value="${subtask}" id="subtask_input_${index}"></input>
+  <div class="build_subtask_2 inactive" id="subtask_edit_${index}">
+  <input class="build_subtask_span_2" value="${subtask}" id="subtask_input_${index}"></input>
   <div class="subtask_icons_div">
-  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index})">
+  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon_delete" onclick="deleteSubtask(${index})">
   <div class="subtask_divider"></div>
-  <span onclick="saveSubtask(${index})">O</span>
+  <img class="subtask_check_icon" src="icons/check.png" onclick="saveSubtask(${index})">
   </div>
   </div>
   `;

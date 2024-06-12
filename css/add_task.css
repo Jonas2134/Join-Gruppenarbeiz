@@ -313,6 +313,16 @@ li.active:hover {
   cursor: pointer;
 }
 
+.selected_Contact {
+  cursor: pointer;
+  background-color: yellow;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 23px;
+  border-radius: 10px;
+  padding: 5px 0px 5px 10px;
+}
+
 .dropdown {
   margin-top: 8px;
   width: 440px;
@@ -418,6 +428,7 @@ li.active:hover {
   line-height: 23px;
 }
 
+
 .add_subtask_input_div {
   display: flex;
   align-items: center;
@@ -448,12 +459,14 @@ li.active:hover {
 .add_subtask_icon:hover {
   background-color: #d2e3ff;
   border-radius: 50%;
+  color: #005DFF;
 }
 
 .add_subtask_delete_icon {
   /* display: none; */
   font-weight: 400;
-  font-size: 19px;
+  font-size: 17px;
+  padding: 0px 5px 2px 5px;
   color: #4589FF;
   border: none;
   background-color: white; 
@@ -462,14 +475,35 @@ li.active:hover {
 .add_subtask_delete_icon:hover {
   background-color: #d2e3ff;
   border-radius: 50%;
+ 
 }
+
+.subtask_check_icon {
+  height: 15px;
+  width: 15px;
+  padding: 4px 3px 3px 4px;
+}
+
+.subtask_check_icon:hover {
+  background-color: #d2e3ff;
+  border-radius: 50%;
+}
+
+
+
 
 .build_subtask {
   display: flex;
-  width: 432px;
   justify-content: space-between;
-  border-radius: 10px;
-  padding: 2px 10px 2px 0px;
+  border-radius: 10px;  
+}
+
+.build_subtask_2 {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-bottom: solid 1px #005DFF;
+  border-radius: 0px;
 }
 
 .build_subtask.inactive {
@@ -479,9 +513,27 @@ li.active:hover {
 .build_subtask_span {
   font-weight: 400;
   font-size: 19px;
-  line-height: 23px;
-  
+  border: none;
+  outline: none;
+  padding: 6px 0px 0px 16px;
 }
+
+.build_subtask_span_2 {
+  border: none;
+  outline: none;
+  font-size: 19px;
+  font-weight: 400;
+  padding: 0px 16px 0px 16px;
+}
+
+.build_subtask_2.inactive {
+  display: none;
+}
+
+.build_subtask_2:hover {
+  background-color: white;
+}
+
 
 .build_subtask:hover {
   background-color: #d2e3ff;
@@ -491,6 +543,7 @@ li.active:hover {
   display: flex;
   align-items: center;
   gap: 5px;
+  padding: 0px 10px 0px 0px;
 }
 
 .subtask_icons_div:hover {
@@ -504,12 +557,36 @@ li.active:hover {
 }
 
 .subtask_icon {
+  display: flex;
   height: 18px;
   width: 16px;
+  padding: 3px;
 }
 
-.subtask_icons {
+.subtask_icon:hover {
+  border-radius: 50%;
+  background-color: #b7d2fd;
+ 
+}
 
+.subtask_icon_delete {
+  display: flex;
+  height: 18px;
+  width: 16px;
+  padding: 3px;
+}
+
+.subtask_icon_delete:hover {
+  border-radius: 50%;
+  background-color: #d2e3ff;
+}
+
+
+.subtask_icons {
+display: flex;
+align-items: center;
+gap: 5px;
+padding: 0px 10px 0px 0px;
 }
 
 .subtask_icons.inactive {
@@ -518,7 +595,8 @@ li.active:hover {
 
 .subtask_divider {
   width: 2px;
-  height: calc(100% - 10px);
+  min-height: 23px;
+ /*  min-height: calc(100% - 10px); */
   background-color: #e8e8e8;
   margin: 5px 0;
   flex-shrink: 0;
