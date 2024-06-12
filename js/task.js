@@ -145,16 +145,12 @@ function clearAddTask() {
     renderAssignedContact();
   clearHtml('addCategoryInputField', `Select task category`);
   clearHtml('subtaskContent', '');
-  subtasks = [];
-
-  
-  
+  subtasks = [];  
 }
 
 function clearHtml(id, html) {
 document.getElementById(id).innerHTML = html;
 }
-
 
 async function addTaskContacs() {
   await loadContacts();
@@ -168,20 +164,27 @@ async function addTaskContacs() {
   }
 }
 
+function templateUserInitials(contact) {
+  return `
+    <svg width="100" height="100">
+        <circle cx="50" cy="50" r="25" fill="${contact.color}" />
+        <text x="39" y="56" font-size="1em" fill="#ffffff">${contact.initials}</text>
+    </svg>
+  `          
+}
 
 function templateBuildContactDropdown(contact) {
   let contactName = contact['name'];
   let contactId = contact['ID'];
+  let initials = templateUserInitials(contact);
 
   return `
         <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
-        ${contactName}
+        ${initials}${contactName}
         <input class="custom_checkbox" type="checkbox" id="cb${contactId}" onclick="event.stopPropagation();">
         </li>
         `;
 }
-
-
 
 function selectContact(contactId) {
   let assignedContact = document.getElementById(contactId);
@@ -206,7 +209,7 @@ function renderAssignedContact() {
   let content = document.getElementById('selectedContact');
   content.innerHTML = ''
   for (let i = 0; i < assignedContacts.length; i++) {
-    content.innerHTML += getContactById(assignedContacts[i])['name'];     
+    content.innerHTML += templateUserInitials(getContactById(assignedContacts[i]));     
   }
   
 }

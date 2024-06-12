@@ -1,5 +1,6 @@
 const STORAGE_URL =
   'https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/';
+  // 'https://users-31ee0-default-rtdb.europe-west1.firebasedatabase.app/';
 const users = [];
 let currentUser = null;
 
@@ -43,19 +44,6 @@ async function deleteData(path = '') {
 }
 
 async function loadTasks() {
-  // maxID oops
-  /*     let maxTaskId = await getMaxTaskId();
-    console.log(maxTaskId);
-    let currentTask = '';
-    for (let index = 0; index <= maxTaskId; index++) {
-        currentTask = await getData('/task/' + index + '/task');
-        console.log(currentTask);
-        for (const key in currentTask) {
-            if (Object.hasOwnProperty.call(currentTask, key)) {
-                tasks.push(currentTask[key]);
-            }
-        }        
-    } */
   let allTask = await getData('/tasks');
   for (const key in allTask) {
     if (Object.hasOwnProperty.call(allTask, key)) {
@@ -63,34 +51,6 @@ async function loadTasks() {
     }
   }
 }
-
-// Funktion zum Testdaten resetten
-// maxID oops
-/* async function resetMaxTaskId() {
-    let json = {
-        maxTaskId: 0
-    };
-    console.log(json);
-    await deleteData('/maxTask');
-    await postData('/maxTask', json);
-}
-
-async function setMaxTaskId(id) {
-    let json = {
-        maxTaskId: 0
-    }
-    json.maxTaskId = id;
-    updateData('/maxTask', json);
-}
-
-async function getMaxTaskId() {
-    let idJson = await getData('/maxTask');
-    for (const key in idJson) {
-        if (Object.hasOwnProperty.call(idJson, key)) {
-            return(idJson[key].maxTaskId);
-        }
-    }
-} */
 
 async function loadUsers() {
   let loadedUsers = await getData('/users');

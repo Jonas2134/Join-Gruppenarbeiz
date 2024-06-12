@@ -131,18 +131,37 @@ document.addEventListener('DOMContentLoaded', (event) => {
   function renderAllTasks() {
     let currentTask = document.getElementById('drag_to_do');
     for (let i = 0; i < tasks.length; i++) {
-
-        currentTask.innerHTML += renderTask(tasks[i]);
-                
+        currentTask.innerHTML += renderTask(tasks[i]);                
     }
 }
 
 function renderTask(task) {
     return `
-    <div draggable="true"> ${task.title} </div>
+    <div draggable="true" class="card_complete"> 
+      <div class="card_category_user_story">
+    <span class="card_category_user_story_span">${task.category}</span>
+      </div>
+    <div class="card_top_section">
+        <div class="card_title">
+    <b>${task.title}</b>
+        </div>
+      <div class="card_description">
+    ${task.description}
+      </div>
+    </div>
+        <div class="card_task_status">
+    1/2
+        </div>
+    <div class="card_bottom_section">    
+      <div class="card_contacts">
+    ${task.assignedTo}
+      </div>
+        <div class="card_prio">
+    ${task.priority}
+        </div>
+    </div>
+      </div>
     `;
-
-
 }
 
 async function showTasks() {

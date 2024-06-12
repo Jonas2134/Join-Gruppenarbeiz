@@ -199,12 +199,12 @@
   height: 100%;
   background: rgba(255, 255, 255, 0.8);
   z-index: 1000;
-  display: none; 
-  overflow: hidden; 
+  display: none;
+  overflow: hidden;
 }
 
 .add_task_overlay.show .overlay_right {
-  transform: translateX(0); 
+  transform: translateX(0);
 }
 
 .overlay_left {
@@ -257,7 +257,6 @@
   height: 30px;
   width: 30px;
   margin-right: 10px;
-
 }
 
 .add_task_escape_img:hover {
@@ -265,7 +264,7 @@
   border-radius: 50%;
 }
 
-.add_task_overlay_content{
+.add_task_overlay_content {
   padding-top: 200px;
 }
 
@@ -292,12 +291,12 @@
   z-index: 1000;
   align-items: center;
   justify-content: center;
-  display: none; 
+  display: none;
   overflow: hidden;
 }
 
 .overlay_top.show .overlay_top_content {
-  bottom: 4%; 
+  bottom: 4%;
 }
 
 .overlay_top_content {
@@ -317,3 +316,78 @@
   gap: 24px;
 }
 
+/*/ CARD DESIGN /*/ 
+.card_complete {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.card_complete:hover {
+  cursor: pointer;
+}
+
+.card_category_user_story {
+  padding: 7px 0px 14px 0px;
+}
+
+.card_category_user_story_span {
+  background-color: #FF7A00;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  line-height: 19px;
+  padding: 5px 15px 5px 15px;
+  border-radius: 10px;
+}
+
+.card_category_technical {
+  background-color: #0038FF;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  line-height: 19px;
+  padding: 5px 15px 5px 15px;
+  border-radius: 10px;
+}
+
+.card_top_section {
+  background-color: salmon;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card_title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #4589ff;
+  line-height: 19px;
+}
+
+.card_description {
+  background-color: turquoise;
+  font-size: 16px;
+  font-weight: 400;
+  color: #A8A8A8;
+  line-height: 19px;
+}
+
+.card_task_status {
+  background-color: aquamarine;
+}
+
+.card_bottom_section {
+  background-color: salmon;
+}
+
+.card_contacts {
+  background-color: violet;
+}
+
+.card_prio {
+  background-color: yellow;
+}
