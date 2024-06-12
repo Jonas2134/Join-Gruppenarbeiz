@@ -10,8 +10,6 @@ async function init() {
     await loadContactsWithIds();
     await loadContacts();
     renderContacts();
-    getLogo();
-
 }
 
 function groupContacts() {
@@ -152,6 +150,8 @@ function openEditContactOverlay(i) {
 function changeProfile(i) {
     let contact = sortedContacts[i];
     let color = contactColors[contact.name];
+
+
 }
 
 function closeAddContactOverlay() {
