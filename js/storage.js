@@ -16,7 +16,7 @@ async function postData(path = "", data = {}) {
     return (responseToJson = await response.json());
 }
 
-async function updateData(path = "/contacts/-NzmQdORn2MvEaSCXK13", data = {}) {
+async function updateData(path = "", data = {}) {
     let response = await fetch(STORAGE_URL + path + ".json", {
         method: "PUT",
         header: {
