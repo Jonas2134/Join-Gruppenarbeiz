@@ -1,4 +1,4 @@
-const STORAGE_URL = "https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/";
+const STORAGE_URL = "https://users-31ee0-default-rtdb.europe-west1.firebasedatabase.app/";
 const users = [];
 const contacts = [];
 let currentUser = null;
@@ -8,6 +8,17 @@ let sortedContacts;
 async function postData(path = "", data = {}) {
     let response = await fetch(STORAGE_URL + path + ".json", {
         method: "POST",
+        header: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+    return (responseToJson = await response.json());
+}
+
+async function updateData(path = "/contacts/-NzmQdORn2MvEaSCXK13", data = {}) {
+    let response = await fetch(STORAGE_URL + path + ".json", {
+        method: "PUT",
         header: {
             "Content-Type": "application/json",
         },

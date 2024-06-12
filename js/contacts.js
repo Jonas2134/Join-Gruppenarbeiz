@@ -2,12 +2,14 @@ const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2'
 const contactColors = {};
 let selectedContact = null;
 let contactsWithIds = {};
+let contactsWithIds = {};
 
 async function init() {
     includeHTML();
     await loadContactsWithIds();
     await loadContacts();
     renderContacts();
+    await loadContactsWithIds();
 }
 
 function groupContacts() {
@@ -148,8 +150,6 @@ function openEditContactOverlay(i) {
 function changeProfile(i) {
     let contact = sortedContacts[i];
     let color = contactColors[contact.name];
-
-
 }
 
 function closeAddContactOverlay() {
