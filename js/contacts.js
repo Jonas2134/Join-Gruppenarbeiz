@@ -2,13 +2,11 @@ let sortedContacts = [];
 const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2', '#462f89', '#ff4646']
 const contactColors = {};
 let selectedContact = null;
-let contactsWithIds = {};
 
 async function init() {
     includeHTML();
     await loadContacts();
     renderContacts();
-    await loadContactsWithIds();
 }
 
 function groupContacts() {
@@ -115,6 +113,8 @@ function openEditContactOverlay(i) {
 function changeProfile(i) {
     let contact = sortedContacts[i];
     let color = contactColors[contact.name];
+
+
 }
 
 function closeAddContactOverlay() {
@@ -204,30 +204,3 @@ function selectContact(i) {
 
     deleteData("/contacts[i]/")
 } */
-
-
-/* TEST with STORAGE */
-async function testData(path = "/contacts/") {    
-    let response = await fetch(STORAGE_URL + path + ".json");
-    let fetchedData = (responseToJson = await response.json());
-    console.log("TEST " + fetchedData.name);
-    return fetchedData;
-}
-
-async function loadContactsWithIds(path = "/contacts/") {
-    let response = await fetch(STORAGE_URL + path + ".json");
-    let responseAsJson = await response.json();
-    console.log("responeAsJson" + responseAsJson);
-    let responseWithKeys = Object.keys(responseAsJson).map((key) => {
-        return Object.assign({ id: key }, responseAsJson[key]);
-      });
-    console.log("responseWithKeys" + responseWithKeys)
-    contactsWithIds = responseWithKeys;
-    return responseWithKeys;
-}
-
-
-async function getContact1(path = "${}") {
-    let response = await fetch(STORAGE_URL + path + ".json");
-    return (responseToJson = await response.json());
-}
