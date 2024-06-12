@@ -290,11 +290,6 @@ body {
 /* END add_contact-overlay */
 
 /* START edit_contact-overlay */
-#overlay_edit-contact {
-
-
-}
-
 .edit-contact_main-container {
     position: absolute;
     top: 0;
