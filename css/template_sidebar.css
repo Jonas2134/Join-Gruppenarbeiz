@@ -70,7 +70,6 @@ a {
   border-radius: 10px;
   max-height: 205px;
   max-width: 186px;
-
 }
 
 /*CSS CLASS CHANGE WHEN CLICKED OFF*/
@@ -98,6 +97,7 @@ a {
 .main {
   display: flex;
   flex: 1;
+  height: 100%;  
 }
 
 /**/
