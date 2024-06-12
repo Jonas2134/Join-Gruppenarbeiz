@@ -1,33 +1,40 @@
-let sortedContacts = [];
 const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2', '#462f89', '#ff4646']
 const contactColors = {};
 let selectedContact = null;
 let contactsWithIds = {};
+const contactsWithInitials = {};
 
 async function init() {
+
     includeHTML();
+    await loadContactsWithIds();
     await loadContacts();
     renderContacts();
-    await loadContactsWithIds();
+    getLogo();
+
 }
 
 function groupContacts() {
     groupedContacts = {};
 
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
+    for (let i = 0; i < contactsWithIds.length; i++) {
+        const contact = contactsWithIds[i];
         const firstLetter = contact.name.charAt(0).toUpperCase();
         if (!groupedContacts[firstLetter]) {
             groupedContacts[firstLetter] = [];
         }
         groupedContacts[firstLetter].push(contact);
+
     }
 }
 
 function getInitials(name) {
     const nameParts = name.split(' ');
-    return nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+    initialsObj = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+    return initialsObj
 }
+
+
 
 function renderContacts() {
     groupContacts();
@@ -45,11 +52,18 @@ function renderContacts() {
             for (let i = 0; i < groupedContacts[letter].length; i++) {
                 const contact = groupedContacts[letter][i];
                 sortedContacts.push(contact);
-                let initials = getInitials(contact.name)
+                const initials = getInitials(contact.name);
                 let color = colors[colorIndex % colors.length];
                 colorIndex++;
                 contactColors[contact.name] = color;
-                console.log(contact);
+                
+
+                sortedContacts.forEach(item => {
+                    item.initials = getInitials(item.name);
+                    item.color = contactColors[item.name];
+                });
+
+                console.log(contactColors);
                 contactsHtml += `
                 <div id="contact-container(${sortedContacts.length - 1})" onclick="openContact(${sortedContacts.length - 1})" class="contact-container d-flex_column">
                     <div>
@@ -77,6 +91,29 @@ function renderContacts() {
         }
     }
 }
+
+/* 
+ToDo: 
+- die gewünschte div ID angeben
+- auf die "contact_container(${i})" zugreifen um weitere Funktionalität hinzufügen
+*/
+function getLogo() {
+    logoContainer = document.getElementById('profil_logo');
+    logoContainer.innerHTML = '';
+
+    for (let i = 0; i < sortedContacts.length; i++) {
+        const contact = sortedContacts[i];
+        logoContainer.innerHTML += `
+            <div id="contact_container(${i})">
+                <svg width="100" height="100">
+                    <circle cx="50" cy="50" r="25" fill="${contact.color}" />
+                    <text x="39" y="56" font-size="1em" fill="#ffffff">${contact.initials}</text>
+                </svg>
+            </div>
+        `;
+    }
+}
+/* END getLogo */
 
 function addContact() {
     let name = document.getElementById('name').value;
@@ -153,9 +190,9 @@ function openContact(i) {
     document.getElementById('edit-name').value = `${sortedContacts[i]['name']}`;
     document.getElementById('edit-email').value = `${sortedContacts[i]['email']}`;
     document.getElementById('edit-mobile').value = `${sortedContacts[i]['mobile']}`;
-    
-    
-    document.getElementById('edit-button-container').innerHTML =`
+
+
+    document.getElementById('edit-button-container').innerHTML = `
         <div onclick="deleteContact(${i})" id="delete" class="delete-button-container d-flex_row">
             <div class="delete-button-text">Delete</div>
         </div>
@@ -207,7 +244,7 @@ function selectContact(i) {
 
 
 /* TEST with STORAGE */
-async function testData(path = "/contacts/") {    
+async function testData(path = "/contacts/") {
     let response = await fetch(STORAGE_URL + path + ".json");
     let fetchedData = (responseToJson = await response.json());
     console.log("TEST " + fetchedData.name);
@@ -220,7 +257,7 @@ async function loadContactsWithIds(path = "/contacts/") {
     console.log("responeAsJson" + responseAsJson);
     let responseWithKeys = Object.keys(responseAsJson).map((key) => {
         return Object.assign({ id: key }, responseAsJson[key]);
-      });
+    });
     console.log("responseWithKeys" + responseWithKeys)
     contactsWithIds = responseWithKeys;
     return responseWithKeys;

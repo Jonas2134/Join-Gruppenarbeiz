@@ -2,6 +2,7 @@ const STORAGE_URL = "https://users-31ee0-default-rtdb.europe-west1.firebasedatab
 const users = [];
 const contacts = [];
 let currentUser = null;
+let sortedContacts;
 
 
 async function postData(path = "", data = {}) {
