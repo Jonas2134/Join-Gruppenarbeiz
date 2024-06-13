@@ -1,0 +1,84 @@
+/*Buttons blue and white*/
+.btn {
+    padding: 10px 35px;
+    border-radius: 8px;
+    font-family: Open Sans;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 27.6px;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+
+.blue {
+    background: #4589FF;
+    border: 1px solid #4589FF;
+    color: white;
+}
+
+.white {
+    background: white;
+    border: 1px solid #647188;
+    color: #647188;
+}
+
+.blue:hover {
+    background: #005DFF;
+    border-color: #005DFF;
+    filter: drop-shadow(0px 0px 2px #005DFF);
+}
+
+.white:hover {
+    border-color: #005DFF;
+    color: #005DFF;
+    filter: drop-shadow(0px 0px 2px #005DFF);
+}
+
+.btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/*back arrow*/
+.arrow-container {
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    padding: 4px;
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.arrow-container:hover {
+    box-shadow: 0 0 10px rgba(69,137,255, 0.4);
+    background-color: rgba(69,137,255, 0.2);
+}
+
+.arrow {
+    display: block;
+    transition: transform 0.3s;
+}
+
+.arrow:hover {    
+    transform: scale(1.1);
+}
+
+.arrow:hover path {
+    fill: #4589FF;
+}
+
+.arrow:active {
+    animation: click-animation 0.2s ease-in-out;
+}
+
+@keyframes click-animation {
+    0% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

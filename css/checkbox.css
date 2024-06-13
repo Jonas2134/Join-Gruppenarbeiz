@@ -24,10 +24,11 @@
 	height: 20px;
 	width: 20px;
 	background: #94A3B8;
-	transition: background 250ms;
+	transition: background 250ms, transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 	border: 1px solid #4589FF;
 	border-radius: 5px;
-	transform: translate(0, -50%);
+	transform: translateY(-50%);
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 
 .cr-wrapper input[type="checkbox"] ~ .cr-input::after {
@@ -56,6 +57,8 @@
 .cr-wrapper input[type="checkbox"]:checked ~ .cr-input {
 	background: #FFFFFF;
 	border-color: #4589FF;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-50%) scale(0.95);
 }
 
 .cr-wrapper input[type="checkbox"]:disabled ~ .cr-input {
