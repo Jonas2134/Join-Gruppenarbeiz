@@ -9,10 +9,6 @@
   overflow-x: hidden !important;
 }
 
-::-webkit-scrollbar {
-  width: 0 !important;
-}
-
 .arrow_return {
   cursor: pointer;
   width: 32px;
