@@ -9,12 +9,6 @@
   overflow-x: hidden !important;
 }
 
-.arrow_return {
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-}
-
 .arrow_return_div {
   display: flex;
   justify-content: space-between;
