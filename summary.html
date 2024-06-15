@@ -9,76 +9,85 @@
     <link rel="shortcut icon" href="./icons/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/summary.css">
     <link rel="stylesheet" href="./css/fonts.css">
+    <link rel="stylesheet" href="./css/template_header.css">
+    <link rel="stylesheet" href="./css/template_sidebar.css">
 </head>
 
 <body>
-    <div w3-include-html=""></div>
-    <div w3-include-html=""></div>
+    <div class="container">
+        <div w3-include-html="template_header.html"></div>
 
-    <div class="summary_container">
-        <h1>Good morning</h1>
+        <div class="main">
+            <div w3-include-html="template_sidebar.html"></div>
 
-        <div class="button_section">
-            <div class="dis_flex first_section">
-                <div class="dis_flex blue_button">
-                    <div class="dis_flex flex_col">
-                        <div class="dis_flex number_container">
-                            <img class="border" src="./icons/urgent.png" alt="">
-                            <span class="font_numbers">1</span>
+            <div class="summary_container">
+                <h1 id="good_morning"></h1>
+
+                <div class="button_section">
+
+                    <a href="./board.html" class="dis_flex blue_button">
+                        <div class="dis_flex flex_col">
+                            <div class="dis_flex number_container">
+                                <img class="border" src="./icons/urgent.png" alt="">
+                                <span class="font_numbers">1</span>
+                            </div>
+                            <span class="font_400">Tasks Urgent</span>
                         </div>
-                        <span class="font_400">Tasks Urgent</span>
-                    </div>
-                    <div class="parting_line"></div>
-                    <div class="dis_flex flex_col">
-                        <span class="font_700">Monat Tag, Jahr</span>
-                        <span class="font_400">Upcomming Deadline</span>
-                    </div>
-                </div>
+                        <div class="parting_line"></div>
+                        <div class="dis_flex flex_col">
+                            <span class="font_700">Monat Tag, Jahr</span>
+                            <span class="font_400">Upcomming Deadline</span>
+                        </div>
+                    </a>
 
-                <div class="dis_flex flex_col btn">
-                    <div class="dis_flex number_container">
-                        <img class="border" src="./icons/board.png" alt="">
-                        <span class="font_numbers col_bla">1</span>
-                    </div>
-                    <span class="font_400">Task in <br> Bord</span>
-                </div>
-            </div>
+                    <a href="./board.html" class="dis_flex flex_col btn">
+                        <div class="dis_flex number_container">
+                            <img class="border" src="./icons/board.png" alt="">
+                            <span class="font_numbers col_bla">1</span>
+                        </div>
+                        <span class="font_400">Task in <br> Bord</span>
+                    </a>
 
-            <div class="dis_flex second_section">
-                <div class="dis_flex flex_col blue_border_btn">
-                    <div class="dis_flex number_container">
-                        <img class="b_border" src="./icons/notes.png" alt="">
-                        <span class="font_numbers col_bla">1</span>
-                    </div>
-                    <span class="font_400">Tasks To-do</span>
-                </div>
+                    <a href="./board.html" class="dis_flex flex_col blue_border_btn">
+                        <div class="dis_flex number_container">
+                            <img class="b_border" src="./icons/notes.png" alt="">
+                            <span class="font_numbers col_bla">1</span>
+                        </div>
+                        <span class="font_400">Tasks To-do</span>
+                    </a>
 
-                <div class="dis_flex flex_col btn">
-                    <div class="dis_flex number_container">
-                        <img class="border" src="./icons/in_progress.png" alt="">
-                        <span class="font_numbers col_bla">1</span>
-                    </div>
-                    <span class="font_400">Task in <br> Progress</span>
-                </div>
+                    <a href="./board.html" class="dis_flex flex_col btn">
+                        <div class="dis_flex number_container">
+                            <img class="border" src="./icons/in_progress.png" alt="">
+                            <span class="font_numbers col_bla">1</span>
+                        </div>
+                        <span class="font_400">Task in <br> Progress</span>
+                    </a>
 
-                <div class="dis_flex flex_col btn">
-                    <div class="dis_flex number_container">
-                        <img class="border" src="./icons/feedback.png" alt="">
-                        <span class="font_numbers col_bla">1</span>
-                    </div>
-                    <span class="font_400">Awaiting <br> Feedback</span>
-                </div>
+                    <a href="./board.html" class="dis_flex flex_col btn">
+                        <div class="dis_flex number_container">
+                            <img class="border" src="./icons/feedback.png" alt="">
+                            <span class="font_numbers col_bla">1</span>
+                        </div>
+                        <span class="font_400">Awaiting <br> Feedback</span>
+                    </a>
 
-                <div class="dis_flex flex_col btn">
-                    <div class="dis_flex number_container">
-                        <img class="border" src="./icons/done.png" alt="">
-                        <span class="font_numbers col_bla">1</span>
-                    </div>
-                    <span class="font_400">Tasks <br> Done</span>
+                    <a href="./board.html" class="dis_flex flex_col btn">
+                        <div class="dis_flex number_container">
+                            <img class="border" src="./icons/done.png" alt="">
+                            <span class="font_numbers col_bla">1</span>
+                        </div>
+                        <span class="font_400">Tasks <br> Done</span>
+                    </a>
+
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="./js/include_html.js"></script>
+    <script src="./js/storage.js"></script>
+    <script defer src="./js/summary.js"></script>
 </body>
 
 </html>

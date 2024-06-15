@@ -117,3 +117,24 @@ function enrichContacts() {
   }
 }
 /* END: contact storage */
+
+
+function showDropUser() {
+    const name = currentUser.user_name.split(" ");
+    let initials;
+
+    if (name.length === 1) {
+        initials = name[0].charAt(0).toUpperCase();
+    } else {
+        const firstNameLetter = name[0].charAt(0).toUpperCase();
+        const lastNameLetter = name[name.length - 1].charAt(0).toUpperCase();
+        initials = firstNameLetter + lastNameLetter;
+    }
+
+    document.getElementById("drop_user").innerHTML = initials;
+}
+
+async function logOut() {
+    await deleteData("/currentUser");
+    window.location.href = './index.html';
+}
