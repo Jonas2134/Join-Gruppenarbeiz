@@ -1,14 +1,15 @@
-const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2', '#462f89', '#ff4646']
 const contactColors = {};
 let selectedContact = null;
 let contactsWithIds = {};
 
 async function init() {
     includeHTML();
+    await loadContactsWithIds();
     await loadContacts();
     await loadContactsWithIds();
     groupContacts();
     renderContacts();
+    await loadContactsWithIds();
 }
 
 function groupContacts() {
@@ -257,6 +258,12 @@ function getNewInput() {
 function validateInput(input) {
     // Einfache Überprüfung, ob die Felder nicht leer sind
     if (!input.name || !input.email || !input.mobile) {
+        return false;
+    }
+    
+    // Einfache E-Mail-Formatüberprüfung
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(input.email)) {
         return false;
     }
 
