@@ -21,7 +21,7 @@ function renderGreeting() {
     const greeting = getGreeting();
 
     if (currentUser.user_name === "Guest User") {
-        greetingElement.innerHTML = greeting;
+        greetingElement.innerHTML = `${greeting}`;
     } else {
         greetingElement.innerHTML = `${greeting}, <span class="blue_name">${currentUser.user_name}</span>`;
     }
