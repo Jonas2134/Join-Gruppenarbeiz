@@ -382,6 +382,7 @@
 
 .card_bottom_section {
   background-color: salmon;
+  display: flex;
 }
 
 .card_contacts {
@@ -390,4 +391,32 @@
 
 .card_prio {
   background-color: yellow;
+}
+
+/*/ OVERLAY BIG CARD DESIGN /*/
+.overlay_card {
+  background-color: rgb(241, 188, 215);
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay_category {
+  display: flex;
+  justify-content: space-between;
+}
+
+.overlay_category_span {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  color: white;
+  background-color: #FF7A00;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+}
+
+.overlay_title_span {
+  font-size: 61px;
+  font-weight: 700;
+  line-height: 55px;
 }

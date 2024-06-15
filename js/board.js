@@ -35,7 +35,72 @@ function openOverlayTop() {
       });
     }
   });
+
+
+  function buildOverlayCard(i) {
+   let content = document.getElementById('overlay_top_content');
+  let task = tasks[i];
+  let title = task['title'];
+
+
+    content.innerHTML = 
+    `
+  <div class="overlay_card">
+
+      <div class="overlay_category">
+        <span class="overlay_category_span">${task.content}</span>   
+        <img src="./icons/add_task_escape_img.png" alt="close"
+                class="add_task_escape_img">    
+      </div>
+    <div class="overlay_title">
+      <span class="overlay_title_span"><b>${task.title}</b></span>
+    </div>
+      <div class="overlay_description">
+        <span>${task.description}</span>
+      </div>
+    <div class="overlay_date">
+      <span><b>Due date:</b>${task.dueDate}</span>
+    </div>
+      <div class="overlay_priority">
+        <span><b>Priority:</b>${task.priority}</span>  
+      </div>
+    <div class="overlay_contacts">
+      <span><b>Assigned To:</b></span>
+      <p id="overlayContactsRender">
+      ${task.assignedTo}
+      </p>
+    </div>
+      <div class="overlay_subtasks">
+        <span><b>Subtasks</b></span>  
+        <p><input type="checkbox"> ${task.subtasks}</p>
+        <p><input type="checkbox"> ${task.subtasks}</p>
+      </div>
+  </div>
+
+      <div class="overlay_icons">
+  <img src="/icons/delete_icon.png" alt="delete" class="overlay_icon_delete">
+    <span>Delete</span>
+  <div class="subtask_divider"></div>
+  <img src="/icons/edit_icon.png" alt="edit" class="overlay_edit_icon">
+    <span>Edit</span>
+      </div>
   
+    `;
+
+  }
+  
+
+  function templateBuildContactList(contact) {
+    let contactName = contact['name'];
+    let contactId = contact['id'];
+    let initials = templateUserInitials(contact);
+  
+    return `
+    <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
+          ${initials}${contactName}</li>
+          `;
+  }
+
 
   //OVERLAY RIGHT FUNCTION
 function openOverlayRight() {
@@ -131,15 +196,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
   function renderAllTasks() {
     let currentTask = document.getElementById('drag_to_do');
     for (let i = 0; i < tasks.length; i++) {
-        currentTask.innerHTML += renderTask(tasks[i]);                
+        currentTask.innerHTML += renderTask(tasks[i], i);                
     }
 }
 
-function renderTask(task) {
+function renderTask(task, i) {
     return `
-    <div draggable="true" class="card_complete"> 
+    <div draggable="true" id="${task['ID']}" class="card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
       <div class="card_category_user_story">
-    <span class="card_category_user_story_span">${task.category}</span>
+    <span class="card_category_user_story_span">${task.content}</span>
       </div>
     <div class="card_top_section">
         <div class="card_title">

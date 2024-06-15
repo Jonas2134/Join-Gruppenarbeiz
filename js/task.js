@@ -1,74 +1,7 @@
 let assignedContacts = [];
 let subtasks = [];
 
-//SELECT PRIORITY BUTTON
-function selectPriority(priority) {
-  let urgentPriority = document.getElementById('urgentPriority');
-  let mediumPriority = document.getElementById('mediumPriority');
-  let lowPriority = document.getElementById('lowPriority');
-
-  urgentPriority.classList.remove('priority_inactive', 'priority_active');
-  mediumPriority.classList.remove('priority_active', 'priority_inactive');
-  lowPriority.classList.remove('priority_active', 'priority_inactive');
-
-  if (priority == 'urgent') {
-    urgentPriority.classList.add('priority_active');
-    mediumPriority.classList.add('priority_inactive');
-    lowPriority.classList.add('priority_inactive');
-    document.getElementById('prioRed').src = "icons/prio_red_white.png";
-    document.getElementById('prioOrange').src = "icons/prio_orange.png";
-    document.getElementById('prioGreen').src = "icons/prio_green.png";
-
-  } else if (priority == 'medium') {
-    mediumPriority.classList.add('priority_active');
-    urgentPriority.classList.add('priority_inactive');
-    lowPriority.classList.add('priority_inactive');
-    document.getElementById('prioRed').src = "icons/prio_red.png";
-    document.getElementById('prioOrange').src = "icons/prio_orange_white.png";
-    document.getElementById('prioGreen').src = "icons/prio_green.png";
-
-  } else if (priority == 'low') {
-    lowPriority.classList.add('priority_active');
-    urgentPriority.classList.add('priority_inactive');
-    mediumPriority.classList.add('priority_inactive');
-    document.getElementById('prioRed').src = "icons/prio_red.png";
-    document.getElementById('prioOrange').src = "icons/prio_orange.png";
-    document.getElementById('prioGreen').src = "icons/prio_green_white.png";
-  }
-}
-
-//TOGGLE CATEGORY DROPDOWN FUNCTION
-function toggleCategoryDropdown() {
-  let content = document.getElementById('categoryDropdown');
-  let add_subtasks = document.getElementById('add_subtasks');
-  if (content) {
-    if (content.classList.contains('show')) {
-      content.classList.remove('show');
-      add_subtasks.style.marginTop = '0px';
-    } else {
-      content.classList.add('show');
-      let dropdownHeight = content.offsetHeight;
-      add_subtasks.style.marginTop = dropdownHeight + 'px';
-    }
-  }
-}
-
-//TOGGLE DROPDOWN CONTACTS FUNCTION
-function toggleContacsDropdown() {
-  let content = document.getElementById('assignedDropdown');
-  let category = document.getElementById('addCategory');
-  if (content) {
-    if (content.classList.contains('show')) {
-      content.classList.remove('show');
-      category.style.marginTop = '0px';
-    } else {
-      content.classList.add('show');
-      let dropdownHeight = content.offsetHeight;
-      category.style.marginTop = dropdownHeight + 'px';
-    }
-  }
-}
-
+//SEND TASK TO FIREBASE
 async function sendTask() {
   let task = {
     title: '',
@@ -84,28 +17,27 @@ async function sendTask() {
   let taskTitle = document.getElementById('taskTitle').value;
   let taskDescription = document.getElementById('taskDescription').value;
   let taskDueDate = document.getElementById('taskDueDate').value;
-  let taskPriority = 'medium';
+  let taskPriority = 'Medium';
   if (
     document
       .getElementById('urgentPriority')
       .classList.contains('priority_active')
   ) {
-    taskPriority = 'urgent';
+    taskPriority = 'Urgent';
   } else if (
     document
       .getElementById('mediumPriority')
       .classList.contains('priority_active')
   ) {
-    taskPriority = 'medium';
+    taskPriority = 'Medium';
   } else if (
     document.getElementById('lowPriority').classList.contains('priority_active')
   ) {
-    taskPriority = 'low';
+    taskPriority = 'Low';
   }
   let taskContentCategory = document.getElementById(
     'addCategoryInputField'
   ).innerHTML;
-  
 
   task.title = taskTitle;
   task.description = taskDescription;
@@ -114,17 +46,203 @@ async function sendTask() {
   task.assignedTo = assignedContacts;
   task.content = taskContentCategory;
   task.subtasks = subtasks;
- 
+
   postData('/tasks', task);
   clearAddTask();
 }
 
+//SELECT PRIORITY BUTTON
+function selectPriority(priority) {
+  let urgentPriority = document.getElementById('urgentPriority');
+  let mediumPriority = document.getElementById('mediumPriority');
+  let lowPriority = document.getElementById('lowPriority');
 
+  urgentPriority.classList.remove('priority_inactive', 'priority_active');
+  mediumPriority.classList.remove('priority_active', 'priority_inactive');
+  lowPriority.classList.remove('priority_active', 'priority_inactive');
 
+  if (priority == 'urgent') {
+    urgentPriority.classList.add('priority_active');
+    mediumPriority.classList.add('priority_inactive');
+    lowPriority.classList.add('priority_inactive');
+    document.getElementById('prioRed').src = 'icons/prio_red_white.png';
+    document.getElementById('prioOrange').src = 'icons/prio_orange.png';
+    document.getElementById('prioGreen').src = 'icons/prio_green.png';
+  } else if (priority == 'medium') {
+    mediumPriority.classList.add('priority_active');
+    urgentPriority.classList.add('priority_inactive');
+    lowPriority.classList.add('priority_inactive');
+    document.getElementById('prioRed').src = 'icons/prio_red.png';
+    document.getElementById('prioOrange').src = 'icons/prio_orange_white.png';
+    document.getElementById('prioGreen').src = 'icons/prio_green.png';
+  } else if (priority == 'low') {
+    lowPriority.classList.add('priority_active');
+    urgentPriority.classList.add('priority_inactive');
+    mediumPriority.classList.add('priority_inactive');
+    document.getElementById('prioRed').src = 'icons/prio_red.png';
+    document.getElementById('prioOrange').src = 'icons/prio_orange.png';
+    document.getElementById('prioGreen').src = 'icons/prio_green_white.png';
+  }
+}
+
+//TOGGLE CONTACTS DROPDOWN
+function toggleContacsDropdown() {
+  let content = document.getElementById('assignedDropdown');
+  let category = document.getElementById('addCategory');
+  let selectedContacts = document.getElementById('selectedContact');
+  if (content) {
+    if (content.classList.contains('show')) {
+      content.classList.remove('show');
+      let dropdownHeight = selectedContacts.offsetHeight;
+      category.style.marginTop = dropdownHeight + 'px';
+    } else {
+      content.classList.add('show');
+      let dropdownHeight = content.offsetHeight;
+      category.style.marginTop = dropdownHeight + 'px';
+    }
+  }
+}
+
+//TOGGLE CATEGORY DROPDOWN
+function toggleCategoryDropdown() {
+  let content = document.getElementById('categoryDropdown');
+  let add_subtasks = document.getElementById('add_subtasks');
+  if (content) {
+    if (content.classList.contains('show')) {
+      content.classList.remove('show');
+      add_subtasks.style.marginTop = '0px';
+    } else {
+      content.classList.add('show');
+      let dropdownHeight = content.offsetHeight;
+      add_subtasks.style.marginTop = dropdownHeight + 'px';
+    }
+  }
+}
+
+//ADD CONTACTS
+async function addTaskContacs() {
+  await initContacts();
+
+  for (i = 0; i < contacts.length; i++) {
+    const contact = contacts[i];
+
+    let contactDropwdown = document.getElementById('assignedDropdown');
+
+    contactDropwdown.innerHTML += templateBuildContactDropdown(contact);
+  }
+}
+
+function selectContact(contactId) {
+  let assignedContact = document.getElementById(contactId);
+  let index = assignedContacts.indexOf(contactId);
+  let checkbox = document.getElementById('cb' + contactId);
+
+  if (index == -1) {
+    assignedContacts.push(contactId);
+    assignedContact.classList.add('active');
+    checkbox.checked = !checkbox.checked;
+  } else {
+    assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
+    assignedContact.classList.remove('active');
+    checkbox.checked = !checkbox.checked;
+  }
+  renderAssignedContact();
+}
+
+function getContactById(id) {
+  console.log(id);
+  console.log(contacts.find((obj) => obj.id === id));
+  return contacts.find((obj) => obj.id === id);
+}
+
+//RENDER CONTACTS
+function renderAssignedContact() {
+  let content = document.getElementById('selectedContact');
+  content.innerHTML = '';
+  for (let i = 0; i < assignedContacts.length; i++) {
+    content.innerHTML += templateUserInitials(
+      getContactById(assignedContacts[i])
+    );
+  }
+}
+
+// SELECT CATEGORY
+function selectCategory(text) {
+  let inputField = document.getElementById('addCategoryInputField');
+  inputField.innerHTML = text;
+}
+
+//ADD SUBTASKS
+function addSubtask() {
+  let subtaskInput = document.getElementById('inputSubtasks');
+  let subtask = subtaskInput.value.trim();
+
+  if (subtask === '') return;
+
+  subtasks.push(subtask);
+  renderSubtasks();
+  clearInput('inputSubtasks');
+  onInputSubtask();
+}
+
+//RENDER SUBTASKS
+function renderSubtasks() {
+  let subtaskContent = document.getElementById('subtaskContent');
+  subtaskContent.innerHTML = '';
+
+  subtasks.forEach((subtask, index) => {
+    subtaskContent.innerHTML += templateBuildSubtask(subtask, index);
+  });
+}
+
+//DELETE SUBTASKS
+function deleteSubtask(index) {
+  subtasks.splice(index, 1);
+  renderSubtasks();
+}
+
+//EDIT SUBTASKS
+function editSubtask(index) {
+  let subTaskContent = document.getElementById(`subtask_${index}`);
+  let subTaskText = document.getElementById(`subtask_edit_${index}`);
+
+  subTaskContent.classList.add('inactive');
+  subTaskText.classList.remove('inactive');
+}
+
+function onInputSubtask() {
+  let subtaskInput = document.getElementById('inputSubtasks').value;
+  let subtaskIconActive = document.getElementById('subtaskIconsActive');
+  let subtaskIconInactive = document.getElementById('subtaskIconsInactive');
+
+  if (subtaskInput.trim() !== '') {
+    subtaskIconActive.classList.add('inactive');
+    subtaskIconInactive.classList.remove('inactive');
+  } else {
+    subtaskIconActive.classList.remove('inactive');
+    subtaskIconInactive.classList.add('inactive');
+  }
+}
+
+//SAVE SUBTASKS
+function saveSubtask(index) {
+  let subtaskInput = document.getElementById(`subtask_input_${index}`).value;
+
+  if (subtaskInput !== null && subtaskInput.trim() !== '') {
+    subtasks[index] = subtaskInput.trim();
+
+    renderSubtasks();
+  }
+}
+
+//CLEAR ADD TASK FORMULAR
 function clearInput(id) {
   document.getElementById(id).value = '';
 }
 
+function clearHtml(id, html) {
+  document.getElementById(id).innerHTML = html;
+}
 
 function clearAddTask() {
   clearInput('taskTitle');
@@ -141,148 +259,40 @@ function clearAddTask() {
   document.getElementById('lowPriority').classList.remove('priority_active');
   document.getElementById('lowPriority').classList.add('priority_inactive');
   clearHtml('selectAssignedTo', `Select contacts to assign`);
-    assignedContacts = [];
-    renderAssignedContact();
+  assignedContacts = [];
+  renderAssignedContact();
   clearHtml('addCategoryInputField', `Select task category`);
   clearHtml('subtaskContent', '');
-  subtasks = [];  
+  subtasks = [];
 }
 
-function clearHtml(id, html) {
-document.getElementById(id).innerHTML = html;
-}
-
-async function addTaskContacs() {
-  await loadContacts();
-
-  for (i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];
-
-    let contactDropwdown = document.getElementById('assignedDropdown');
-
-    contactDropwdown.innerHTML += templateBuildContactDropdown(contact);
-  }
-}
-
-function templateUserInitials(contact) {
-  return `
-    <svg width="100" height="100">
-        <circle cx="50" cy="50" r="25" fill="${contact.color}" />
-        <text x="39" y="56" font-size="1em" fill="#ffffff">${contact.initials}</text>
-    </svg>
-  `          
-}
-
+//TEMPLATE ADD TASKS
 function templateBuildContactDropdown(contact) {
   let contactName = contact['name'];
-  let contactId = contact['ID'];
+  let contactId = contact['id'];
   let initials = templateUserInitials(contact);
 
   return `
         <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
         ${initials}${contactName}
+         </div>
+        <div>
         <input class="custom_checkbox" type="checkbox" id="cb${contactId}" onclick="event.stopPropagation();">
         </li>
+        </div>
         `;
 }
 
-function selectContact(contactId) {
-  let assignedContact = document.getElementById(contactId);
-  let index = assignedContacts.indexOf(contactId);
-  let checkbox = document.getElementById('cb' + contactId);
-
-  if (index == -1) {
-    assignedContacts.push(contactId);
-    assignedContact.classList.add('active');
-    checkbox.checked = !checkbox.checked;
-    
-  }  else {
-    assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
-    assignedContact.classList.remove('active');
-    checkbox.checked = !checkbox.checked;
-  }
-    renderAssignedContact();
-  }
-
-
-function renderAssignedContact() {
-  let content = document.getElementById('selectedContact');
-  content.innerHTML = ''
-  for (let i = 0; i < assignedContacts.length; i++) {
-    content.innerHTML += templateUserInitials(getContactById(assignedContacts[i]));     
-  }
-  
+function templateUserInitials(contact) {
+  return `
+  <div class="svg_contacts_name_div">
+    <svg width="36" height="36">
+        <circle cx="18" cy="18" r="15" fill="${contact.color}" />
+        <text x="8" y="24" font-size="1rem" fill="#ffffff">${contact.initials}</text>
+    </svg>
+   
+  `;
 }
-
-function getContactById(Id) {
-  return contacts.find(obj => obj.ID === Id);
-}
-
-
-
-function addSubtask() {
-  let subtaskInput = document.getElementById('inputSubtasks');
-  let subtask = subtaskInput.value.trim();
-  
-  if (subtask === "") return; 
-
-  subtasks.push(subtask);
-  renderSubtasks();
-  clearInput('inputSubtasks');
-  onInputSubtask();
-}
-
-
-
-
-function deleteSubtask(index) {
-  subtasks.splice(index, 1);
-    renderSubtasks();
-}
-
-function renderSubtasks() {
-  let subtaskContent = document.getElementById('subtaskContent');
-  subtaskContent.innerHTML = '';
-
-  subtasks.forEach((subtask, index) => {
-    subtaskContent.innerHTML += templateBuildSubtask(subtask, index);
-});
-}
-
-
-function editSubtask(index) {
-  let subTaskContent = document.getElementById(`subtask_${index}`);
-  let subTaskText = document.getElementById(`subtask_edit_${index}`);
-
-  subTaskContent.classList.add('inactive');
-  subTaskText.classList.remove('inactive');
-}
-
-function saveSubtask(index) {
-let subtaskInput = document.getElementById(`subtask_input_${index}`).value;
-
-if (subtaskInput !== null && subtaskInput.trim() !== "") {
-  subtasks[index] = subtaskInput.trim();
-
-  renderSubtasks();
-} 
-}
-
-function onInputSubtask() {
-let subtaskInput = document.getElementById('inputSubtasks').value;
-let subtaskIconActive = document.getElementById('subtaskIconsActive');
-let subtaskIconInactive = document.getElementById('subtaskIconsInactive');
-
-if (subtaskInput.trim() !== '') {
-subtaskIconActive.classList.add('inactive');
-subtaskIconInactive.classList.remove('inactive');
-} else {
-  subtaskIconActive.classList.remove('inactive');
-subtaskIconInactive.classList.add('inactive');
-}
-
-}
-
 
 function templateBuildSubtask(subtask, index) {
   return `
@@ -303,12 +313,4 @@ function templateBuildSubtask(subtask, index) {
   </div>
   </div>
   `;
-}
-
-
-
-// SELECT CATEGORY FUNCTION
-function selectCategory(text) {
-  let inputField = document.getElementById('addCategoryInputField');
-  inputField.innerHTML = text;
 }

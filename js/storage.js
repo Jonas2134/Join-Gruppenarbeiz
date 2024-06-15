@@ -3,8 +3,8 @@ const STORAGE_URL =
   // 'https://users-31ee0-default-rtdb.europe-west1.firebasedatabase.app/';
 const users = [];
 let currentUser = null;
-
-const contacts = [];
+const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2', '#462f89', '#ff4646'];
+let contacts = [];
 let groupedContacts = {};
 
 let tasks = [];
@@ -47,6 +47,7 @@ async function loadTasks() {
   let allTask = await getData('/tasks');
   for (const key in allTask) {
     if (Object.hasOwnProperty.call(allTask, key)) {
+      allTask[key].ID = key;
       tasks.push(allTask[key]);
     }
   }
@@ -62,13 +63,12 @@ async function loadUsers() {
 }
 
 async function loadContacts() {
-  let loadedContacts = await getData('/contacts');
-  for (const key in loadedContacts) {
-    if (Object.hasOwnProperty.call(loadedContacts, key)) {
-      loadedContacts[key].ID = key;
-      contacts.push(loadedContacts[key]);
-    }
-  }
+  const loadedContacts = await getData("/contacts");
+  Object.keys(loadedContacts).forEach(key => {
+      const contact = { id: key, ...loadedContacts[key] };
+      contacts.push(contact);
+  });
+  return contacts;
 }
 
 async function loadCurrentUsers() {
@@ -79,3 +79,41 @@ async function loadCurrentUsers() {
     }
   }
 }
+
+
+/* START: contact storage */
+
+/* START: Hilfsfunktionen */
+function sortContacts() {
+  contacts.sort(function(a, b) {
+      return a.name.localeCompare(b.name);
+  });
+}
+
+function getInitials(name) {
+  let parts = name.split(' ');
+  let initials = '';
+  for (let i = 0; i < parts.length; i++) {
+      initials += parts[i].charAt(0).toUpperCase();
+  }
+  return initials;
+}
+/* END: Hilfsfunktionen */
+
+async function initContacts() {
+  contacts = await loadContacts();
+  sortContacts();
+  enrichContacts();
+}
+
+
+function enrichContacts() {
+  let colorIndex = 0;
+  for (let i = 0; i < contacts.length; i++) {
+      let contact = contacts[i];
+      contact.initials = getInitials(contact.name);
+      contact.color = colors[colorIndex % colors.length];
+      colorIndex++;
+  }
+}
+/* END: contact storage */
