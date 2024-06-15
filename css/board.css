@@ -45,9 +45,7 @@
 
 .input_divider {
   width: 2px;
-  height: calc(
-    100% - 10px
-  ); /* Subtracting 10px to provide 5px padding on top and bottom */
+  height: calc(100% - 10px);
   background-color: #e8e8e8;
   margin: 5px 0;
   flex-shrink: 0;
@@ -87,7 +85,7 @@
 }
 
 .add_task_button:hover {
-    cursor: pointer;
+  cursor: pointer;
   background-color: #0038ff;
   border: 1px solid #0038ff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
@@ -99,29 +97,28 @@
 }
 
 .task_status_bar {
-display: flex;
-position: fixed;
-justify-content: space-between;
-box-sizing: border-box;
-height: 28px;
-margin: 100px 0px 0px 0px;
-gap: 18px;
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 28px;
+  margin: 100px 0px 0px 0px;
+  gap: 18px;
 }
 
 .task_status {
-display: flex;
-width: 244px;
-height: 28px;
-
+  display: flex;
+  width: 244px;
+  height: 28px;
 }
 
 .task_status_span {
-margin: 0;
-width: 244px;
-height: 28px;
-font-weight: 700;
-font-size: 23px;
-line-height: 28px;
+  margin: 0;
+  width: 244px;
+  height: 28px;
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 28px;
 }
 
 .task_button {
@@ -138,7 +135,7 @@ line-height: 28px;
   padding: 3px;
 }
 
-.task_button:hover { 
+.task_button:hover {
   cursor: pointer;
   border: 2px solid #0038ff;
   color: #0038ff;
@@ -146,14 +143,280 @@ line-height: 28px;
 
 .task_content {
   display: flex;
-  justify-content: space-between;
   box-sizing: border-box;
   width: 1208px;
   height: 700px;
   position: fixed;
   top: 323px;
   left: 232px;
-  padding: 0px 64px;
-  gap: 24px;
+  padding: 0px 48px;
+  gap: 18px;
+}
 
+.task_bar_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 700px;
+  width: 244px;
+  gap: 16px;
+}
+
+.no_task_to_do {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
+  height: 48px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  padding: 0px 16px 0px 16px;
+  border-radius: 10px;
+  border: 2px dotted #c7c7c7;
+  background-color: #e7e7e7;
+}
+
+.task_card {
+  background-color: palegreen;
+  width: 210px;
+  height: 244;
+  border-radius: 24px;
+  padding: 16px;
+  gap: 10px;
+}
+
+.task_card:hover {
+  cursor: pointer;
+}
+
+.add_task_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  display: none;
+  overflow: hidden;
+}
+
+.add_task_overlay.show .overlay_right {
+  transform: translateX(0);
+}
+
+.overlay_left {
+  width: 65vw;
+}
+
+.overlay_right {
+  width: 35vw;
+  background-color: white;
+  opacity: 1;
+  border-radius: 30px 0px 0px 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #f2f2f2;
+  padding-top: 156px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  h1 {
+    font-size: 48px;
+    margin: 0px;
+  }
+}
+
+.add_task_header {
+  display: flex;
+  justify-content: space-between;
+  width: 35vw;
+  height: 80px;
+  padding: 40px 0px 40px 0px;
+  gap: 49px;
+  z-index: 1001;
+  top: 0;
+  background-color: white;
+  position: fixed;
+  border-radius: 30px 0px 0px 0px;
+}
+
+.add_task_header_title {
+  padding-left: 3vw;
+}
+
+.add_task_escape_img {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.add_task_escape_img:hover {
+  background-color: #d2e3ff;
+  border-radius: 50%;
+}
+
+.add_task_overlay_content {
+  padding-top: 200px;
+}
+
+.add_task_footer {
+  display: flex;
+  justify-content: center;
+  justify-content: flex-end;
+  background-color: white;
+  width: 100%;
+  height: 90px;
+  padding: 5px 30px 15px 0px;
+  z-index: 1001;
+  position: sticky;
+  bottom: 0;
+}
+
+.overlay_top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  overflow: hidden;
+}
+
+.overlay_top.show .overlay_top_content {
+  bottom: 4%;
+}
+
+.overlay_top_content {
+  width: 500px;
+  height: 700px;
+  background-color: white;
+  border-radius: 30px;
+  padding: 48px 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #f2f2f2;
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: bottom 0.3s ease;
+  box-sizing: border-box;
+  gap: 24px;
+}
+
+/*/ CARD DESIGN /*/ 
+.card_complete {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.card_complete:hover {
+  cursor: pointer;
+}
+
+.card_category_user_story {
+  padding: 7px 0px 14px 0px;
+}
+
+.card_category_user_story_span {
+  background-color: #FF7A00;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  line-height: 19px;
+  padding: 5px 15px 5px 15px;
+  border-radius: 10px;
+}
+
+.card_category_technical {
+  background-color: #0038FF;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  line-height: 19px;
+  padding: 5px 15px 5px 15px;
+  border-radius: 10px;
+}
+
+.card_top_section {
+  background-color: salmon;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card_title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #4589ff;
+  line-height: 19px;
+}
+
+.card_description {
+  background-color: turquoise;
+  font-size: 16px;
+  font-weight: 400;
+  color: #A8A8A8;
+  line-height: 19px;
+}
+
+.card_task_status {
+  background-color: aquamarine;
+}
+
+.card_bottom_section {
+  background-color: salmon;
+  display: flex;
+}
+
+.card_contacts {
+  background-color: violet;
+}
+
+.card_prio {
+  background-color: yellow;
+}
+
+/*/ OVERLAY BIG CARD DESIGN /*/
+.overlay_card {
+  background-color: rgb(241, 188, 215);
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay_category {
+  display: flex;
+  justify-content: space-between;
+}
+
+.overlay_category_span {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  color: white;
+  background-color: #FF7A00;
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px;
+}
+
+.overlay_title_span {
+  font-size: 61px;
+  font-weight: 700;
+  line-height: 55px;
 }
