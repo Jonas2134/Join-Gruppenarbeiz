@@ -26,7 +26,7 @@
     display: none;
 }
 
-.select-contact {
+.blue-background {
     background-color: #4986fe !important;
     color: white !important;
 }
@@ -42,7 +42,6 @@ body {
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 0px 2.6px;
 }
 
-/* add-new-button */
 .add-contact-button {
     flex-direction: row;
     align-items: center;
@@ -62,7 +61,6 @@ body {
     cursor: pointer;
     background-color: rgb(0, 94, 255);
 }
-/* -*-*-*- */
 
 /* START contact-book */
 .contact-book {
@@ -257,24 +255,6 @@ body {
     cursor: pointer;
 } 
 
-.cancel-button-container {
-    padding: 8px;
-    color: white;
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    border: solid #005eff 0.5px;
-}
-
-.cancel-button-text {
-    color: #005eff;
-}
-
-.cancel-button-container:hover {
-    background-color: #005eff;
-    cursor: pointer;
-}
-
 #name, #email, #mobile {
     border: none;
 }
@@ -356,7 +336,7 @@ body {
     margin-top: 8px;
 }
 
-.delete-button-container {
+.blue-button-container {
     padding: 8px;
     color: white;
     border-radius: 9px;
@@ -365,12 +345,69 @@ body {
     border: solid #005eff 0.5px;
 }
 
-.delete-button-text {
+.blue-button-text {
     color: #005eff;
 }
 
-.delete-button-container:hover {
-    background-color: #005eff;
+.blue-button-container:hover  {
     cursor: pointer;
+    background-color: #005eff;
+
+    .blue-button-text {
+        color: white;
+        cursor: pointer;
+    }
 }
 /* END edit_contact-overlay */
+
+/* START Popup Animation thanks to Jonas */
+.popup_container {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.popup {    
+    background: #4589FF;
+    border: 1px solid #4589FF;    
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    padding: 25px;
+    transform: translateY(100%);
+}
+
+.popup_container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup.show {
+    animation: slideInOut 2s ease-in-out forwards;
+}
+
+@keyframes slideInOut {
+    0% {
+        transform: translateY(800px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-800px);
+    }
+}
+/* END Popup */

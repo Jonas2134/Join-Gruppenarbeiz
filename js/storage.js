@@ -1,8 +1,8 @@
-const STORAGE_URL = "https://users-31ee0-default-rtdb.europe-west1.firebasedatabase.app/";
+const STORAGE_URL = "https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/";
 const users = [];
-const contacts = [];
+let contacts = [];
 let currentUser = null;
-let sortedContacts;
+const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2', '#462f89', '#ff4646']
 
 
 async function postData(path = "", data = {}) {
@@ -48,15 +48,6 @@ async function loadUsers() {
     }
 }
 
-async function loadContacts() {
-    let loadedContacts = await getData("/contacts");
-    for (const key in loadedContacts) {
-        if (Object.hasOwnProperty.call(loadedContacts, key)) {
-            contacts.push(loadedContacts[key]);
-        }
-    }
-}
-
 async function loadCurrentUsers() {
     let loadedCurrentUser = await getData("/currentUser");
     for (const key in loadedCurrentUser) {
@@ -85,3 +76,49 @@ async function logOut() {
     await deleteData("/currentUser");
     window.location.href = './index.html';
 }
+
+/* START: contact storage */
+
+/* START: Hilfsfunktionen */
+function sortContacts() {
+    contacts.sort(function(a, b) {
+        return a.name.localeCompare(b.name);
+    });
+}
+
+function getInitials(name) {
+    let parts = name.split(' ');
+    let initials = '';
+    for (let i = 0; i < parts.length; i++) {
+        initials += parts[i].charAt(0).toUpperCase();
+    }
+    return initials;
+}
+/* END: Hilfsfunktionen */
+
+async function initContacts() {
+    await loadContacts();
+    sortContacts();
+    enrichContacts();
+}
+
+async function loadContacts() {
+    contacts = [];
+
+    const loadedContacts = await getData("/contacts");
+    Object.keys(loadedContacts).forEach(key => {
+        const contact = { id: key, ...loadedContacts[key] };
+        contacts.push(contact);
+    });
+}
+
+function enrichContacts() {
+    let colorIndex = 0;
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
+        contact.initials = getInitials(contact.name);
+        contact.color = colors[colorIndex % colors.length];
+        colorIndex++;
+    }
+}
+/* END: contact storage */
