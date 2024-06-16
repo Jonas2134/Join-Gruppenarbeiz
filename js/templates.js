@@ -63,29 +63,29 @@ function templateBuildOverlayCard(task){
         <span>${task.description}</span>
       </div>
     <div class="overlay_date">
-      <span><b>Due date:</b>${task.dueDate}</span>
+      <div><b class="card_b">Due date:</b></div><div> ${task.dueDate}</div>
     </div>
       <div class="overlay_priority">
-        <span><b>Priority:</b>${task.priority}</span>  
+        <div><b class="card_b">Priority:</b></div><div> ${task.priority}</div>  
       </div>
     <div class="overlay_contacts">
-      <span><b>Assigned To:</b></span>
+      <span><b class="card_b">Assigned To:</b></span>
       <p id="overlayContactsRender">
       ${task.assignedTo}
       </p>
     </div>
       <div class="overlay_subtasks">
-        <span><b>Subtasks</b></span>  
-        <p><input type="checkbox"> ${task.subtasks}</p>
-        <p><input type="checkbox"> ${task.subtasks}</p>
+        <span><b class="card_b">Subtasks</b></span>  
+        <p class="overlay_subtask"><input type="checkbox"> ${task.subtasks}</p>
+        <p class="overlay_subtask"><input type="checkbox"> ${task.subtasks}</p>
       </div>
   </div>
       <div class="overlay_icons">
-  <img src="/icons/delete_icon.png" alt="delete" class="overlay_icon_delete">
-    <span>Delete</span>
+  <img src="/icons/delete_icon.png" alt="delete" class="overlay_card_icon">
+    <span class="overlay_icons_span">Delete</span>
   <div class="subtask_divider"></div>
-  <img src="/icons/edit_icon.png" alt="edit" class="overlay_edit_icon">
-    <span>Edit</span>
+  <img src="/icons/edit_icon.png" alt="edit" class="overlay_card_icon">
+    <span class="overlay_icons_span">Edit</span>
       </div>`;
 }
 
