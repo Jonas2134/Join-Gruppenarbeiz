@@ -146,3 +146,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   });
 });
+
+
+//SUCH FUNCTION 
+function filterTask() { 
+  let search = document.getElementById('findTask').value.toLowerCase();
+  if(search.length >=3) {
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].title.toLowerCase().includes(search)) {
+        document.getElementById(`${tasks[i].id}`).style.display = 'block';
+      }  else {
+        document.getElementById(`${tasks[i].id}`).style.display = 'none';
+      }
+    }
+  } else {
+    for (let i = 0; i< tasks.length; i++) {
+      document.getElementById(`${tasks[i].id}`).style.display = 'block';
+    }
+  }
+}

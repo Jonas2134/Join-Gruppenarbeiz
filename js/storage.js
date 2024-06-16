@@ -6,7 +6,6 @@ let currentUser = null;
 const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2', '#462f89', '#ff4646'];
 let contacts = [];
 let groupedContacts = {};
-
 let tasks = [];
 
 async function updateData(path = '', data = {}) {

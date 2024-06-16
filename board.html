@@ -21,7 +21,7 @@
     <div w3-include-html="template_sidebar.html"></div>
     <div class="board_top_section">
       <div class="board_input_section">
-        <input type="text" placeholder="Find Task" class="find_task_input" />
+        <input type="text" placeholder="Find Task" id="findTask" class="find_task_input" onkeyup="filterTask()" />
         <div class="input_divider"></div>
         <img
           src="/icons/input_search_icon.png"
