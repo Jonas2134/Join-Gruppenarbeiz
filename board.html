@@ -16,7 +16,7 @@
     <script src="./js/templates.js"></script>
     <title>Join</title>
   </head>
-  <body onload="includeHTML(), showTasks(), addTaskContacs()">
+  <body onload="includeHTML(), showTasks()">
     <div w3-include-html="template_header.html"></div>
     <div w3-include-html="template_sidebar.html"></div>
     <div class="board_top_section">
@@ -95,17 +95,17 @@
 
         
     <div class="add_task_overlay" id="add_task_overlay">
-          <div class="overlay_left" onclick="closeOverlayRight()"></div>
+          <div class="overlay_left" onclick="closeOverlayRight(), showTasks()"></div>
           <div class="overlay_right">
 
             <div class="add_task_header">
               <h1 class="add_task_header_title">Add Task</h1>
               <div><img src="./icons/add_task_escape_img.png" alt="close"
-                class="add_task_escape_img" onclick="closeOverlayRight()"></div>
+                class="add_task_escape_img" onclick="closeOverlayRight(), showTasks()"></div>
             </div>
                 <div class="add_task_overlay_content" w3-include-html="template_add_task.html"></div>
                 <div class="add_task_footer">
-                  <button class="form_create_button" onclick="sendTask()">
+                  <button class="form_create_button" onclick="sendTask(), closeOverlayRight(), showTasks()">
                     Create Task &#10004;
                   </button>
                 </div>

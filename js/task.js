@@ -108,10 +108,11 @@ function toggleCategoryDropdown() {
 //ADD CONTACTS
 async function addTaskContacs() {
   await initContacts();
+  let contactDropwdown = document.getElementById('assignedDropdown');
+  contactDropwdown.innerHTML = '';
   for (i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];
-    let contactDropwdown = document.getElementById('assignedDropdown');
-    contactDropwdown.innerHTML += templateBuildContactDropdown(contact);
+    const contact = contacts[i];    
+    contactDropwdown.innerHTML += templateBuildContactDropdown(contact, true);
   }
 }
 
@@ -132,8 +133,6 @@ function selectContact(contactId) {
 }
 
 function getContactById(id) {
-  console.log(id);
-  console.log(contacts.find((obj) => obj.id === id));
   return contacts.find((obj) => obj.id === id);
 }
 

@@ -247,6 +247,10 @@ body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+  li:hover {
+    background-color: #d2e3ff;
+    cursor: pointer;
+  }
 }
 
 .assigned_to_dropdown_content.show {
@@ -285,11 +289,7 @@ li {
   font-size: 19px;
   line-height: 23px;
   padding: 3px 10px 0px 10px;
-}
 
-li:hover {
-  background-color: #d2e3ff;
-  cursor: pointer;
 }
 
 li.active {

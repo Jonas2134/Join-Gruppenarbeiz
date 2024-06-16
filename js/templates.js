@@ -1,17 +1,32 @@
 //TEMPLATE ADD TASKS
-function templateBuildContactDropdown(contact) {
+function templateBuildContactDropdown(contact, withCheckbox) {
   let contactName = contact['name'];
   let contactId = contact['id'];
   let initials = templateUserInitials(contact);
-
+  let checkbox = '';
+  
+  if(withCheckbox) {
+    checkbox = `<div>
+        <input class="custom_checkbox" type="checkbox" id="cb${contactId}" onclick="event.stopPropagation();">`;
+  } 
   return `
         <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
         ${initials}${contactName}
         </div>
-        <div>
-        <input class="custom_checkbox" type="checkbox" id="cb${contactId}" onclick="event.stopPropagation();">
+        ${checkbox}
         </li>
         </div>
+        `;
+}
+
+function templateBuildContacts(contact) {
+  let contactName = contact['name'];
+  let initials = templateUserInitials(contact);
+  
+  return `
+        <li class="">
+        ${initials}${contactName}
+        </li>
         `;
 }
 
@@ -49,12 +64,16 @@ function templateBuildSubtask(subtask, index) {
 //TEMPLATE BOARD
 //TEMPLATE BIG BOARD CARD 
 function templateBuildOverlayCard(task){
-  return `<div class="overlay_card">
+  let categoryClass = getTaskCategoryClass(task.content);
+  let setPriority = getPriorityIcon(task.priority);
+  let setSubtask = templateOverlaySubtasks(task.subtasks);
+  let contact = templateBuildOverlayContacts(task.assignedTo);
 
+  return `<div class="overlay_card">
       <div class="overlay_category">
-        <span class="overlay_category_span">${task.content}</span>   
+        <span class="overlay_category_span ${categoryClass}">${task.content}</span>   
         <img src="./icons/add_task_escape_img.png" alt="close"
-                class="add_task_escape_img">    
+                class="add_task_escape_img" onclick="closeOverlayTop()">    
       </div>
     <div class="overlay_title">
       <span class="overlay_title_span"><b>${task.title}</b></span>
@@ -66,23 +85,23 @@ function templateBuildOverlayCard(task){
       <div><b class="card_b">Due date:</b></div><div> ${task.dueDate}</div>
     </div>
       <div class="overlay_priority">
-        <div><b class="card_b">Priority:</b></div><div> ${task.priority}</div>  
+        <div><b class="card_b">Priority:</b></div><div> ${task.priority}
+        <img src="${setPriority}" class="prio_icons"></div>  
       </div>
     <div class="overlay_contacts">
       <span><b class="card_b">Assigned To:</b></span>
-      <p id="overlayContactsRender">
-      ${task.assignedTo}
-      </p>
+      <div class="overlay_contact">
+      ${contact}
+      </div>
     </div>
       <div class="overlay_subtasks">
         <span><b class="card_b">Subtasks</b></span>  
-        <p class="overlay_subtask"><input type="checkbox"> ${task.subtasks}</p>
-        <p class="overlay_subtask"><input type="checkbox"> ${task.subtasks}</p>
+        ${setSubtask}
       </div>
   </div>
       <div class="overlay_icons">
   <img src="/icons/delete_icon.png" alt="delete" class="overlay_card_icon">
-    <span class="overlay_icons_span">Delete</span>
+    <span class="overlay_icons_span" onclick="deleteTaskById('${task.id}'),closeOverlayTop(),showTasks()">Delete</span>
   <div class="subtask_divider"></div>
   <img src="/icons/edit_icon.png" alt="edit" class="overlay_card_icon">
     <span class="overlay_icons_span">Edit</span>
@@ -99,12 +118,35 @@ function templateBuildContactList(contact) {
           `;
 }
 
+function getTaskCategoryClass(category) {
+  if (category == 'User Story') {
+  return 'user_story'
+  } else {
+    return 'technical';
+  }
+}
+
+function templateOverlaySubtasks(subtasksArray) {
+  let template = '';
+  if(subtasksArray) {
+    for (let i = 0; i < subtasksArray.length; i++) {
+      template += `<p class="overlay_subtask"><input type="checkbox"> ${subtasksArray[i]}</p>`;
+    }
+  }
+  return template;
+}
+
+
 //TEMPLATE SMALL BOARD CARD
 function renderTask(task, i) {
+let categoryClass = getTaskCategoryClass(task.content);
+let setPriority = getPriorityIcon(task.priority);
+let contactLogo = templateGetContacts(task.assignedTo);
+
   return `
-    <div draggable="true" id="${task['ID']}" class="card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
-      <div class="card_category_user_story">
-    <span class="card_category_user_story_span">${task.content}</span>
+    <div draggable="true" id="${task['id']}" class="card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
+      <div class="card_category">
+    <span class="card_categories_span ${categoryClass}">${task.content}</span>
       </div>
     <div class="card_top_section">
         <div class="card_title">
@@ -119,12 +161,47 @@ function renderTask(task, i) {
         </div>
     <div class="card_bottom_section">    
       <div class="card_contacts">
-    ${task.assignedTo}
+    ${contactLogo}
       </div>
         <div class="card_prio">
-    ${task.priority}
+    <img src="${setPriority}" class="prio_icons">
         </div>
     </div>
       </div>
     `;
+}
+
+function getPriorityIcon(priority) {
+  if(priority == 'Urgent') {
+    return 'icons/prio_red.png';
+  }
+  else if (priority == 'Medium') {
+    return 'icons/prio_orange.png';
+  }
+  else if (priority == 'Low') {
+    return 'icons/prio_green.png';
+  }
+}
+
+function templateGetContacts(contactsArray) {
+  let template = '';
+  
+  if(contactsArray) {
+    for (let i = 0; i < contactsArray.length; i++) {
+      template += templateUserInitials(getContactById(contactsArray[i]));
+    }
+  }
+  return template;
+}
+
+function templateBuildOverlayContacts(contactsArray) {
+  let template = '';
+  
+  if(contactsArray) {
+    for (let i = 0; i < contactsArray.length; i++) {
+      template += templateBuildContacts(getContactById(contactsArray[i]));
+
+  }
+  return template;
+}
 }

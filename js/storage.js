@@ -45,12 +45,18 @@ async function deleteData(path = '') {
 
 async function loadTasks() {
   let allTask = await getData('/tasks');
+  tasks = [];
   for (const key in allTask) {
     if (Object.hasOwnProperty.call(allTask, key)) {
-      allTask[key].ID = key;
+      allTask[key].id = key;
       tasks.push(allTask[key]);
     }
   }
+}
+
+async function deleteTaskById(taskId) {
+  await deleteData('/tasks/' + taskId);
+  tasks = tasks.filter(task => task.id !== taskId);
 }
 
 async function loadUsers() {
@@ -64,6 +70,7 @@ async function loadUsers() {
 
 async function loadContacts() {
   const loadedContacts = await getData("/contacts");
+  contacts = [];
   Object.keys(loadedContacts).forEach(key => {
       const contact = { id: key, ...loadedContacts[key] };
       contacts.push(contact);

@@ -69,6 +69,7 @@ window.addEventListener('beforeunload', function () {
 //RENDER TASKS ON BOARD
 function renderAllTasks() {
   let currentTask = document.getElementById('drag_to_do');
+  currentTask.innerHTML = '';
   for (let i = 0; i < tasks.length; i++) {
     currentTask.innerHTML += renderTask(tasks[i], i);
   }
@@ -76,6 +77,7 @@ function renderAllTasks() {
 
 async function showTasks() {
   await loadTasks();
+  await addTaskContacs();
   renderAllTasks();
 }
 
