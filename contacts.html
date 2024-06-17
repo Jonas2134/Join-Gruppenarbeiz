@@ -59,10 +59,10 @@
         <!-- *-*-*-* -->
 
         <!-- selected contact template -->
-        <div id="selected-container" class="selected-contact-container d-flex d-non">
+        <div id="selected-container" class="selected-contact-container d-flex d-none">
             <div class="arrow_return_div d-none">
                 <div class="arrow-container">
-                    <img src="icons/arrow_return.png" alt="go back" class="arrow_return" onclick="history.back()" />
+                    <img src="icons/arrow_return.png" alt="go back" class="arrow_return" onclick="closeSelectedOverlay()" />
                 </div>
             </div>
             <div class="selected-contact-profil-top d-flex row">
@@ -262,9 +262,9 @@
                     </div>
 
                     <div class="button_container d-flex_row">
-                        <div onclick="clearForm()" class="blue-button-container cancel-button-container d-flex_row">
+                        <div onclick="clearAddForm()" class="blue-button-container cancel-button-container d-flex_row">
                             <div class="blue-button-text">Cancel</div>
-                            <div class="cancel-button-cross">
+<!--                             <div class="cancel-button-cross">
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -272,10 +272,11 @@
                                         stroke="#647188" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg>
-                            </div>
+                            </div> -->
                         </div>
                         <button type="submit" class="create-button-container d-flex_row">
-                            <div class="create-button-text">Create contact</div>
+                            <div class="create-button-text">
+                                <nobr>Create contact</nobr></div>
                             <div class="create-button-hook">
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="black"
                                     xmlns="http://www.w3.org/2000/svg">

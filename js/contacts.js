@@ -182,8 +182,12 @@ function showPopup() {
     }, 2000);
 }
 
-function clearForm() {
+function clearAddForm() {
     document.getElementById('add-contact-form').reset();
+}
+
+function clearEditForm() {
+    document.getElementById('add-edit-form').reset();
 }
 
 function openAddContactOverlay() {
@@ -195,13 +199,13 @@ function openEditContactOverlay(i) {
     let editOverlay = docID("overlay_edit-contact");
     editOverlay.classList.remove('d-none');
 
-    changeProfile(i);
+    /* changeProfile(i); */
 }
 
-function changeProfile(i) {
+/* function changeProfile(i) {
     let contact = contacts[i];
     let color = contacts[i].color;
-}
+} */
 
 function closeAddContactOverlay() {
     let contactOverlay = docID("overlay_add-contact");
@@ -211,6 +215,12 @@ function closeAddContactOverlay() {
 function closeEditContactOverlay() {
     let editOverlay = docID("overlay_edit-contact");
     editOverlay.classList.add('d-none');
+}
+
+function closeSelectedOverlay() {
+    let overlay = docID('selected-container');
+    overlay.classList.add('d-none');
+    removeBlueBackground()
 }
 
 function openContact(i) {
@@ -245,17 +255,17 @@ function openContact(i) {
     docID('edit-email').value = `${contacts[i]['email']}`;
     docID('edit-mobile').value = `${contacts[i]['mobile']}`;
 
-    docID('edit-button-container').innerHTML = editButtonHTML(i);
+    docID('edit-button-container').innerHTML = editButtonsHTML(i);
 }
 
-function editButtonHTML(i) {
+function editButtonsHTML(i) {
     return `
-    <div id="delete_in_edit" class="blue-button-container d-flex_row">
+    <div onclick="editContact(${i})" id="delete_in_edit" class="blue-button-container d-flex_row">
         <div class="blue-button-text">Delete</div>
     </div>
-    <div id="edit_in_edit" class="create-button-container d-flex_row">
-        <div class="create-button-text">Save</div>
-        <div class="create-button-hook">
+    <div onclick="clearEditForm()" id="edit_in_edit" class="save-button-container d-flex_row">
+        <div class="save-button-text">Save</div>
+        <div class="save-button-hook">
             <svg width="25" height="25" viewBox="0 0 25 25" fill="black" xmlns="http://www.w3.org/2000/svg">
                 <mask id="mask0_43661_1650" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
                     <rect x="0.5" y="0.98291" width="24" height="24" fill="#D9D9D9" />
@@ -277,7 +287,6 @@ function editContactHandler(index) {
     openEditContactOverlay(index);
 }
 
-
 function deleteContactHandler(index) {
     deleteContact(index);
 }
@@ -285,7 +294,6 @@ function deleteContactHandler(index) {
 function editContactHandler(index) {
     openEditContactOverlay(index);
 }
-
 
 function addBlueBackground(i) {
     let contactContainer = docID(`contact-container(${i})`);
@@ -295,6 +303,14 @@ function addBlueBackground(i) {
     }
     contactContainer.classList.add('blue-background');
     selectedContact = contactContainer;
+}
+
+function removeBlueBackground() {
+        const contactContainer = document.querySelectorAll('.contact-container');
+        
+        for (let i = 0; i < contactContainer.length; i++) {
+          contactContainer[i].classList.remove('blue-background');
+        }
 }
 
 async function editContact(i) {
