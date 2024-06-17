@@ -38,7 +38,7 @@ body {
 
 .contacts-main-container {
     margin-left: 190px;
-    width: 462px;
+    width: 48vw;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 0px 2.6px;
     align-items: center;
 }
@@ -50,7 +50,7 @@ body {
     gap: 8px;
     font-size: 1.2em;
     background-color: #4689fe;
-    margin: 22px;
+    margin: 30px 0;
     border-radius: 10px;
     padding: 8px 50px;
 }
@@ -80,6 +80,8 @@ body {
     background-color: rgb(128, 128, 128, 0.2);
     height: 1.7px;
     margin-top: 12px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .contact-container {
@@ -87,9 +89,8 @@ body {
     align-items: center;
     gap: 22px;
     border-radius: 12px;
-    margin: 0 22px;
+    margin: 0 30px;
     height: 70px;
-    width: ;
 }
 
 .filter-card {
@@ -436,6 +437,29 @@ body {
 
     .create-button-container, .cancel-button-container {
         width: 150px;
+    }
+
+    .contacts-main-container {
+        width: 100vw;
+    }
+
+    .contact-book {
+        width: 60vw;
+    }
+
+    .add-contact-button {
+        width: 35vw;
+    }
+
+    .selected-contact-container {
+        position: absolute;
+        top: 210px;
+        right: 0;
+        left: 200px;
+        bottom: 0;
+        background-color: white;
+        margin: 0;
+        padding: 30px 10vw 0 10vw;
     }
 }
 

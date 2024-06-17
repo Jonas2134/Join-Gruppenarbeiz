@@ -43,7 +43,7 @@ function renderContacts() {
         let contactsHtml = '';
         let group = groupedContacts[letter];
         for (let j = 0; j < group.length; j++) {
-            contactsHtml += createContactHtml(group[j], j);
+            contactsHtml += createContactHtml(group[j], globalIndex);
             globalIndex++;
         }
 
