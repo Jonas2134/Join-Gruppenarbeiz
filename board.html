@@ -58,15 +58,10 @@
         <div class="task_status">
           <p class="task_status_span">Done</p>
         </div>
-      </div>
-     
-      
-      
+      </div>              
       <div class="task_content">
         <div class="task_bar_content" id="drag_to_do">
-          <div class="no_task_to_do" draggable="false">
-            <span>No Task To Do</span>
-          </div>
+          
           </div>
 
         <div class="task_bar_content" id="drag_in_progress">
@@ -79,9 +74,7 @@
         </div>
 
       </div>
-    </div>
-
-        
+    </div>        
     <div class="add_task_overlay" id="add_task_overlay">
           <div class="overlay_left" onclick="closeOverlayRight(), showTasks()"></div>
           <div class="overlay_right">
@@ -91,27 +84,18 @@
               <div><img src="./icons/add_task_escape_img.png" alt="close"
                 class="add_task_escape_img" onclick="closeOverlayRight(), showTasks()"></div>
             </div>
-                <div class="add_task_overlay_content" w3-include-html="template_add_task.html"></div>
+                <div class="add_task_overlay_content" id="add_task_overlay_content">Test</div>
                 <div class="add_task_footer">
                   <button class="form_create_button" onclick="sendTask(), closeOverlayRight(), showTasks()">
                     Create Task &#10004;
                   </button>
                 </div>
               </div>
-      </div>
-      
-
-
+      </div>      
       <div class="overlay_top" id="card_top_overlay" style="display: none">
         <div class="overlay_top_content" id="overlay_top_content">
-          <div class="overlay_top_header">
-
-          </div>
-            
         </div>
     </div>
   </div>
-
-
   </body>
 </html>

@@ -24,7 +24,7 @@ async function init() {
 }
 
 //SEND TASK TO FIREBASE
-async function sendTask() {
+async function sendTask(id, status) {
   let task = {
     title: document.getElementById('taskTitle').value,
     description: document.getElementById('taskDescription').value,
@@ -35,7 +35,13 @@ async function sendTask() {
     subtasks: subtasks,
     status: 'To do',
   };
-  postData('/tasks', task);
+
+  if (id) {
+    task.status = status;
+    await updateTaskById(id, task);
+  } else {
+    await postData('/tasks', task);
+  }  
   clearAddTask();
   add_animations();
 }
@@ -155,10 +161,6 @@ function selectContact(contactId) {
   renderAssignedContact();
 }
 
-function getContactById(id) {
-  return contacts.find((obj) => obj.id === id);
-}
-
 //RENDER CONTACTS
 function renderAssignedContact() {
   let content = document.getElementById('selectedContact');
@@ -256,11 +258,11 @@ function clearAddTask() {
 }
 
 function add_animations() {
-  document.getElementsByClassName('hidden_container')[0].classList.add('visible');
+ /*  document.getElementsByClassName('hidden_container')[0].classList.add('visible');
   document.getElementsByClassName('hidden_popup')[0].classList.add('visible');
 
   setTimeout(() => {
     document.getElementsByClassName('hidden_container')[0].classList.remove('visible');
     document.getElementsByClassName('hidden_popup')[0].classList.remove('visible');
-  }, 2000);
+  }, 2000); */
 }

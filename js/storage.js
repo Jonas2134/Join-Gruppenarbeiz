@@ -75,6 +75,18 @@ async function deleteTaskById(taskId) {
   tasks = tasks.filter(task => task.id !== taskId);
 }
 
+async function updateTaskById(taskId, task) {
+  await updateData('/tasks/' + taskId, task);
+}
+
+function getContactById(id) {
+  return contacts.find((obj) => obj.id === id);
+}
+
+function getTaskbyId(id) {
+  return tasks.find((obj) => obj.id === id);
+}
+
 async function loadUsers() {
   let loadedUsers = await getData('/users');
   for (const key in loadedUsers) {

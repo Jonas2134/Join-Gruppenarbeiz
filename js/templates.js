@@ -75,7 +75,7 @@ function templateBuildOverlayCard(task){
     setSubtask = `
       <div class="overlay_subtasks">
         <span><b class="card_b">Subtasks</b></span>  
-        ${templateOverlaySubtasks(task.subtasks)}
+        ${templateOverlaySubtasks(task.subtasks, task.id)}
       </div>`;
   }
 
@@ -111,7 +111,7 @@ function templateBuildOverlayCard(task){
       <span class="overlay_icons_span" onclick="deleteTaskById('${task.id}'), closeOverlayTop(), showTasks()">Delete</span>
       <div class="subtask_divider"></div>
       <img src="/icons/edit_icon.png" alt="edit" class="overlay_card_icon">
-      <span class="overlay_icons_span">Edit</span>
+      <span class="overlay_icons_span" onclick="editOverlayTask('${task.id}'), event.stopPropagation()">Edit</span>
     </div>`;
 }
 
@@ -133,16 +133,15 @@ function getTaskCategoryClass(category) {
   }
 }
 
-function templateOverlaySubtasks(subtasksArray) {
+function templateOverlaySubtasks(subtasksArray, id) {
   let template = '';
   if(subtasksArray) {
     for (let i = 0; i < subtasksArray.length; i++) {
-      template += `<p class="overlay_subtask"><input type="checkbox"> ${subtasksArray[i]}</p>`;
+      template += `<p class="overlay_subtask"><input type="checkbox" onclick="finishSubtask('${subtasksArray[i]}', '${id}')"> ${subtasksArray[i]}</p>`;
     }
   }
   return template;
 }
-
 
 //TEMPLATE SMALL BOARD CARD
 function renderTask(task, i) {
