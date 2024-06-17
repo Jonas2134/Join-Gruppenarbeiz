@@ -26,7 +26,7 @@
     display: none;
 }
 
-.select-contact {
+.blue-background {
     background-color: #4986fe !important;
     color: white !important;
 }
@@ -37,19 +37,20 @@ body {
 }
 
 .contacts-main-container {
-    margin-left: 260px;
-    width: 360px;
+    margin-left: 190px;
+    width: 48vw;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 0px 2.6px;
+    align-items: center;
 }
 
-/* add-new-button */
 .add-contact-button {
+    justify-content: center;
     flex-direction: row;
     align-items: center;
     gap: 8px;
     font-size: 1.2em;
     background-color: #4689fe;
-    margin: 22px;
+    margin: 30px 0;
     border-radius: 10px;
     padding: 8px 50px;
 }
@@ -62,12 +63,11 @@ body {
     cursor: pointer;
     background-color: rgb(0, 94, 255);
 }
-/* -*-*-*- */
 
 /* START contact-book */
 .contact-book {
     width: 360px;
-    height: 600px;
+    height: calc(100vh - 200px);
     overflow: auto;
 }
 
@@ -79,8 +79,9 @@ body {
 .seperator {
     background-color: rgb(128, 128, 128, 0.2);
     height: 1.7px;
-    margin-right: 20px;
     margin-top: 12px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .contact-container {
@@ -88,7 +89,7 @@ body {
     align-items: center;
     gap: 22px;
     border-radius: 12px;
-    margin: 0 22px;
+    margin: 0 30px;
     height: 70px;
 }
 
@@ -206,6 +207,7 @@ body {
 .close-contacts svg:hover {
     background-color: rgb(255, 255, 255, 0.6);
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .logo {
@@ -219,13 +221,18 @@ body {
     margin-top: 12px
 }
 
+#add-contact-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
 /* bottom-area */
 .add-contact_bottom-area {
     height: 60vh;
     width: 42vw;
     display: flex;
     position: absolute;
-    top: 40vh;
     right: 0;
     border-radius: 0 0 25px 0px;
     border-left: solid gray 1px;
@@ -239,6 +246,7 @@ body {
     gap: 12px;
     margin-top: 14px;
     margin-bottom: 14px;
+    justify-content: space-evenly;
 }
 
 .create-button-container {
@@ -248,32 +256,19 @@ body {
     border-radius: 9px;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.create-button-container, .cancel-button-container {
     width: 100px;
     justify-content: center;
+    align-items: center;
 }
 
 .create-button-container:hover {
     background-color: #005eff;
     cursor: pointer;
 } 
-
-.cancel-button-container {
-    padding: 8px;
-    color: white;
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    border: solid #005eff 0.5px;
-}
-
-.cancel-button-text {
-    color: #005eff;
-}
-
-.cancel-button-container:hover {
-    background-color: #005eff;
-    cursor: pointer;
-}
 
 #name, #email, #mobile {
     border: none;
@@ -282,6 +277,7 @@ body {
 .name-contacts, .email-contacts, .phone-contacts  {
     border-bottom: solid gray 1px;
     margin-top: 8px;
+    justify-content: space-between;
 }
 
 #add-contact-form {
@@ -290,11 +286,6 @@ body {
 /* END add_contact-overlay */
 
 /* START edit_contact-overlay */
-#overlay_edit-contact {
-
-
-}
-
 .edit-contact_main-container {
     position: absolute;
     top: 0;
@@ -328,11 +319,8 @@ body {
 }
 
 .edit-area_bottom-area {
-    height: 60vh;
-    width: 42vw;
     display: flex;
     position: absolute;
-    top: 40vh;
     right: 0;
     border-radius: 0 0 25px 0px;
     border-right: solid gray 1px;
@@ -361,7 +349,7 @@ body {
     margin-top: 8px;
 }
 
-.delete-button-container {
+.blue-button-container {
     padding: 8px;
     color: white;
     border-radius: 9px;
@@ -370,12 +358,133 @@ body {
     border: solid #005eff 0.5px;
 }
 
-.delete-button-text {
+.blue-button-text {
     color: #005eff;
 }
 
-.delete-button-container:hover {
-    background-color: #005eff;
+.blue-button-container:hover  {
     cursor: pointer;
+    background-color: #005eff;
+
+    .blue-button-text {
+        color: white;
+        cursor: pointer;
+    }
 }
 /* END edit_contact-overlay */
+
+/* START Popup Animation thanks to Jonas */
+.popup_container {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.popup {    
+    background: #4589FF;
+    border: 1px solid #4589FF;    
+    border-radius: 20px;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    padding: 25px;
+    transform: translateY(100%);
+}
+
+.popup_container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup.show {
+    animation: slideInOut 2s ease-in-out forwards;
+}
+
+@keyframes slideInOut {
+    0% {
+        transform: translateY(800px);
+    }
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-800px);
+    }
+}
+/* END Popup */
+
+/* START Responsiveness */
+@media (max-width: 750px) {
+    .add-contact_bottom-area, .add-contact_top-area {
+        width: 60vw;
+    }
+
+    #add-contact-form {
+        width: 34vw;
+    }
+
+    .create-button-container, .cancel-button-container {
+        width: 150px;
+    }
+
+    .contacts-main-container {
+        width: 100vw;
+    }
+
+    .contact-book {
+        width: 60vw;
+    }
+
+    .add-contact-button {
+        width: 35vw;
+    }
+
+    .selected-contact-container {
+        position: absolute;
+        top: 210px;
+        right: 0;
+        left: 200px;
+        bottom: 0;
+        background-color: white;
+        margin: 0;
+        padding: 0px 6vw 0 10vw;
+    }
+
+    .arrow_return_div {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .arrow-container img {
+        width: 44px;
+        transition: transform 0.3s ease-in-out;
+        margin-bottom: 20px;
+    }
+
+    .arrow-container img:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+    } 
+}
+
+@media (max-width: 650px) {
+
+}
+
+@media (max-width: 400px) {
+
+}
+
+/* END Responsiveness */
