@@ -1,9 +1,29 @@
-function renderGreeting() {
-    const greetingElement = document.getElementById('good_morning');
-    if (currentUser.user_name === "Guest User") {
-        greetingElement.textContent = "Good morning";
+function getGreeting() {
+    const now = new Date();
+    const hours = now.getHours();
+    let greeting;
+
+    if (hours >= 5 && hours < 12) {
+        greeting = "Good morning";
+    } else if (hours >= 12 && hours < 17) {
+        greeting = "Good afternoon";
+    } else if (hours >= 17 && hours < 21) {
+        greeting = "Good evening";
     } else {
-        greetingElement.innerHTML = `Good morning, <span class="blue_name">${currentUser.user_name}</span>`;
+        greeting = "Good night";
+    }
+
+    return greeting;
+}
+
+function renderGreeting() {
+    const greetingElement = document.getElementById('greetings');
+    const greeting = getGreeting();
+
+    if (currentUser.user_name === "Guest User") {
+        greetingElement.innerHTML = `${greeting}`;
+    } else {
+        greetingElement.innerHTML = `${greeting}, <span class="blue_name">${currentUser.user_name}</span>`;
     }
 }
 

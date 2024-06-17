@@ -1,9 +1,31 @@
 let assignedContacts = [];
 let subtasks = [];
 
+async function init() {
+  includeHTML();
+  setTimeout(() => {
+    addTaskContacs();
+  }, 1000);
+  await loadCurrentUsers();
+  showDropUser();
+  document.getElementById("log_out").addEventListener('click', logOut);
+  document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
+  window.addEventListener('click', function (event) {
+    if (!event.target.matches('.drop-logo')) {
+      let dropdowns = document.getElementsByClassName("dropdown-content");
+      for (let i = 0; i < dropdowns.length; i++) {
+        let openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  });
+}
+
 //SEND TASK TO FIREBASE
 async function sendTask() {
-    let task = {
+  let task = {
     title: document.getElementById('taskTitle').value,
     description: document.getElementById('taskDescription').value,
     dueDate: document.getElementById('taskDueDate').value,
@@ -15,6 +37,7 @@ async function sendTask() {
   };
   postData('/tasks', task);
   clearAddTask();
+  add_animations();
 }
 
 //SELECT PRIORITY BUTTON
@@ -230,4 +253,14 @@ function clearAddTask() {
   clearInput('inputSubtasks');
   clearHtml('subtaskContent', '');
   subtasks = [];
+}
+
+function add_animations() {
+  document.getElementsByClassName('hidden_container')[0].classList.add('visible');
+  document.getElementsByClassName('hidden_popup')[0].classList.add('visible');
+
+  setTimeout(() => {
+    document.getElementsByClassName('hidden_container')[0].classList.remove('visible');
+    document.getElementsByClassName('hidden_popup')[0].classList.remove('visible');
+  }, 2000);
 }

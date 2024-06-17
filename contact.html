@@ -24,8 +24,12 @@
     <div w3-include-html="template_header.html"></div>
     <div w3-include-html="template_sidebar.html"></div>
 
+    <div class="popup_container" id="popup_container">
+        <span class="popup" id="popup">Contact successfully created</span>
+    </div>
 
     <div class="main-container d-flex row">
+
         <!-- contacts main-side -->
         <div class="contacts-main-container d-flex">
             <div onclick="openAddContactOverlay()" class="add-contact-button d-flex">
@@ -55,7 +59,12 @@
         <!-- *-*-*-* -->
 
         <!-- selected contact template -->
-        <div id="selected-container" class="selected-contact-container d-flex d-none">
+        <div id="selected-container" class="selected-contact-container d-flex d-non">
+            <div class="arrow_return_div d-none">
+                <div class="arrow-container">
+                    <img src="icons/arrow_return.png" alt="go back" class="arrow_return" onclick="history.back()" />
+                </div>
+            </div>
             <div class="selected-contact-profil-top d-flex row">
                 <div id="selected-img">
                     <svg width="100" height="100">
@@ -195,10 +204,10 @@
                         </defs>
                     </svg>
                 </div>
-                <form id="add-contact-form">
+                <form id="add-contact-form" onsubmit="return addContact(event)" class="d-flex_row">
                     <div class="name-contacts d-flex_row">
-                        <input id="name" placeholder="Name" name="name" pattern="[A-Za-zäöüÄÖÜß\s]+"
-                            title="Nur Buchstaben sind erlaubt" class="name-contacts-input" type="text" required>
+                        <input id="name" placeholder="Name" name="name" pattern="^(?=.*[A-Za-zäöüÄÖÜß]{3}).*$"
+                            title="Mindestens drei Buchstaben" class="name-contacts-input" type="text" required>
                         <div class="name-contacts-img">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -215,7 +224,8 @@
                         </div>
                     </div>
                     <div class="email-contacts d-flex_row">
-                        <input id="email" name="email" placeholder="Email" class="email-contacts-input" type="email">
+                        <input id="email" name="email" placeholder="Email" class="email-contacts-input" type="email"
+                            required>
                         <div class="email-contacts-img">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -232,7 +242,7 @@
                         </div>
                     </div>
                     <div class="phone-contacts d-flex_row">
-                        <input id="mobile" ame="tel" pattern="\+?[0-9\s-]{7,15}"
+                        <input id="mobile" name="tel" pattern="\+?[0-9\s-]{7,15}"
                             title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone"
                             class="phone-contacts-input" type="tel">
                         <div class="phone-contacts-img">
@@ -250,39 +260,41 @@
                             </svg>
                         </div>
                     </div>
-                </form>
-                <div class="button_container d-flex_row">
-                    <div class="cancel-button-container d-flex_row">
-                        <div onclick="clearForm()" class="cancel-button-text">Cancel</div>
-                        <div class="cancel-button-cross">
-                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M12.501 12.983L17.744 18.226M7.258 18.226L12.501 12.983L7.258 18.226ZM17.744 7.73999L12.5 12.983L17.744 7.73999ZM12.5 12.983L7.258 7.73999L12.5 12.983Z"
-                                    stroke="#647188" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div onclick="addContact()" class="create-button-container d-flex_row">
-                        <div class="create-button-text">Create contact</div>
-                        <div class="create-button-hook">
-                            <svg width="25" height="25" viewBox="0 0 25 25" fill="black"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <mask id="mask0_43661_1650" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
-                                    y="0" width="25" height="25">
-                                    <rect x="0.5" y="0.98291" width="24" height="24" fill="#D9D9D9" />
-                                </mask>
-                                <g mask="url(#mask0_43661_1650)">
+
+                    <div class="button_container d-flex_row">
+                        <div onclick="clearForm()" class="blue-button-container cancel-button-container d-flex_row">
+                            <div class="blue-button-text">Cancel</div>
+                            <div class="cancel-button-cross">
+                                <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path
-                                        d="M10.05 16.1329L18.525 7.65791C18.725 7.45791 18.9625 7.35791 19.2375 7.35791C19.5125 7.35791 19.75 7.45791 19.95 7.65791C20.15 7.85791 20.25 8.09541 20.25 8.37041C20.25 8.64541 20.15 8.88291 19.95 9.08291L10.75 18.2829C10.55 18.4829 10.3167 18.5829 10.05 18.5829C9.78336 18.5829 9.55002 18.4829 9.35002 18.2829L5.05002 13.9829C4.85002 13.7829 4.75419 13.5454 4.76252 13.2704C4.77086 12.9954 4.87502 12.7579 5.07502 12.5579C5.27502 12.3579 5.51252 12.2579 5.78752 12.2579C6.06252 12.2579 6.30002 12.3579 6.50002 12.5579L10.05 16.1329Z"
-                                        fill="white" />
-                                </g>
-                            </svg>
+                                        d="M12.501 12.983L17.744 18.226M7.258 18.226L12.501 12.983L7.258 18.226ZM17.744 7.73999L12.5 12.983L17.744 7.73999ZM12.5 12.983L7.258 7.73999L12.5 12.983Z"
+                                        stroke="#647188" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <button type="submit" class="create-button-container d-flex_row">
+                            <div class="create-button-text">Create contact</div>
+                            <div class="create-button-hook">
+                                <svg width="25" height="25" viewBox="0 0 25 25" fill="black"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <mask id="mask0_43661_1650" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
+                                        y="0" width="25" height="25">
+                                        <rect x="0.5" y="0.98291" width="24" height="24" fill="#D9D9D9" />
+                                    </mask>
+                                    <g mask="url(#mask0_43661_1650)">
+                                        <path
+                                            d="M10.05 16.1329L18.525 7.65791C18.725 7.45791 18.9625 7.35791 19.2375 7.35791C19.5125 7.35791 19.75 7.45791 19.95 7.65791C20.15 7.85791 20.25 8.09541 20.25 8.37041C20.25 8.64541 20.15 8.88291 19.95 9.08291L10.75 18.2829C10.55 18.4829 10.3167 18.5829 10.05 18.5829C9.78336 18.5829 9.55002 18.4829 9.35002 18.2829L5.05002 13.9829C4.85002 13.7829 4.75419 13.5454 4.76252 13.2704C4.77086 12.9954 4.87502 12.7579 5.07502 12.5579C5.27502 12.3579 5.51252 12.2579 5.78752 12.2579C6.06252 12.2579 6.30002 12.3579 6.50002 12.5579L10.05 16.1329Z"
+                                            fill="white" />
+                                    </g>
+                                </svg>
+                            </div>
+                        </button>
+                </form>
             </div>
         </div>
+    </div>
     </div>
     <!-- *-*-*-* -->
 
@@ -353,7 +365,8 @@
                         </div>
                     </div>
                     <div class="email-edit-contacts d-flex_row">
-                        <input id="edit-email" name="email" placeholder="Email" class="email-contacts-input" type="email">
+                        <input id="edit-email" name="email" placeholder="Email" class="email-contacts-input"
+                            type="email">
                         <div class="email-contacts-img">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
