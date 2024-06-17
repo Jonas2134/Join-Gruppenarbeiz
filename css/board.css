@@ -160,7 +160,7 @@
   align-items: center;
   height: 700px;
   width: 244px;
-  gap: 16px;
+  gap: 7px;
 }
 
 .no_task_to_do {
@@ -180,7 +180,6 @@
 }
 
 .task_card {
-  background-color: palegreen;
   width: 210px;
   height: 244;
   border-radius: 24px;
@@ -282,6 +281,10 @@
   bottom: 0;
 }
 
+.add_subtask_content {
+  margin-bottom: 200px;
+}
+
 .overlay_top {
   position: fixed;
   top: 0;
@@ -302,7 +305,7 @@
 
 .overlay_top_content {
   width: 500px;
-  height: 700px;
+  min-height: max-content;
   background-color: white;
   border-radius: 30px;
   padding: 48px 40px;
@@ -310,6 +313,7 @@
   border: 2px solid #f2f2f2;
   position: fixed;
   bottom: -100%;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
   transition: bottom 0.3s ease;
@@ -399,7 +403,7 @@
 .overlay_card {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 18px;
 }
 
 .overlay_date {
@@ -412,18 +416,37 @@
   gap: 3vw;
 }
 
+.overlay_priority_status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .overlay_category {
   display: flex;
   justify-content: space-between;
 }
 
+.overlay_contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  li {display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+  }
+}
+
 .overlay_subtask {
-  padding: 3px 3px 3px 3px;
+  padding: 2px 5px 2px 5px;
+  width: max-content;
+  margin: 5px;
 }
 
 .overlay_subtask:hover {
   background-color: #d2e3ff;
   width: fit-content;
+  padding: 2px 5px 2px 5px;
   border-radius: 8px;
 }
 

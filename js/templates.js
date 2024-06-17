@@ -32,11 +32,7 @@ function templateBuildContacts(contact) {
 
 function templateUserInitials(contact) {
   return `
-  <div class="svg_contacts_name_div">
-    <svg width="36" height="36">
-        <circle cx="18" cy="18" r="15" fill="${contact.color}" />
-        <text x="8" y="24" font-size="1rem" fill="#ffffff">${contact.initials}</text>
-    </svg>
+  <div style="background-color:${contact.color}" class="contact_container_img">${contact.initials}</div>
   `;
 }
 
@@ -66,46 +62,51 @@ function templateBuildSubtask(subtask, index) {
 function templateBuildOverlayCard(task){
   let categoryClass = getTaskCategoryClass(task.content);
   let setPriority = getPriorityIcon(task.priority);
-  let setSubtask = templateOverlaySubtasks(task.subtasks);
   let contact = templateBuildOverlayContacts(task.assignedTo);
 
-  return `<div class="overlay_card">
+  let setSubtask = '';
+  if (task.subtasks && task.subtasks.length > 0) {
+    setSubtask = `
+      <div class="overlay_subtasks">
+        <span><b class="card_b">Subtasks</b></span>  
+        ${templateOverlaySubtasks(task.subtasks)}
+      </div>`;
+  }
+
+  return `
+    <div class="overlay_card">
       <div class="overlay_category">
         <span class="overlay_category_span ${categoryClass}">${task.content}</span>   
         <img src="./icons/add_task_escape_img.png" alt="close"
                 class="add_task_escape_img" onclick="closeOverlayTop()">    
       </div>
-    <div class="overlay_title">
-      <span class="overlay_title_span"><b>${task.title}</b></span>
-    </div>
+      <div class="overlay_title">
+        <span class="overlay_title_span"><b>${task.title}</b></span>
+      </div>
       <div class="overlay_description">
         <span>${task.description}</span>
       </div>
-    <div class="overlay_date">
-      <div><b class="card_b">Due date:</b></div><div> ${task.dueDate}</div>
-    </div>
+      <div class="overlay_date">
+        <div><b class="card_b">Due date:</b></div><div> ${task.dueDate}</div>
+      </div>
       <div class="overlay_priority">
-        <div><b class="card_b">Priority:</b></div><div> ${task.priority}
+        <div><b class="card_b">Priority:</b></div>
+        <div class="overlay_priority_status"> ${task.priority}
         <img src="${setPriority}" class="prio_icons"></div>  
       </div>
-    <div class="overlay_contacts">
-      <span><b class="card_b">Assigned To:</b></span>
-      <div class="overlay_contact">
-      ${contact}
+      <div class="overlay_contacts">
+        <span><b class="card_b">Assigned To:</b></span>
+        ${contact}
       </div>
+      ${setSubtask}
     </div>
-      <div class="overlay_subtasks">
-        <span><b class="card_b">Subtasks</b></span>  
-        ${setSubtask}
-      </div>
-  </div>
-      <div class="overlay_icons">
-  <img src="/icons/delete_icon.png" alt="delete" class="overlay_card_icon">
-    <span class="overlay_icons_span" onclick="deleteTaskById('${task.id}'),closeOverlayTop(),showTasks()">Delete</span>
-  <div class="subtask_divider"></div>
-  <img src="/icons/edit_icon.png" alt="edit" class="overlay_card_icon">
-    <span class="overlay_icons_span">Edit</span>
-      </div>`;
+    <div class="overlay_icons">
+      <img src="/icons/delete_icon.png" alt="delete" class="overlay_card_icon">
+      <span class="overlay_icons_span" onclick="deleteTaskById('${task.id}'), closeOverlayTop(), showTasks()">Delete</span>
+      <div class="subtask_divider"></div>
+      <img src="/icons/edit_icon.png" alt="edit" class="overlay_card_icon">
+      <span class="overlay_icons_span">Edit</span>
+    </div>`;
 }
 
 function templateBuildContactList(contact) {
@@ -144,7 +145,7 @@ let setPriority = getPriorityIcon(task.priority);
 let contactLogo = templateGetContacts(task.assignedTo);
 
   return `
-    <div draggable="true" id="${task['id']}" class="card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
+    <div draggable="true" id="${task['id']}" class="task_card card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
       <div class="card_category">
     <span class="card_categories_span ${categoryClass}">${task.content}</span>
       </div>
@@ -160,13 +161,12 @@ let contactLogo = templateGetContacts(task.assignedTo);
     1/2
         </div>
     <div class="card_bottom_section">    
-      <div class="card_contacts">
     ${contactLogo}
-      </div>
+    </div>
         <div class="card_prio">
     <img src="${setPriority}" class="prio_icons">
         </div>
-    </div>
+      </div>
       </div>
     `;
 }

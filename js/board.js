@@ -91,13 +91,13 @@ function buildOverlayCard(i) {
 
 // DRAG & DROP FUNCTION
 document.addEventListener('DOMContentLoaded', (event) => {
-  const taskCards = document.querySelectorAll('.task_card');
   const taskBarContents = document.querySelectorAll('.task_bar_content');
 
-  taskCards.forEach((card) => {
-    card.addEventListener('dragstart', (event) => {
+ 
+  document.addEventListener('dragstart', (event) => {
+    if (event.target.classList.contains('task_card')) {
       event.dataTransfer.setData('text/plain', event.target.id);
-    });
+    }
   });
 
   taskBarContents.forEach((bar) => {
@@ -134,8 +134,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   });
 
-  taskCards.forEach((card) => {
-    card.addEventListener('dragend', (event) => {
+  document.addEventListener('dragend', (event) => {
+    if (event.target.classList.contains('task_card')) {
       taskBarContents.forEach((content) => {
         const noTaskElement = content.querySelector('.no_task_to_do');
         const taskCards = content.querySelectorAll('.task_card');
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
           noTaskElement.style.display = 'flex';
         }
       });
-    });
+    }
   });
 });
 
