@@ -125,7 +125,7 @@
 
 
     <!-- overlay_add-contact -->
-    <div id="overlay_add-contact" class="d-none">
+    <div id="overlay_add-contact" class="d-non">
         <div onclick="closeAddContactOverlay()" id="close-add-area"></div>
         <div class="add-contact_main-container">
             <div class="add-contact_top-area d-flex_column">
@@ -199,7 +199,7 @@
                         </defs>
                     </svg>
                 </div>
-                <form id="add-contact-form" onsubmit="return addContact(event)">
+                <form id="add-contact-form" onsubmit="return addContact(event)" class="d-flex_row">
                     <div class="name-contacts d-flex_row">
                         <input id="name" placeholder="Name" name="name"
                         pattern="^(?=.*[A-Za-zäöüÄÖÜß]{3}).*$"
@@ -258,7 +258,7 @@
                     </div>
 
                     <div class="button_container d-flex_row">
-                        <div onclick="clearForm()" class="blue-button-container d-flex_row">
+                        <div onclick="clearForm()" class="blue-button-container cancel-button-container d-flex_row">
                             <div class="blue-button-text">Cancel</div>
                             <div class="cancel-button-cross">
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
