@@ -30,6 +30,11 @@
     background-color: #4986fe !important;
     color: white !important;
 }
+
+.blue-button-container, .cancel-button-container, .create-button-container, .save-button-container, .add-contact-button {
+    height: 40px !important;
+    padding: 0 8px !important;
+} 
 /* *-*-*-* */
 
 body {
@@ -201,7 +206,7 @@ body {
 
 .close-container {
     align-items: flex-end;
-    padding: 8px;
+    padding: 8px 8px 0px 0px;
 }
 
 .close-contacts svg:hover {
@@ -245,7 +250,7 @@ body {
 
 .button_container {
     gap: 12px;
-    margin-top: 24px;
+    margin-top: 32px;
     justify-content: space-between;
     width: 34vw;
 }
@@ -282,9 +287,6 @@ body {
     justify-content: space-between;
 }
 
-#add-contact-form {
-    margin-top: 8px;
-}
 /* END add_contact-overlay */
 
 /* START edit_contact-overlay */
@@ -501,6 +503,46 @@ body {
         bottom: 0;
         background-color: white;
         padding: 0px 15vw 0 15vw;
+    }
+
+    .add-contact_main-container {
+        position: absolute;
+        right: 4vw;
+        left: 4vw;
+        bottom: 76px;
+        top: 110px;
+    }
+
+    .add-contact_bottom-area {
+        position: static;
+        height: 336px;
+        padding: 0;
+        border-radius: 0 0 25px 25px;
+        width: 92vw;
+    }
+
+    .add-contact_top-area {
+        height: 270px;
+        border-radius: 25px 25px 0 0;
+        width: 92vw;
+    }
+
+    .button_container {
+        justify-content: center;
+        align-items: center;
+        width: auto;
+    }
+
+    #add-contact-form {
+        width: 50vw;
+    }
+
+    .profile-img {
+        margin-top: -66px;
+    }
+
+    .logo {
+        margin: 0;
     }
 }
 
