@@ -8,10 +8,13 @@ function templateBuildContactDropdown(contact) {
         <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
         ${initials}${contactName}
         </div>
-        <div>
-        <input class="custom_checkbox" type="checkbox" id="cb${contactId}" onclick="event.stopPropagation();">
-        </li>
+        <div>        
+        <label class="cr-wrapper">
+        <input id="cb${contactId}" type="checkbox" />
+        <div class="cr-input" onclick="event.stopPropagation();"></div>
+        </label>
         </div>
+        </li>
         `;
 }
 

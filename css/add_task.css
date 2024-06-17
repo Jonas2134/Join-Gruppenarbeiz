@@ -5,13 +5,13 @@ body {
 * {
   scrollbar-width: none;
   scrollbar-color: #A8A8A8 #ffffff;
-  
+
 }
 
 
 *::-webkit-scrollbar-track {
   background: #ffffff;
-   
+
 }
 
 *::-webkit-scrollbar-thumb {
@@ -26,7 +26,7 @@ body {
   position: fixed;
   top: 96px;
   left: 232px;
-  padding: 64px 24px 64px 24px;
+  padding: 64px 24px 200px 24px;
   box-sizing: border-box;
   overflow-x: hidden;
 }
@@ -136,8 +136,7 @@ body {
 }
 
 ::-webkit-calendar-picker-indicator {
-  filter: invert(25%) sepia(94%) saturate(2685%) hue-rotate(202deg)
-    brightness(90%) contrast(90%);
+  filter: invert(25%) sepia(94%) saturate(2685%) hue-rotate(202deg) brightness(90%) contrast(90%);
   height: 24px;
   width: 24px;
 }
@@ -186,7 +185,9 @@ body {
   background-color: white;
 }
 
-.button_low, .button_medium, .button_urgent {
+.button_low,
+.button_medium,
+.button_urgent {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,7 +207,7 @@ body {
   height: 200px;
   width: 200px;
 }
- 
+
 .prio_icon_medium_span {
   font-size: 30px;
   color: #ffa800;
@@ -252,7 +253,7 @@ body {
 .assigned_to_dropdown_content.show {
   display: block;
   width: 432px;
-  max-height: 200px; 
+  max-height: 200px;
   /* padding: 1px 0px 4px 10px; */
   padding: 0px;
   overflow: scroll;
@@ -311,9 +312,11 @@ li.active:hover {
   border: 2px solid #4589FF;
 }
 
-.custom_checkbox input:checked + label {
-  border-color: #4589FF; /* Rahmenfarbe bei aktivierter Checkbox */
-  background-color: #4589FF; /* Hintergrundfarbe bei aktivierter Checkbox */
+.custom_checkbox input:checked+label {
+  border-color: #4589FF;
+  /* Rahmenfarbe bei aktivierter Checkbox */
+  background-color: #4589FF;
+  /* Hintergrundfarbe bei aktivierter Checkbox */
 }
 
 .checkbox:hover {
@@ -330,7 +333,7 @@ li.active:hover {
   padding: 7px 0px 7px 10px;
 }
 
-.dropdown {
+.dropdown_task {
   margin-top: 8px;
   width: 440px;
 }
@@ -384,7 +387,7 @@ li.active:hover {
   cursor: pointer;
   display: block;
   font-size: 19px;
-    line-height: 23px;
+  line-height: 23px;
   padding: 5px 0px 5px 10px;
   margin: 0px 0px 0px -9px;
   border-radius: 10px;
@@ -393,7 +396,7 @@ li.active:hover {
 .category_to_dropdown_content.show {
   display: block;
   width: 432px;
-  max-height: 200px; 
+  max-height: 200px;
   padding: 10px 0px 4px 10px;
 }
 
@@ -476,13 +479,13 @@ li.active:hover {
   padding: 0px 5px 2px 5px;
   color: #4589FF;
   border: none;
-  background-color: white; 
+  background-color: white;
 }
 
 .add_subtask_delete_icon:hover {
   background-color: #d2e3ff;
   border-radius: 50%;
- 
+
 }
 
 .subtask_check_icon {
@@ -502,7 +505,7 @@ li.active:hover {
 .build_subtask {
   display: flex;
   justify-content: space-between;
-  border-radius: 10px;  
+  border-radius: 10px;
 }
 
 .build_subtask_2 {
@@ -560,7 +563,6 @@ li.active:hover {
 .subtask_icon_div {
   display: flex;
   align-items: center;
-
 }
 
 .subtask_icon {
@@ -573,7 +575,7 @@ li.active:hover {
 .subtask_icon:hover {
   border-radius: 50%;
   background-color: #b7d2fd;
- 
+
 }
 
 .subtask_icon_delete {
@@ -590,10 +592,10 @@ li.active:hover {
 
 
 .subtask_icons {
-display: flex;
-align-items: center;
-gap: 5px;
-padding: 0px 10px 0px 0px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0px 10px 0px 0px;
 }
 
 .subtask_icons.inactive {
@@ -603,7 +605,7 @@ padding: 0px 10px 0px 0px;
 .subtask_divider {
   width: 2px;
   min-height: 23px;
- /*  min-height: calc(100% - 10px); */
+  /*  min-height: calc(100% - 10px); */
   background-color: #e8e8e8;
   margin: 5px 0;
   flex-shrink: 0;
@@ -615,12 +617,16 @@ padding: 0px 10px 0px 0px;
 
 .add_task_form_buttons {
   display: flex;
+  justify-content: flex-end;
   position: fixed;
-  width: 375px;
-  height: 61px;
-  bottom: 0;
+  bottom: 0px;
   right: 0;
-  margin-bottom: 50px;
+  left: 0;
+  background-color: white;
+  margin-left: 202px;
+  padding-top: 10px;
+  padding-bottom: 50px;
+  padding-right: 50px;
   gap: 20px;
 }
 
@@ -644,7 +650,7 @@ padding: 0px 10px 0px 0px;
   color: #4589FF;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
   transform: scale(1.02);
-  transition: all 0,9ms ease;
+  transition: all 0, 9ms ease;
 }
 
 /*CSS CLICKED OFF */
@@ -665,7 +671,7 @@ padding: 0px 10px 0px 0px;
   cursor: pointer;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
   transform: scale(1.02);
-  transition: all 0,9ms ease;
+  transition: all 0, 9ms ease;
   background-color: #005DFF;
 }
 
@@ -682,3 +688,196 @@ padding: 0px 10px 0px 0px;
   background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 } */
+
+/*Animation*/
+.hidden_container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  z-index: 10000;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s, visibility 1s;
+}
+
+.hidden_popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 35px;
+  background-color: #4589FF;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1);
+  gap: 12px;
+  font-family: Open Sans;
+  font-size: 23px;
+  font-weight: 400;
+  transform: translateY(100%);
+  transition: transform 1s ease, opacity 1s ease;
+  opacity: 0;
+}
+
+.hidden_container.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hidden_popup.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media(max-width: 790px) {
+  .add_task {
+    left: 190px;
+    padding: 50px 18px 230px 18px;
+  }
+}
+
+@media(max-width: 680px) {
+  .add_task {
+    width: 380px;
+  }
+
+  .add_class_top_section {
+    width: 380px;
+  }
+
+  .add_description_textfield {
+    width: 360px;
+  }
+
+  .input_add_date {
+    width: 370px;
+  }
+
+  .priority_buttons {
+    gap: 12px;
+  }
+
+  .button_low,
+  .button_medium,
+  .button_urgent {
+    width: 110px;
+    gap: 5px;
+    font-size: 16px;
+  }
+
+  .add_assigned_to {
+    width: 370px;
+  }
+
+  .dropdown_task {
+    width: 370px;
+  }
+
+  .add_subtasks {
+    width: 370px;
+  }
+
+  .input_subtasks {
+    width: 370px;
+  }
+}
+
+@media(max-width: 600px) {
+  .add_task {
+    left: 100px;    
+  }
+
+  .add_task_form_buttons {
+    padding-bottom: 100px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .add_task {
+    left: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add_task {
+    left: 20px;
+    padding: 40px 18px 230px 18px;
+  }
+}
+
+@media (max-width: 430px) {
+  .add_task {
+    width: 340px;
+    top: 81px;
+    padding: 35px 18px 230px 18px;
+  }
+
+  .add_class_top_section {
+    width: 340px;
+  }
+
+  .add_description_textfield {
+    width: 320px;
+  }
+
+  .input_add_date {
+    width: 320px;
+  }
+
+  .priority_buttons {
+    gap: 8px;
+  }
+
+  .button_low,
+  .button_medium,
+  .button_urgent {
+    width: 100px;
+    padding: 15px 5px;
+  }
+
+  .prio_icons {
+    width: 16px;
+    height: 10px;
+  }
+
+  .add_assigned_to {
+    width: 350px;
+  }
+
+  .dropdown_task {
+    width: 320px;
+  }
+
+  .add_subtasks {
+    width: 320px;
+  }
+
+  .input_subtasks {
+    width: 264px;
+  }
+}
+
+@media (max-width: 410px) {
+  .add_task_form_buttons {
+    padding-right: 30px;
+  }
+}
+
+@media (max-width: 380px) {
+  .add_task {
+    left: 8px;
+  }
+
+  .add_task_form_buttons {
+    padding-right: 20px;
+    padding-top: 2px;
+  }
+}
