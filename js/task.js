@@ -1,6 +1,13 @@
 let assignedContacts = [];
 let subtasks = [];
 
+function addOffSetToHeight(divWithOffset, divToAdd) {
+  if (divWithOffset && divToAdd) {
+    let height = divWithOffset.offsetHeight;
+    divToAdd.style.marginTop = height + 'px';
+  }
+}
+
 async function init() {
   includeHTML();
   setTimeout(() => {
@@ -49,14 +56,14 @@ async function sendTask(id, status) {
 //SELECT PRIORITY BUTTON
 function selectPriority(priority) {
   clearPriority(false);
-  if (priority == 'urgent') {
+  if (priority.toLowerCase() == 'urgent') {
     urgentPriority.classList.add('priority_active');
     mediumPriority.classList.add('priority_inactive');
     lowPriority.classList.add('priority_inactive');
     document.getElementById('prioRed').src = 'icons/prio_red_white.png';
-  } else if (priority == 'medium') {
+  } else if (priority.toLowerCase() == 'medium') {
     clearPriority(true);
-  } else if (priority == 'low') {
+  } else if (priority.toLowerCase() == 'low') {
     lowPriority.classList.add('priority_active');
     urgentPriority.classList.add('priority_inactive');
     mediumPriority.classList.add('priority_inactive');
@@ -108,12 +115,10 @@ function toggleContacsDropdown() {
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
-      let dropdownHeight = selectedContacts.offsetHeight;
-      category.style.marginTop = dropdownHeight + 'px';
+      addOffSetToHeight(selectedContacts, category);
     } else {
       content.classList.add('show');
-      let dropdownHeight = content.offsetHeight;
-      category.style.marginTop = dropdownHeight + 'px';
+      addOffSetToHeight(content, category);
     }
   }
 }
@@ -121,15 +126,14 @@ function toggleContacsDropdown() {
 //TOGGLE CATEGORY DROPDOWN
 function toggleCategoryDropdown() {
   let content = document.getElementById('categoryDropdown');
-  let add_subtasks = document.getElementById('add_subtasks');
+  let addSubtasks = document.getElementById('add_subtasks');
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
-      add_subtasks.style.marginTop = '0px';
+      addSubtasks.style.marginTop = '0px';
     } else {
       content.classList.add('show');
-      let dropdownHeight = content.offsetHeight;
-      add_subtasks.style.marginTop = dropdownHeight + 'px';
+      addOffSetToHeight(content, addSubtasks);
     }
   }
 }
@@ -187,6 +191,8 @@ function addSubtask() {
   renderSubtasks();
   clearInput('inputSubtasks');
   onInputSubtask();
+  let height = document.getElementById('subtaskContent').offsetHeight;
+  document.getElementById('subtaskContent').style.marginBottom = height + 'px';
 }
 
 //RENDER SUBTASKS

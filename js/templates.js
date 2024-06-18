@@ -75,7 +75,7 @@ function templateBuildOverlayCard(task){
     setSubtask = `
       <div class="overlay_subtasks">
         <span><b class="card_b">Subtasks</b></span>  
-        ${templateOverlaySubtasks(task.subtasks, task.id)}
+        ${templateOverlaySubtasks(task.subtasks, task.finishedSubtasks, task.id)}
       </div>`;
   }
 
@@ -133,11 +133,15 @@ function getTaskCategoryClass(category) {
   }
 }
 
-function templateOverlaySubtasks(subtasksArray, id) {
+function templateOverlaySubtasks(subtasksArray, finishedArray, id) {
   let template = '';
   if(subtasksArray) {
     for (let i = 0; i < subtasksArray.length; i++) {
-      template += `<p class="overlay_subtask"><input type="checkbox" onclick="finishSubtask('${subtasksArray[i]}', '${id}')"> ${subtasksArray[i]}</p>`;
+      let check = '';
+      if (finishedArray && finishedArray.indexOf(subtasksArray[i]) > -1) {
+        check='checked';
+      }      
+      template += `<p class="overlay_subtask"><input type="checkbox" onclick="finishSubtask('${subtasksArray[i]}', '${id}')" ${check}> ${subtasksArray[i]}</p>`;
     }
   }
   return template;
@@ -145,12 +149,33 @@ function templateOverlaySubtasks(subtasksArray, id) {
 
 //TEMPLATE SMALL BOARD CARD
 function renderTask(task, i) {
-let categoryClass = getTaskCategoryClass(task.content);
-let setPriority = getPriorityIcon(task.priority);
-let contactLogo = templateGetContacts(task.assignedTo);
+  let categoryClass = getTaskCategoryClass(task.content);
+  let setPriority = getPriorityIcon(task.priority);
+  let contactLogo = templateGetContacts(task.assignedTo);
+
+  let progressBarHTML = '';
+  if (task.finishedSubtasks && task.subtasks) {
+    let percent = Math.round((task.finishedSubtasks.length / task.subtasks.length) * 100);
+    progressBarHTML = `
+      <div class="progress w3-light-grey w3-round">
+        <div class="progress-bar w3-container w3-round w3-blue" style="width: ${percent}%;"></div>              
+      </div>
+      <span>${task.finishedSubtasks.length}/${task.subtasks.length}</span> 
+    `;
+    /* progressbar = `${task.finishedSubtasks.length}/${task.subtasks.length}`; */
+  } else if (task.subtasks) {
+    progressBarHTML = `
+      <div class="progress">
+        <div class="progress-bar" style="width: 0%;"></div>        
+      </div>
+      <span>0/${task.subtasks.length}</span>
+    `;
+  }
+
+   /*  progressbar = `0/${task.subtasks.length}`; */
 
   return `
-    <div draggable="true" id="${task['id']}" class="task_card card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
+    <div draggable="true" id="${task.id}" class="task_card card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
       <div class="card_category">
     <span class="card_categories_span ${categoryClass}">${task.content}</span>
       </div>
@@ -163,13 +188,17 @@ let contactLogo = templateGetContacts(task.assignedTo);
       </div>
     </div>
         <div class="card_task_status">
-    1/2
+      <div class="progress-div">
+    ${progressBarHTML}
+      </div>
         </div>
+      <div class="overlay_bottom">  
     <div class="card_bottom_section">    
     ${contactLogo}
     </div>
         <div class="card_prio">
     <img src="${setPriority}" class="prio_icons">
+        </div>
         </div>
       </div>
       </div>

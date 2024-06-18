@@ -36,6 +36,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  overflow-y: auto;
 }
 
 .add_class_top_section {

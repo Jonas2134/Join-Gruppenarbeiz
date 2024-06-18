@@ -9,7 +9,9 @@ function openOverlayTop() {
   }
 }
 
-function closeOverlayTop() {
+async function closeOverlayTop() {
+  await showTasks();
+
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {
     overlay.classList.remove('show');
@@ -19,7 +21,7 @@ function closeOverlayTop() {
         overlay.removeEventListener('transitionend', handleTransitionEnd);
       }
     });
-  }
+  }  
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -43,9 +45,7 @@ async function openOverlayRight() {
     const form = document.getElementById('add_task_overlay_content');
     await fetch('template_add_task.html')
       .then(response => response.text())
-      .then(html => {
-        form.innerHTML = html;
-      });
+      .then(html => { form.innerHTML = html;});
     addTaskContacs();   
     setTimeout(() => {
       overlay.classList.add('show');
@@ -104,7 +104,6 @@ function renderAllTasks() {
   for (let i = 0; i < tasks.length; i++) {    
     switchStatusCase(tasks[i], i);
   }  
-
   if (document.getElementById('drag_to_do').innerHTML == '') {
     document.getElementById('drag_to_do').innerHTML = `
     <div class="no_task_to_do" draggable="false">
@@ -139,19 +138,46 @@ function buildOverlayCard(i) {
 async function editOverlayTask(id) {
   document.getElementById('add_task_overlay_content').innerHTML = '';
   const content = document.getElementById('overlay_top_content');
-  content.innerHTML = `<div class="overlay_top_header" id="overlay_top_header">`;   
+  content.innerHTML = `<div class="overlay_top_header" id="overlay_top_header">
+  <div class="overlay_edit_return">
+    <img src="./icons/add_task_escape_img.png" alt="close"
+    class="add_task_escape_img" onclick="closeOverlayTop()">
+  </div>
+`;   
   await fetch('template_add_task.html')
     .then(response => response.text())
     .then(html => {
       document.getElementById('overlay_top_header').innerHTML += html;
     });
-  content.innerHTML += `</div>`;
-  addTaskContacs();  
-  fillTask(getTaskbyId(id));
+
+  let task = getTaskbyId(id);
+
+  content.innerHTML += `
+  <div class="overlay_edit_okay">
+  <button class="form_okay_button" onclick="sendTask('${id}', '${task.status}'), closeOverlayTop()">
+    Okay ✔
+  </button>
+  </div>`;
+  await addTaskContacs();  
+  await fillTask(task);
+  await toggleContacsDropdown();
+  toggleContacsDropdown();
 }
 
 function fillTask(task) {
   document.getElementById('taskTitle').value = task.title;
+  document.getElementById('taskDescription').value = task.description;
+  document.getElementById('taskDueDate').value = task.dueDate;
+  selectPriority(task.priority);
+  for (let i = 0; i < task.assignedTo.length; i++) {
+    selectContact(task.assignedTo[i]);
+  }
+  document.getElementById('addCategoryInputField').innerHTML = task.content;
+  subtasks = [];
+  for (let i = 0; i < task.subtasks.length; i++) {
+    subtasks.push(task.subtasks[i]);
+  }
+  renderSubtasks();
 }
 
 // DRAG & DROP FUNCTION
@@ -239,9 +265,9 @@ function finishSubtask(subtaskName, id) {
     task.finishedSubtasks.splice(task.finishedSubtasks.indexOf(subtaskName), 1);
   } else {
     task.finishedSubtasks.push(subtaskName);
-  }
-  
+  } 
   updateTaskById(id, task);
+  updateProgressBar(task);
 }
 
 //SUCH FUNCTION 
@@ -261,3 +287,15 @@ function filterTask() {
     }
   }
 }
+
+//TASK PROGRESS BAR 
+function updateProgressBar(task) {
+  let amountTotalSubtasks = task.subtasks.length;
+  let amountFinishedSubtasks = task.finishedSubtasks.length;
+  let percent = (amountFinishedSubtasks / amountTotalSubtasks) * 100;
+  percent = Math.round(percent);
+
+  let progressBar = document.getElementById('progressBar');
+  progressBar.innerHTML = `${percent}%`;
+  progressBar.style.width = `${percent}%`;
+} 
