@@ -1,30 +1,44 @@
 //TEMPLATE ADD TASKS
-function templateBuildContactDropdown(contact) {
+function templateBuildContactDropdown(contact, withCheckbox) {
   let contactName = contact['name'];
   let contactId = contact['id'];
   let initials = templateUserInitials(contact);
-
+  let checkbox = '';
+  
+  if(withCheckbox) {
+    checkbox = `<div>
+        <input class="custom_checkbox" type="checkbox" id="cb${contactId}">
+         </li>
+        </div>`;
+  } 
   return `
         <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
         ${initials}${contactName}
         </div>
         <div>        
         <label class="cr-wrapper">
-        <input id="cb${contactId}" type="checkbox" />
-        <div class="cr-input" onclick="event.stopPropagation();"></div>
+        <input id="cb${contactId}" type="checkbox"/>
+        <div class="cr-input";" onclick="event.stopPropagation();"></div>
         </label>
         </div>
         </li>
         `;
 }
 
+function templateBuildContacts(contact) {
+  let contactName = contact['name'];
+  let initials = templateUserInitials(contact);
+  
+  return `
+        <li class="">
+        ${initials}${contactName}
+        </li>
+        `;
+}
+
 function templateUserInitials(contact) {
   return `
-  <div class="svg_contacts_name_div">
-    <svg width="36" height="36">
-        <circle cx="18" cy="18" r="15" fill="${contact.color}" />
-        <text x="8" y="24" font-size="1rem" fill="#ffffff">${contact.initials}</text>
-    </svg>
+  <div style="background-color:${contact.color}" class="contact_container_img">${contact.initials}</div>
   `;
 }
 
@@ -35,13 +49,13 @@ function templateBuildSubtask(subtask, index) {
   <div class="subtask_icons_div">
   <img src="/icons/edit_icon.png" alt="edit" class="subtask_icon" onclick="editSubtask(${index})">
   <div class="subtask_divider"></div>
-  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index})">
+  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index}), event.stopPropagation()">
   </div>
   </div>
   <div class="build_subtask_2 inactive" id="subtask_edit_${index}">
   <input class="build_subtask_span_2" value="${subtask}" id="subtask_input_${index}"></input>
   <div class="subtask_icons_div">
-  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon_delete" onclick="deleteSubtask(${index})">
+  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon_delete" onclick="deleteSubtask(${index}), event.stopPropagation()">
   <div class="subtask_divider"></div>
   <img class="subtask_check_icon" src="icons/check.png" onclick="saveSubtask(${index})">
   </div>
@@ -52,44 +66,53 @@ function templateBuildSubtask(subtask, index) {
 //TEMPLATE BOARD
 //TEMPLATE BIG BOARD CARD 
 function templateBuildOverlayCard(task){
-  return `<div class="overlay_card">
+  let categoryClass = getTaskCategoryClass(task.content);
+  let setPriority = getPriorityIcon(task.priority);
+  let contact = templateBuildOverlayContacts(task.assignedTo);
 
+  let setSubtask = '';
+  if (task.subtasks && task.subtasks.length > 0) {
+    setSubtask = `
+      <div class="overlay_subtasks">
+        <span><b class="card_b">Subtasks</b></span>  
+        ${templateOverlaySubtasks(task.subtasks, task.finishedSubtasks, task.id)}
+      </div>`;
+  }
+
+  return `
+    <div class="overlay_card">
       <div class="overlay_category">
-        <span class="overlay_category_span">${task.content}</span>   
+        <span class="overlay_category_span ${categoryClass}">${task.content}</span>   
         <img src="./icons/add_task_escape_img.png" alt="close"
-                class="add_task_escape_img">    
+                class="add_task_escape_img" onclick="closeOverlayTop()">    
       </div>
-    <div class="overlay_title">
-      <span class="overlay_title_span"><b>${task.title}</b></span>
-    </div>
+      <div class="overlay_title">
+        <span class="overlay_title_span"><b>${task.title}</b></span>
+      </div>
       <div class="overlay_description">
         <span>${task.description}</span>
       </div>
-    <div class="overlay_date">
-      <span><b>Due date:</b>${task.dueDate}</span>
-    </div>
+      <div class="overlay_date">
+        <div><b class="card_b">Due date:</b></div><div> ${task.dueDate}</div>
+      </div>
       <div class="overlay_priority">
-        <span><b>Priority:</b>${task.priority}</span>  
+        <div><b class="card_b">Priority:</b></div>
+        <div class="overlay_priority_status"> ${task.priority}
+        <img src="${setPriority}" class="prio_icons"></div>  
       </div>
-    <div class="overlay_contacts">
-      <span><b>Assigned To:</b></span>
-      <p id="overlayContactsRender">
-      ${task.assignedTo}
-      </p>
+      <div class="overlay_contacts">
+        <span><b class="card_b">Assigned To:</b></span>
+        ${contact}
+      </div>
+      ${setSubtask}
     </div>
-      <div class="overlay_subtasks">
-        <span><b>Subtasks</b></span>  
-        <p><input type="checkbox"> ${task.subtasks}</p>
-        <p><input type="checkbox"> ${task.subtasks}</p>
-      </div>
-  </div>
-      <div class="overlay_icons">
-  <img src="/icons/delete_icon.png" alt="delete" class="overlay_icon_delete">
-    <span>Delete</span>
-  <div class="subtask_divider"></div>
-  <img src="/icons/edit_icon.png" alt="edit" class="overlay_edit_icon">
-    <span>Edit</span>
-      </div>`;
+    <div class="overlay_icons">
+      <img src="/icons/delete_icon.png" alt="delete" class="overlay_card_icon">
+      <span class="overlay_icons_span" onclick="deleteTaskById('${task.id}'), closeOverlayTop(), showTasks(false)">Delete</span>
+      <div class="subtask_divider"></div>
+      <img src="/icons/edit_icon.png" alt="edit" class="overlay_card_icon">
+      <span class="overlay_icons_span" onclick="editOverlayTask('${task.id}'), event.stopPropagation()">Edit</span>
+    </div>`;
 }
 
 function templateBuildContactList(contact) {
@@ -102,12 +125,55 @@ function templateBuildContactList(contact) {
           `;
 }
 
+function getTaskCategoryClass(category) {
+  if (category == 'User Story') {
+  return 'user_story'
+  } else {
+    return 'technical';
+  }
+}
+
+function templateOverlaySubtasks(subtasksArray, finishedArray, id) {
+  let template = '';
+  if(subtasksArray) {
+    for (let i = 0; i < subtasksArray.length; i++) {
+      let check = '';
+      if (finishedArray && finishedArray.indexOf(subtasksArray[i]) > -1) {
+        check='checked';
+      }      
+      template += `<p class="overlay_subtask"><input type="checkbox" onclick="finishSubtask('${subtasksArray[i]}', '${id}')" ${check}> ${subtasksArray[i]}</p>`;
+    }
+  }
+  return template;
+}
+
 //TEMPLATE SMALL BOARD CARD
 function renderTask(task, i) {
+  let categoryClass = getTaskCategoryClass(task.content);
+  let setPriority = getPriorityIcon(task.priority);
+  let contactLogo = templateGetContacts(task.assignedTo);
+
+  let progressBarHTML = '';
+  if (task.finishedSubtasks && task.subtasks) {
+    let percent = Math.round((task.finishedSubtasks.length / task.subtasks.length) * 100);
+    progressBarHTML = `
+      <div class="progress w3-light-grey w3-round">
+        <div class="progress-bar w3-container w3-round w3-blue" style="width: ${percent}%;"></div>              
+      </div>
+      <span>${task.finishedSubtasks.length}/${task.subtasks.length}</span> 
+    `;
+  } else if (task.subtasks) {
+    progressBarHTML = `
+      <div class="progress">
+        <div class="progress-bar" style="width: 0%;"></div>        
+      </div>
+      <span>0/${task.subtasks.length}</span>
+    `;
+  }
   return `
-    <div draggable="true" id="${task['ID']}" class="card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
-      <div class="card_category_user_story">
-    <span class="card_category_user_story_span">${task.content}</span>
+    <div draggable="true" id="${task.id}" class="task_card card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
+      <div class="card_category">
+    <span class="card_categories_span ${categoryClass}">${task.content}</span>
       </div>
     <div class="card_top_section">
         <div class="card_title">
@@ -118,16 +184,70 @@ function renderTask(task, i) {
       </div>
     </div>
         <div class="card_task_status">
-    1/2
-        </div>
-    <div class="card_bottom_section">    
-      <div class="card_contacts">
-    ${task.assignedTo}
+      <div class="progress-div">
+    ${progressBarHTML}
       </div>
-        <div class="card_prio">
-    ${task.priority}
         </div>
+      <div class="overlay_bottom">  
+    <div class="card_bottom_section">    
+    ${contactLogo}
     </div>
+        <div class="card_prio">
+    <img src="${setPriority}" class="prio_icons">
+        </div>
+        </div>
+      </div>
       </div>
     `;
+}
+
+function getPriorityIcon(priority) {
+  if(priority == 'Urgent') {
+    return 'icons/prio_red.png';
+  }
+  else if (priority == 'Medium') {
+    return 'icons/prio_orange.png';
+  }
+  else if (priority == 'Low') {
+    return 'icons/prio_green.png';
+  }
+}
+
+function templateGetContacts(contactsArray) {
+  let template = '';
+  
+  if(contactsArray) {
+    for (let i = 0; i < contactsArray.length; i++) {
+      template += templateUserInitials(getContactById(contactsArray[i]));
+    }
+  }
+  return template;
+}
+
+function templateBuildOverlayContacts(contactsArray) {
+  let template = '';
+  
+  if(contactsArray) {
+    for (let i = 0; i < contactsArray.length; i++) {
+      template += templateBuildContacts(getContactById(contactsArray[i]));
+    }
+  }
+  return template;
+}
+
+//EDIT OVERLAY TASK
+function templateEditOverlayHeader() {
+  return `<div class="overlay_top_header" id="overlay_top_header">
+  <div class="overlay_edit_return">
+    <img src="./icons/add_task_escape_img.png" alt="close"
+    class="add_task_escape_img" onclick="closeOverlayTop()">
+  </div>`;
+}
+
+function templateEditOverlayFooter(id) {
+  return `<div class="overlay_edit_okay">
+  <button class="form_okay_button" onclick="sendTask('${id}'), closeOverlayTop(), showTasks(false);">
+    Okay ✔
+  </button>
+  </div>`;
 }
