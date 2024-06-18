@@ -156,11 +156,11 @@ function selectContact(contactId) {
   if (index == -1) {
     assignedContacts.push(contactId);
     assignedContact.classList.add('active');
-    checkbox.checked = !checkbox.checked;
+    checkbox.checked = true;
   } else {
     assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
     assignedContact.classList.remove('active');
-    checkbox.checked = !checkbox.checked;
+    checkbox.checked = false;
   }
   renderAssignedContact();
 }
@@ -191,8 +191,6 @@ function addSubtask() {
   renderSubtasks();
   clearInput('inputSubtasks');
   onInputSubtask();
-  let height = document.getElementById('subtaskContent').offsetHeight;
-  document.getElementById('subtaskContent').style.marginBottom = height + 'px';
 }
 
 //RENDER SUBTASKS

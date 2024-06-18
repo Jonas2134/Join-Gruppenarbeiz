@@ -22,15 +22,14 @@ body {
 
 .add_task {
   width: 488px;
-  max-height: calc(100vh - 96px);
+  max-height: calc(100vh - 30px);
   position: fixed;
   top: 96px;
   left: 232px;
   padding: 64px 24px 200px 24px;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow-x: hidden;  
 }
-
 
 .add_task_form {
   display: flex;

@@ -7,7 +7,7 @@ function templateBuildContactDropdown(contact, withCheckbox) {
   
   if(withCheckbox) {
     checkbox = `<div>
-        <input class="custom_checkbox" type="checkbox" id="cb${contactId}" onclick="event.stopPropagation();">
+        <input class="custom_checkbox" type="checkbox" id="cb${contactId}">
          </li>
         </div>`;
   } 
@@ -17,7 +17,7 @@ function templateBuildContactDropdown(contact, withCheckbox) {
         </div>
         <div>        
         <label class="cr-wrapper">
-        <input id="cb${contactId}" type="checkbox" onclick="event.stopPropagation();"/>
+        <input id="cb${contactId}" type="checkbox"/>
         <div class="cr-input";" onclick="event.stopPropagation();"></div>
         </label>
         </div>
