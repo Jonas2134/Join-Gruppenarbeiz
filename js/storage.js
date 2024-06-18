@@ -29,6 +29,7 @@ async function postData(path = '', data = {}) {
     body: JSON.stringify(data),
   });
   return (responseToJson = await response.json());
+}
   
 async function updateData(path = "", data = {}) {
     let response = await fetch(STORAGE_URL + path + ".json", {
