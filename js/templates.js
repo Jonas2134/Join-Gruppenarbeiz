@@ -162,7 +162,6 @@ function renderTask(task, i) {
       </div>
       <span>${task.finishedSubtasks.length}/${task.subtasks.length}</span> 
     `;
-    /* progressbar = `${task.finishedSubtasks.length}/${task.subtasks.length}`; */
   } else if (task.subtasks) {
     progressBarHTML = `
       <div class="progress">
@@ -171,9 +170,6 @@ function renderTask(task, i) {
       <span>0/${task.subtasks.length}</span>
     `;
   }
-
-   /*  progressbar = `0/${task.subtasks.length}`; */
-
   return `
     <div draggable="true" id="${task.id}" class="task_card card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
       <div class="card_category">
@@ -234,8 +230,24 @@ function templateBuildOverlayContacts(contactsArray) {
   if(contactsArray) {
     for (let i = 0; i < contactsArray.length; i++) {
       template += templateBuildContacts(getContactById(contactsArray[i]));
-
+    }
   }
   return template;
 }
+
+//EDIT OVERLAY TASK
+function templateEditOverlayHeader() {
+  return `<div class="overlay_top_header" id="overlay_top_header">
+  <div class="overlay_edit_return">
+    <img src="./icons/add_task_escape_img.png" alt="close"
+    class="add_task_escape_img" onclick="closeOverlayTop()">
+  </div>`;
+}
+
+function templateEditOverlayFooter(id) {
+  return `<div class="overlay_edit_okay">
+  <button class="form_okay_button" onclick="sendTask('${id}'), closeOverlayTop(), showTasks(false);">
+    Okay ✔
+  </button>
+  </div>`;
 }

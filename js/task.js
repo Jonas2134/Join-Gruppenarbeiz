@@ -32,16 +32,7 @@ async function init() {
 
 //SEND TASK TO FIREBASE
 async function sendTask(id) {
-  let task = {
-    title: document.getElementById('taskTitle').value,
-    description: document.getElementById('taskDescription').value,
-    dueDate: document.getElementById('taskDueDate').value,
-    priority: getPriority(),
-    assignedTo: assignedContacts,
-    content: document.getElementById('addCategoryInputField').innerHTML,
-    subtasks: subtasks,
-    status: 'To do',
-  };
+  let task = getTaskFromForm();
 
   if (id) {
     let updatingTask = getTaskbyId(id);
@@ -55,6 +46,21 @@ async function sendTask(id) {
   }  
   clearAddTask();
   add_animations();
+}
+
+function getTaskFromForm() {
+  let task = {
+    title: document.getElementById('taskTitle').value,
+    description: document.getElementById('taskDescription').value,
+    dueDate: document.getElementById('taskDueDate').value,
+    priority: getPriority(),
+    assignedTo: assignedContacts,
+    content: document.getElementById('addCategoryInputField').innerHTML,
+    subtasks: subtasks,
+    status: 'To do',
+  };
+
+  return task;
 }
 
 //SELECT PRIORITY BUTTON
@@ -274,3 +280,26 @@ function add_animations() {
     document.getElementsByClassName('hidden_popup')[0].classList.remove('visible');
   }, 2000); */
 }
+
+//FORM VALIDATION
+function validateForm() {
+  let form = document.getElementById('myForm');
+
+  if (form.checkValidity()) {
+    sendTask();
+  } else {
+    form.reportValidity();
+  }
+}
+
+function validateFormOverlay() {
+  let form = document.getElementById('myForm');
+  if (form.checkValidity()) {
+    sendTask();
+    closeOverlayRight();
+    showTasks(false);
+  } else {
+    form.reportValidity();
+  }
+}
+

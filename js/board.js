@@ -140,26 +140,16 @@ function buildOverlayCard(i) {
 async function editOverlayTask(id) {
   document.getElementById('add_task_overlay_content').innerHTML = '';
   const content = document.getElementById('overlay_top_content');
-  content.innerHTML = `<div class="overlay_top_header" id="overlay_top_header">
-  <div class="overlay_edit_return">
-    <img src="./icons/add_task_escape_img.png" alt="close"
-    class="add_task_escape_img" onclick="closeOverlayTop()">
-  </div>
-`;   
+  content.innerHTML = templateEditOverlayHeader();
+
   await fetch('template_add_task.html')
     .then(response => response.text())
     .then(html => {
       document.getElementById('overlay_top_header').innerHTML += html;
     });
-
   let task = getTaskbyId(id);
+  content.innerHTML += templateEditOverlayFooter(id);
 
-  content.innerHTML += `
-  <div class="overlay_edit_okay">
-  <button class="form_okay_button" onclick="sendTask('${id}'), closeOverlayTop(), showTasks(false);">
-    Okay ✔
-  </button>
-  </div>`;
   await addTaskContacs();  
   await fillTask(task);
   await toggleContacsDropdown();
