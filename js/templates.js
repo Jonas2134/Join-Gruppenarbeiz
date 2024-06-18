@@ -49,13 +49,13 @@ function templateBuildSubtask(subtask, index) {
   <div class="subtask_icons_div">
   <img src="/icons/edit_icon.png" alt="edit" class="subtask_icon" onclick="editSubtask(${index})">
   <div class="subtask_divider"></div>
-  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index})">
+  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index}), event.stopPropagation()">
   </div>
   </div>
   <div class="build_subtask_2 inactive" id="subtask_edit_${index}">
   <input class="build_subtask_span_2" value="${subtask}" id="subtask_input_${index}"></input>
   <div class="subtask_icons_div">
-  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon_delete" onclick="deleteSubtask(${index})">
+  <img src="/icons/delete_icon.png" alt="delete" class="subtask_icon_delete" onclick="deleteSubtask(${index}), event.stopPropagation()">
   <div class="subtask_divider"></div>
   <img class="subtask_check_icon" src="icons/check.png" onclick="saveSubtask(${index})">
   </div>
@@ -108,7 +108,7 @@ function templateBuildOverlayCard(task){
     </div>
     <div class="overlay_icons">
       <img src="/icons/delete_icon.png" alt="delete" class="overlay_card_icon">
-      <span class="overlay_icons_span" onclick="deleteTaskById('${task.id}'), closeOverlayTop(), showTasks()">Delete</span>
+      <span class="overlay_icons_span" onclick="deleteTaskById('${task.id}'), closeOverlayTop(), showTasks(false)">Delete</span>
       <div class="subtask_divider"></div>
       <img src="/icons/edit_icon.png" alt="edit" class="overlay_card_icon">
       <span class="overlay_icons_span" onclick="editOverlayTask('${task.id}'), event.stopPropagation()">Edit</span>

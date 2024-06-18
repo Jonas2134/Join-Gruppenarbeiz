@@ -337,6 +337,7 @@ li.active:hover {
 .dropdown_task {
   margin-top: 8px;
   width: 440px;
+  position: relative;
 }
 
 .dropdown_header {

@@ -31,7 +31,7 @@ async function init() {
 }
 
 //SEND TASK TO FIREBASE
-async function sendTask(id, status) {
+async function sendTask(id) {
   let task = {
     title: document.getElementById('taskTitle').value,
     description: document.getElementById('taskDescription').value,
@@ -44,7 +44,11 @@ async function sendTask(id, status) {
   };
 
   if (id) {
-    task.status = status;
+    let updatingTask = getTaskbyId(id);
+    if (updatingTask.finishedSubtasks) {
+      task.finishedSubtasks = updatingTask.finishedSubtasks;
+    }    
+    task.status = updatingTask.status;
     await updateTaskById(id, task);
   } else {
     await postData('/tasks', task);

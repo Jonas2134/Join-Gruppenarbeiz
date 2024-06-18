@@ -10,7 +10,7 @@ function openOverlayTop() {
 }
 
 async function closeOverlayTop() {
-  await showTasks();
+  await showTasks(false);
 
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {
@@ -21,10 +21,10 @@ async function closeOverlayTop() {
         overlay.removeEventListener('transitionend', handleTransitionEnd);
       }
     });
-  }  
+  }    
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {  
   const cardOverlay = document.getElementById('card_top_overlay');
   const overlayContent = document.getElementById('overlay_top_content');
   if (cardOverlay && overlayContent) {
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         closeOverlayTop();
       }
     });
-  }
+  }  
 });
 
 //OVERLAY RIGHT FUNCTION
@@ -112,9 +112,11 @@ function renderAllTasks() {
   }
 }
 
-async function showTasks() {
+async function showTasks(reloadContacts) {
   await loadTasks();
-  await initContacts();  
+  if (reloadContacts) {
+    await initContacts();
+  }  
   renderAllTasks();
 }
 
@@ -154,7 +156,7 @@ async function editOverlayTask(id) {
 
   content.innerHTML += `
   <div class="overlay_edit_okay">
-  <button class="form_okay_button" onclick="sendTask('${id}', '${task.status}'), closeOverlayTop()">
+  <button class="form_okay_button" onclick="sendTask('${id}'), closeOverlayTop(), showTasks(false);">
     Okay ✔
   </button>
   </div>`;
@@ -169,6 +171,7 @@ function fillTask(task) {
   document.getElementById('taskDescription').value = task.description;
   document.getElementById('taskDueDate').value = task.dueDate;
   selectPriority(task.priority);
+  assignedContacts = [];
   for (let i = 0; i < task.assignedTo.length; i++) {
     selectContact(task.assignedTo[i]);
   }
@@ -267,7 +270,6 @@ function finishSubtask(subtaskName, id) {
     task.finishedSubtasks.push(subtaskName);
   } 
   updateTaskById(id, task);
-  updateProgressBar(task);
 }
 
 //SUCH FUNCTION 
@@ -287,15 +289,3 @@ function filterTask() {
     }
   }
 }
-
-//TASK PROGRESS BAR 
-function updateProgressBar(task) {
-  let amountTotalSubtasks = task.subtasks.length;
-  let amountFinishedSubtasks = task.finishedSubtasks.length;
-  let percent = (amountFinishedSubtasks / amountTotalSubtasks) * 100;
-  percent = Math.round(percent);
-
-  let progressBar = document.getElementById('progressBar');
-  progressBar.innerHTML = `${percent}%`;
-  progressBar.style.width = `${percent}%`;
-} 
