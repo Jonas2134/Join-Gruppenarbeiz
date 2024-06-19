@@ -16,12 +16,12 @@
     <script src="./js/templates.js"></script>
     <title>Join</title>
   </head>
-  <body onload="includeHTML(), showTasks(), addTaskContacs()">
+  <body onload="includeHTML(), showTasks(true)">
     <div w3-include-html="template_header.html"></div>
     <div w3-include-html="template_sidebar.html"></div>
     <div class="board_top_section">
       <div class="board_input_section">
-        <input type="text" placeholder="Find Task" class="find_task_input" />
+        <input type="text" placeholder="Find Task" id="findTask" class="find_task_input" onkeyup="filterTask()" />
         <div class="input_divider"></div>
         <img
           src="/icons/input_search_icon.png"
@@ -58,72 +58,46 @@
         <div class="task_status">
           <p class="task_status_span">Done</p>
         </div>
-      </div>
-     
-      
-      
+      </div>              
       <div class="task_content">
-
         <div class="task_bar_content" id="drag_to_do">
-          <div class="no_task_to_do" draggable="false">
-            <span>No Task To Do</span>
-          </div>
           
-
-        </div>
+          </div>
 
         <div class="task_bar_content" id="drag_in_progress">
-          <div class="task_card" id="task2" draggable="true" onclick="openOverlayTop()">
-            <span>User Story</span>
-            <p>Contact Form & Imprint</p>
-            <p>dudel duuu...</p>
-          </div>
         </div>
 
         <div class="task_bar_content" id="drag_await_feedback" draggable="true">
-          <div class="task_card" id="task1" draggable="true" onclick="openOverlayTop()">
-            <span>User Story</span>
-            <p>Mach JS</p>
-            <p>los los los..</p>
           </div>
-        </div>
+
         <div class="task_bar_content" id="drag_done" draggable="true">
         </div>
 
       </div>
-    </div>
-
-        
+    </div>        
     <div class="add_task_overlay" id="add_task_overlay">
-          <div class="overlay_left" onclick="closeOverlayRight()"></div>
+          <div class="overlay_left" onclick="closeOverlayRight(), showTasks(false)"></div>
           <div class="overlay_right">
 
             <div class="add_task_header">
               <h1 class="add_task_header_title">Add Task</h1>
               <div><img src="./icons/add_task_escape_img.png" alt="close"
-                class="add_task_escape_img" onclick="closeOverlayRight()"></div>
+                class="add_task_escape_img" onclick="closeOverlayRight(), showTasks(false)"></div>
             </div>
-                <div class="add_task_overlay_content" w3-include-html="template_add_task.html"></div>
+                <div class="add_task_overlay_content" id="add_task_overlay_content">Test</div>
                 <div class="add_task_footer">
-                  <button class="form_create_button" onclick="sendTask()">
+                  <button class="form_create_button" onclick="validateFormOverlay()">
                     Create Task &#10004;
                   </button>
                 </div>
               </div>
-      </div>
-      
-
-
+      </div>      
       <div class="overlay_top" id="card_top_overlay" style="display: none">
         <div class="overlay_top_content" id="overlay_top_content">
-          <div class="overlay_top_header">
-
-          </div>
-            
+          
+          
         </div>
     </div>
   </div>
-
-
   </body>
 </html>

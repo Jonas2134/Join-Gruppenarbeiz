@@ -1,6 +1,13 @@
 let assignedContacts = [];
 let subtasks = [];
 
+function addOffSetToHeight(divWithOffset, divToAdd) {
+  if (divWithOffset && divToAdd) {
+    let height = divWithOffset.offsetHeight;
+    divToAdd.style.marginTop = height + 'px';
+  }
+}
+
 async function init() {
   includeHTML();
   setTimeout(() => {
@@ -24,7 +31,24 @@ async function init() {
 }
 
 //SEND TASK TO FIREBASE
-async function sendTask() {
+async function sendTask(id) {
+  let task = getTaskFromForm();
+
+  if (id) {
+    let updatingTask = getTaskbyId(id);
+    if (updatingTask.finishedSubtasks) {
+      task.finishedSubtasks = updatingTask.finishedSubtasks;
+    }    
+    task.status = updatingTask.status;
+    await updateTaskById(id, task);
+  } else {
+    await postData('/tasks', task);
+  }  
+  clearAddTask();
+  add_animations();
+}
+
+function getTaskFromForm() {
   let task = {
     title: document.getElementById('taskTitle').value,
     description: document.getElementById('taskDescription').value,
@@ -35,22 +59,21 @@ async function sendTask() {
     subtasks: subtasks,
     status: 'To do',
   };
-  postData('/tasks', task);
-  clearAddTask();
-  add_animations();
+
+  return task;
 }
 
 //SELECT PRIORITY BUTTON
 function selectPriority(priority) {
   clearPriority(false);
-  if (priority == 'urgent') {
+  if (priority.toLowerCase() == 'urgent') {
     urgentPriority.classList.add('priority_active');
     mediumPriority.classList.add('priority_inactive');
     lowPriority.classList.add('priority_inactive');
     document.getElementById('prioRed').src = 'icons/prio_red_white.png';
-  } else if (priority == 'medium') {
+  } else if (priority.toLowerCase() == 'medium') {
     clearPriority(true);
-  } else if (priority == 'low') {
+  } else if (priority.toLowerCase() == 'low') {
     lowPriority.classList.add('priority_active');
     urgentPriority.classList.add('priority_inactive');
     mediumPriority.classList.add('priority_inactive');
@@ -102,12 +125,10 @@ function toggleContacsDropdown() {
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
-      let dropdownHeight = selectedContacts.offsetHeight;
-      category.style.marginTop = dropdownHeight + 'px';
+      addOffSetToHeight(selectedContacts, category);
     } else {
       content.classList.add('show');
-      let dropdownHeight = content.offsetHeight;
-      category.style.marginTop = dropdownHeight + 'px';
+      addOffSetToHeight(content, category);
     }
   }
 }
@@ -115,15 +136,14 @@ function toggleContacsDropdown() {
 //TOGGLE CATEGORY DROPDOWN
 function toggleCategoryDropdown() {
   let content = document.getElementById('categoryDropdown');
-  let add_subtasks = document.getElementById('add_subtasks');
+  let addSubtasks = document.getElementById('add_subtasks');
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
-      add_subtasks.style.marginTop = '0px';
+      addSubtasks.style.marginTop = '0px';
     } else {
       content.classList.add('show');
-      let dropdownHeight = content.offsetHeight;
-      add_subtasks.style.marginTop = dropdownHeight + 'px';
+      addOffSetToHeight(content, addSubtasks);
     }
   }
 }
@@ -131,10 +151,11 @@ function toggleCategoryDropdown() {
 //ADD CONTACTS
 async function addTaskContacs() {
   await initContacts();
+  let contactDropwdown = document.getElementById('assignedDropdown');
+  contactDropwdown.innerHTML = '';
   for (i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];
-    let contactDropwdown = document.getElementById('assignedDropdown');
-    contactDropwdown.innerHTML += templateBuildContactDropdown(contact);
+    const contact = contacts[i];    
+    contactDropwdown.innerHTML += templateBuildContactDropdown(contact, true);
   }
 }
 
@@ -145,19 +166,13 @@ function selectContact(contactId) {
   if (index == -1) {
     assignedContacts.push(contactId);
     assignedContact.classList.add('active');
-    checkbox.checked = !checkbox.checked;
+    checkbox.checked = true;
   } else {
     assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
     assignedContact.classList.remove('active');
-    checkbox.checked = !checkbox.checked;
+    checkbox.checked = false;
   }
   renderAssignedContact();
-}
-
-function getContactById(id) {
-  console.log(id);
-  console.log(contacts.find((obj) => obj.id === id));
-  return contacts.find((obj) => obj.id === id);
 }
 
 //RENDER CONTACTS
@@ -257,11 +272,34 @@ function clearAddTask() {
 }
 
 function add_animations() {
-  document.getElementsByClassName('hidden_container')[0].classList.add('visible');
+ /*  document.getElementsByClassName('hidden_container')[0].classList.add('visible');
   document.getElementsByClassName('hidden_popup')[0].classList.add('visible');
 
   setTimeout(() => {
     document.getElementsByClassName('hidden_container')[0].classList.remove('visible');
     document.getElementsByClassName('hidden_popup')[0].classList.remove('visible');
-  }, 2000);
+  }, 2000); */
 }
+
+//FORM VALIDATION
+function validateForm() {
+  let form = document.getElementById('myForm');
+
+  if (form.checkValidity()) {
+    sendTask();
+  } else {
+    form.reportValidity();
+  }
+}
+
+function validateFormOverlay() {
+  let form = document.getElementById('myForm');
+  if (form.checkValidity()) {
+    sendTask();
+    closeOverlayRight();
+    showTasks(false);
+  } else {
+    form.reportValidity();
+  }
+}
+
