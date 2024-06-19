@@ -27,12 +27,55 @@ function renderGreeting() {
     }
 }
 
+function countStatuses() {
+    const statusCount = {
+        "To do": 0,
+        "In progress": 0,
+        "Await feedback": 0,
+        "Done": 0
+    };
+
+    tasks.forEach(task => {
+        if (statusCount.hasOwnProperty(task.status)) {
+            statusCount[task.status]++;
+        }
+    });
+
+    return statusCount;
+}
+
+function countUrgentTasks() {
+    let urgentCount = 0;
+
+    tasks.forEach(task => {
+        if (task.priority === "Urgent") {
+            urgentCount++;
+        }
+    });
+
+    return urgentCount;
+}
+
+function renderStatusCount() {
+    const result = countStatuses();
+    const urgentTasksCount = countUrgentTasks();
+
+    document.getElementById('urgent').innerHTML = urgentTasksCount;
+    document.getElementById('all_Tasks').innerHTML = tasks.length;
+    document.getElementById('tasks_todo').innerHTML = result['To do'];
+    document.getElementById('tasks_progress').innerHTML = result['In progress'];
+    document.getElementById('feedback').innerHTML = result['Await feedback'];
+    document.getElementById('tasks_done').innerHTML = result['Done'];
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
     await includeHTML();
     await loadCurrentUsers();
+    await loadTasks();
     showDropUser();
     renderGreeting();
-
+    renderStatusCount();
+    
     document.getElementById("log_out").addEventListener('click', logOut)
 
     document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
