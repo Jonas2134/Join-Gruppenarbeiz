@@ -3,12 +3,12 @@ a {
 }
 
 /* START: EDITIERT von Johannes */
-.sidebar {
+/*.sidebar {
   position: absolute !important;
   top: 100vh - 96px;
   left: 0;
   bottom: 0;
-}
+}*/
 /* END: EDITIERT von Johannes */
 
 .sidebar {
@@ -162,10 +162,6 @@ a {
   }
 
   .sidebar_policy {
-    display: none;
-  }
-
-  .board_top_section {
     display: none;
   }
 }

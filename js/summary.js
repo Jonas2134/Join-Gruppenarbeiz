@@ -68,6 +68,32 @@ function renderStatusCount() {
     document.getElementById('tasks_done').innerHTML = result['Done'];
 }
 
+function getEarliestDueDate() {
+    let earliestDate = null;
+
+    tasks.forEach(task => {
+        if (task.priority === "Urgent" && task.status !== "Done") {
+            let dueDate = new Date(task.dueDate);
+            if (!earliestDate || dueDate < earliestDate) {
+                earliestDate = dueDate;
+            }
+        }
+    });
+
+    return earliestDate ? earliestDate.toISOString().split('T')[0] : null;
+}
+
+function renderEarliestDueDate() {
+    const earliestUrgentDueDate = getEarliestDueDate();
+    const dueDate = document.getElementById('dueDate');
+
+    if (earliestUrgentDueDate) {
+        dueDate.innerHTML = earliestUrgentDueDate;
+    } else {
+        dueDate.innerHTML = 'No urgent tasks';
+    }
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
     await includeHTML();
     await loadCurrentUsers();
@@ -75,7 +101,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     showDropUser();
     renderGreeting();
     renderStatusCount();
-    
+    renderEarliestDueDate();
+
     document.getElementById("log_out").addEventListener('click', logOut)
 
     document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
