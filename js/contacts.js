@@ -55,12 +55,7 @@ function renderContacts() {
 function createContactHtml(contact, index) {
     return `
     <div id="contact-container(${index})" onclick="openContact(${index})" class="contact-container d-flex_column">
-        <div>
-            <svg class="contact-container-img" width="100" height="100">
-                <circle cx="50" cy="50" r="25" fill="${contact.color}" />
-                <text x="39" y="56" font-size="1em" fill="#ffffff">${contact.initials}</text>
-            </svg>
-        </div>
+        <div style="background-color:${contact.color}" class="contact-container-img">${contact.initials}</div>
         <div class="contact-container-text d-flex">
             <div class="contact-container-text-name">${contact.name}</div>
             <a class="contact-container-mail" href="mailto:${contact.email}">${contact.email}</a>
@@ -170,8 +165,6 @@ async function addContact(event) {
     return true
 }
 
-
-
 function showPopup() {
     docID('popup_container').classList.add('show');
     docID('popup').classList.add('show');
@@ -187,7 +180,7 @@ function clearAddForm() {
 }
 
 function clearEditForm() {
-    document.getElementById('add-edit-form').reset();
+    document.getElementById('edit-contact-form').reset();
 }
 
 function openAddContactOverlay() {
@@ -207,23 +200,150 @@ function openEditContactOverlay(i) {
     let color = contacts[i].color;
 } */
 
-function closeAddContactOverlay() {
+/* function closeAddContactOverlay() {
     let contactOverlay = docID("overlay_add-contact");
     contactOverlay.classList.add('d-none');
-}
+} */
 
-function closeEditContactOverlay() {
+/* test */
+function closeAddContactOverlay() {
+    var overlay = document.getElementById('overlay_add-contact');
+    var mainContainer = document.querySelector('.add-contact_main-container');
+    
+    // Add hide class to trigger slide-out animation
+    mainContainer.classList.add('hide');
+    
+    // Wait for animation to finish before hiding the overlay
+    setTimeout(function() {
+        overlay.classList.add('d-none');
+        mainContainer.classList.remove('hide');
+    }, 500); // Match the timeout duration with the animation duration
+}
+/* test */
+
+/* function closeEditContactOverlay() {
     let editOverlay = docID("overlay_edit-contact");
     editOverlay.classList.add('d-none');
-}
+} */
 
-function closeSelectedOverlay() {
+/* test */
+function closeEditContactOverlay() {
+    var overlay = document.getElementById('overlay_edit-contact');
+    var mainContainer = document.querySelector('.edit-contact_main-container');
+    
+    // Add hide class to trigger slide-out animation
+    mainContainer.classList.add('hide');
+    
+    // Wait for animation to finish before hiding the overlay
+    setTimeout(function() {
+        overlay.classList.add('d-none');
+        mainContainer.classList.remove('hide');
+    }, 500); // Match the timeout duration with the animation duration
+}
+/* test */
+
+/* function closeSelectedOverlay() {
     let overlay = docID('selected-container');
     overlay.classList.add('d-none');
     removeBlueBackground()
+} */
+
+function openContact(i) {
+    let contact = contacts[i];
+    let color = contact.color;
+
+    addBlueBackground(i);
+
+    let selectedContainer = docID('selected-container');
+    selectedContainer.classList.remove('d-none');
+    selectedContainer.querySelector('.selected-contact_main-container').classList.remove('hide');
+    selectedContainer.querySelector('.selected-contact_main-container').classList.add('slideInRight');
+
+    docID('selected-name').innerHTML = `${contacts[i]['name']}`;
+    docID('selected-mail').innerHTML = `${contacts[i]['email']}`;
+    docID('selected-mobile').innerHTML = `${contacts[i]['mobile']}`;
+
+    // Reset Event Listeners
+    let editButton = docID('edit').cloneNode(true);
+    let deleteButton = docID('delete').cloneNode(true);
+
+    // Replace old buttons with cloned nodes to remove old listeners
+    docID('edit').replaceWith(editButton);
+    docID('delete').replaceWith(deleteButton);
+
+    // Add new event listeners
+    editButton.addEventListener('click', editContactHandler.bind(null, i));
+    deleteButton.addEventListener('click', deleteContactHandler.bind(null, i));
+
+    docID('selected-contact-profil-img').setAttribute('fill', color);
+    docID('selected-contact-profil-text').innerHTML = `${getInitials(contacts[i]['name'])}`;
+
+    docID('edit-contact-profil-img').setAttribute('fill', color);
+
+    docID('edit-name').value = `${contacts[i]['name']}`;
+    docID('edit-email').value = `${contacts[i]['email']}`;
+    docID('edit-mobile').value = `${contacts[i]['mobile']}`;
+
+    docID('edit-button-container').innerHTML = editButtonsHTML(i);
+}
+
+function closeSelectedContactOverlay() {
+    let overlay = document.getElementById('selected-container');
+    overlay.classList.add('d-none');
 }
 
 function openContact(i) {
+    let contact = contacts[i];
+    let color = contact.color;
+
+    addBlueBackground(i);
+
+    let selectedContainer = docID('overlay_selected-contact');
+    selectedContainer.classList.remove('d-none');
+    selectedContainer.querySelector('.selected-contact_main-container').classList.add('slideInRight');
+
+    docID('selected-name').innerHTML = `${contacts[i]['name']}`;
+    docID('selected-mail').innerHTML = `${contacts[i]['email']}`;
+    docID('selected-mobile').innerHTML = `${contacts[i]['mobile']}`;
+
+    // Reset Event Listeners
+    let editButton = docID('edit').cloneNode(true);
+    let deleteButton = docID('delete').cloneNode(true);
+
+    // Replace old buttons with cloned nodes to remove old listeners
+    docID('edit').replaceWith(editButton);
+    docID('delete').replaceWith(deleteButton);
+
+    // Add new event listeners
+    editButton.addEventListener('click', editContactHandler.bind(null, i));
+    deleteButton.addEventListener('click', deleteContactHandler.bind(null, i));
+
+    docID('selected-contact-profil-img').setAttribute('fill', color);
+    docID('selected-contact-profil-text').innerHTML = `${getInitials(contacts[i]['name'])}`;
+
+    docID('edit-contact-profil-img').setAttribute('fill', color);
+
+    docID('edit-name').value = `${contacts[i]['name']}`;
+    docID('edit-email').value = `${contacts[i]['email']}`;
+    docID('edit-mobile').value = `${contacts[i]['mobile']}`;
+
+    docID('edit-button-container').innerHTML = editButtonsHTML(i);
+}
+
+/* Animationen */
+/* document.addEventListener("DOMContentLoaded", async function () {
+    // Event Listener für das Öffnen und Schließen des selected-contact Overlays
+    let contactCards = document.getElementsByClassName('contact-container');
+    for (let i = 0; i < contactCards.length; i++) {
+        contactCards[i].addEventListener('click', function() {
+            openContact(i);
+        });
+    }
+
+    document.getElementById('close-selected-area').addEventListener('click', closeSelectedContactOverlay);
+}); */
+
+/* function openContact(i) {
     let contact = contacts[i];
     let color = contact.color;
 
@@ -256,14 +376,51 @@ function openContact(i) {
     docID('edit-mobile').value = `${contacts[i]['mobile']}`;
 
     docID('edit-button-container').innerHTML = editButtonsHTML(i);
+} */
+
+function openContact(i) {
+    let contact = contacts[i];
+    let color = contact.color;
+
+    addBlueBackground(i);
+
+    let selectedContainer = docID('selected-container');
+    selectedContainer.classList.remove('d-none');
+
+    docID('selected-name').innerHTML = `${contacts[i]['name']}`;
+    docID('selected-mail').innerHTML = `${contacts[i]['email']}`;
+    docID('selected-mobile').innerHTML = `${contacts[i]['mobile']}`;
+
+    // Reset Event Listeners
+    let editButton = docID('edit').cloneNode(true);
+    let deleteButton = docID('delete').cloneNode(true);
+
+    // Replace old buttons with cloned nodes to remove old listeners
+    docID('edit').replaceWith(editButton);
+    docID('delete').replaceWith(deleteButton);
+
+    // Add new event listeners
+    editButton.addEventListener('click', editContactHandler.bind(null, i));
+    deleteButton.addEventListener('click', deleteContactHandler.bind(null, i));
+
+    docID('selected-contact-profil-img').setAttribute('fill', color);
+    docID('selected-contact-profil-text').innerHTML = `${getInitials(contacts[i]['name'])}`;
+
+    docID('edit-contact-profil-img').setAttribute('fill', color);
+
+    docID('edit-name').value = `${contacts[i]['name']}`;
+    docID('edit-email').value = `${contacts[i]['email']}`;
+    docID('edit-mobile').value = `${contacts[i]['mobile']}`;
+
+    docID('edit-button-container').innerHTML = editButtonsHTML(i);
 }
 
 function editButtonsHTML(i) {
     return `
-    <div onclick="editContact(${i})" id="delete_in_edit" class="blue-button-container d-flex_row">
+    <div onclick="clearEditForm()" id="delete_in_edit" class="blue-button-container d-flex_row">
         <div class="blue-button-text">Delete</div>
     </div>
-    <div onclick="clearEditForm()" id="edit_in_edit" class="save-button-container d-flex_row">
+    <div onclick="editContact(${i})" id="edit_in_edit" class="save-button-container d-flex_row">
         <div class="save-button-text">Save</div>
         <div class="save-button-hook">
             <svg width="25" height="25" viewBox="0 0 25 25" fill="black" xmlns="http://www.w3.org/2000/svg">
@@ -306,11 +463,11 @@ function addBlueBackground(i) {
 }
 
 function removeBlueBackground() {
-        const contactContainer = document.querySelectorAll('.contact-container');
-        
-        for (let i = 0; i < contactContainer.length; i++) {
-          contactContainer[i].classList.remove('blue-background');
-        }
+    const contactContainer = document.querySelectorAll('.contact-container');
+
+    for (let i = 0; i < contactContainer.length; i++) {
+        contactContainer[i].classList.remove('blue-background');
+    }
 }
 
 async function editContact(i) {
@@ -358,7 +515,7 @@ function validateInput(input) {
 
 async function deleteContact(i) {
     const confirmation = confirm("Sind Sie sicher, dass Sie diesen Kontakt löschen möchten?");
-    
+
     if (confirmation) {
         let contactId = contacts[i].id;
         await deleteData(`/contacts/${contactId}`);
@@ -368,4 +525,14 @@ async function deleteContact(i) {
     } else {
         console.log("Löschung abgebrochen");
     }
+}
+
+function openNav() {
+
+    let nav_contact = docID('nav_contact');
+
+    if (nav_contact.classList.contains('d-none'))
+        nav_contact.classList.remove('d-none');
+    else
+        nav_contact.classList.add('d-none');
 }

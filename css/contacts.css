@@ -31,10 +31,18 @@
     color: white !important;
 }
 
-.blue-button-container, .cancel-button-container, .create-button-container, .save-button-container, .add-contact-button {
+.blue-button-container, .cancel-button-container, .create-button-container, .save-button-container {
     height: 40px !important;
     padding: 0 8px !important;
-} 
+}
+
+.contacts_sidebar {
+    position: absolute !important;
+    top: 100vh - 96px;
+    left: 0;
+    bottom: 0;
+    z-index: 1 !important;
+  }
 /* *-*-*-* */
 
 body {
@@ -48,7 +56,7 @@ body {
     align-items: center;
 }
 
-.add-contact-button {
+.add-contact-button, .open-nav-button {
     justify-content: center;
     flex-direction: row;
     align-items: center;
@@ -71,7 +79,7 @@ body {
 
 /* START contact-book */
 .contact-book {
-    width: 360px;
+    width: 45vw;
     height: calc(100vh - 200px);
     overflow: auto;
 }
@@ -96,6 +104,17 @@ body {
     border-radius: 12px;
     margin: 0 30px;
     height: 70px;
+    padding-left: 8px;
+}
+
+.contact-container-img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
 .filter-card {
@@ -119,6 +138,22 @@ body {
 /* END contact-book */
 
 /* START selected container */
+
+.selected-contact_main-container.hide {
+    animation: slideOutRight 0.5s forwards;
+}
+
+.selected-contact_main-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 42vw;
+    height: 100vh;
+    transform: translateX(100%);
+    opacity: 0;
+    animation: slideInRight 0.5s forwards;
+}
+
 .selected-contact-container {
     margin:  40px 32px;
     flex-direction: column;
@@ -138,7 +173,7 @@ body {
     gap: 16px;
 }
 
-.selected-contact-profil-nav {
+.selected-contact-profil-nav, .mobile_nav {
     gap: 16px;
 }
 
@@ -164,10 +199,71 @@ body {
 /* END selected container */
 
 /* START add_contact-overlay */
+/* Slide Animation */
+.add-contact_main-container.hide {
+    animation: slideOutRight 0.5s forwards;
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+/* Animation */
+
+
 .add-contact_main-container {
     position: absolute;
     top: 0;
     right: 0;
+
+    /* test */
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 42vw;
+    height: 100vh;
+    transform: translateX(100%);
+    opacity: 0;
+    animation: slideInRight 0.5s forwards;
+    /* test */
 }
 
 #close-add-area {
@@ -177,6 +273,7 @@ body {
     bottom: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.6);
+
 }
 
 .add-contact_top-area {
@@ -230,6 +327,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: space-evenly;
 }
 
 /* bottom-area */
@@ -295,6 +393,22 @@ body {
     top: 0;
     left: 0;
     bottom: 0;
+
+    /* test */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 42vw;
+    height: 100vh;
+    transform: translateX(-100%);
+    opacity: 0;
+    animation: slideInLeft 0.5s forwards;
+    /* test */
+}
+
+/* animation */
+.edit-contact_main-container.hide {
+    animation: slideOutLeft 0.5s forwards;
 }
 
 #close-edit-area {
@@ -416,6 +530,16 @@ body {
     animation: slideInOut 2s ease-in-out forwards;
 }
 
+.nav_contact {
+    position: absolute;
+    bottom: 100px;
+    right: 80px;
+    background-color: white;
+    border-radius: 12px 12px 0 12px;
+    padding: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 @keyframes slideInOut {
     0% {
         transform: translateY(800px);
@@ -430,6 +554,28 @@ body {
 /* END Popup */
 
 /* START Responsiveness */
+@media (min-width: 900px) {
+    .contacts-main-container {
+
+    }
+
+    .contact-container {
+        height: 100px;
+        
+    }
+
+    .contact-container-img {
+        width: 80px;
+        height: 80px;
+        font-size: 2.2em;
+    }
+
+    .contact-container-text {
+
+    }
+
+}
+
 @media (max-width: 750px) {
     .add-contact_bottom-area, .add-contact_top-area {
         width: 60vw;
@@ -447,7 +593,7 @@ body {
         width: 60vw;
     }
 
-    .add-contact-button {
+    .add-contact-button, .open-nav-button{
         width: 35vw;
     }
 
@@ -484,7 +630,8 @@ body {
 }
 
 @media (max-width: 600px) {
-    .contacts-main-container {
+
+    .contacts-main-container, .edit-contact_main-container {
         margin: 0;
     }
 
@@ -492,12 +639,13 @@ body {
         width: 80vw;
     }
 
-    .add-contact-button {
+    .add-contact-button, .open-nav-button {
         width: 48vw;
     }
 
     .selected-contact-container {
         position: absolute;
+        top: 100px;
         right: 0;
         left: 0;
         bottom: 0;
@@ -505,15 +653,15 @@ body {
         padding: 0px 15vw 0 15vw;
     }
 
-    .add-contact_main-container {
+    .add-contact_main-container, .edit-contact_main-container {
         position: absolute;
         right: 4vw;
         left: 4vw;
         bottom: 76px;
-        top: 110px;
+        top: 100px;
     }
 
-    .add-contact_bottom-area {
+    .add-contact_bottom-area, .edit-area_bottom-area {
         position: static;
         height: 336px;
         padding: 0;
@@ -521,7 +669,7 @@ body {
         width: 92vw;
     }
 
-    .add-contact_top-area {
+    .add-contact_top-area, .edit-area_top-area {
         height: 270px;
         border-radius: 25px 25px 0 0;
         width: 92vw;
@@ -533,7 +681,7 @@ body {
         width: auto;
     }
 
-    #add-contact-form {
+    #add-contact-form, #edit-contact-form {
         width: 50vw;
     }
 
@@ -548,6 +696,156 @@ body {
 
 @media (max-width: 400px) {
 
+    .selected-contact-profil-nav {
+        display: none;
+    }
+    
+    .add-contact-button-text {
+        display: none;
+    }
+
+    .add-contact-button, .open-nav-button {
+        width: 30px;
+        height: 30px;
+        padding: 10px;
+        margin: 0;
+        position: absolute;
+        bottom: 12vh;
+        right: 6vw;
+    }
+
+    .filter-card:first-child {
+        margin-top: 20px;
+    }
+
+    .contact-container {
+        font-size: 0.8em;;
+    }
+
+    .contact-container-img {
+        width: 40px;
+        height: 40px;
+    }
+
+    #selected-name {
+        font-size: 1.5em;
+    }
+
+    #selected-img svg {
+        font-size: 1em;
+    }
+
+    .open-nav-button {
+        display: flex;
+    }
 }
 
 /* END Responsiveness */
+
+/* START: Animationen thx to Jonas */
+/*Add Task Animation öffnen und schließen*/
+.hidden_add_task {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255,255,255, 0.7);
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    flex: 1;
+    z-index: 10000;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s, visibility 1s;
+}
+
+.hidden_task_card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background-color: white;
+    width: 520px;
+    height: 100vh;
+    border-radius: 30px 0 30px 30px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transform: translateX(250px);
+    transition: transform 1s ease, opacity 1s ease;
+    opacity: 0;
+}
+
+.close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.hidden_add_task.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hidden_task_card.visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+/*Karte öffnen und schließen*/
+
+.hidden_edit_task {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255,255,255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    z-index: 10000;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s, visibility 1s;
+}
+
+.hidden_edit_task_card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background-color: white;
+    width: 520px;
+    height: 1000px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transform: translateY(100%);
+    transition: transform 1s ease, opacity 1s ease;
+    opacity: 0;
+}
+
+.cross {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.hidden_edit_task.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hidden_edit_task_card.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+/* END: Animationen thx to Jonas */
