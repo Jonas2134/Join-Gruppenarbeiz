@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="./icons/logo.png" type="image/x-icon" />
+  <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
   <link rel="stylesheet" href="./css/board.css" />
   <link rel="stylesheet" href="./css/fonts.css" />
   <link rel="stylesheet" href="./css/template_header.css" />
@@ -32,12 +32,12 @@
           <div class="board_input_section">
             <input type="text" placeholder="Find Task" id="findTask" class="find_task_input" onkeyup="filterTask()" />
             <div class="input_divider"></div>
-            <img src="/icons/input_search_icon.png" alt="search" class="input_search_icon" />
+            <img src="./img/input_search_icon.png" alt="search" class="input_search_icon" />
           </div>
 
 
           <button class="add_task_button" onclick="openOverlayRight()">
-            Add task<img src="/icons/plus_icon_white.png" class="add_task_button_icon" />
+            Add task<img src="./img/plus_icon_white.png" class="add_task_button_icon" />
           </button>
 
         </div>
@@ -89,7 +89,7 @@
     <div class="overlay_right" onclick="event.stopPropagation()">
       <div class="add_task_header">
         <h1 class="add_task_header_title">Add Task</h1>
-        <div><img src="./icons/add_task_escape_img.png" alt="close" class="add_task_escape_img"
+        <div><img src="./img/add_task_escape_img.png" alt="close" class="add_task_escape_img"
             onclick="closeOverlayRight(), showTasks(false)"></div>
       </div>
       <div class="add_task_overlay_content" id="add_task_overlay_content">Test</div>
