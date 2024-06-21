@@ -250,7 +250,7 @@ function openContact(i) {
             </div>
             <div class="arrow_return_div d-none">
                 <div class="arrow-container">
-                    <img src="icons/arrow_return.png" alt="go back" class="arrow_return" onclick="closeSelectedContactOverlay()" />
+                    <img src="./img/arrow_return.png" alt="go back" class="arrow_return" onclick="closeSelectedContactOverlay()" />
                 </div>
             </div>
             <div class="selected-contact-profil-top d-flex row">
