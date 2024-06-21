@@ -24,8 +24,16 @@
     <div w3-include-html="template_header.html"></div>
     <div class="contacts_sidebar" w3-include-html="template_sidebar.html"></div>
 
-    <div class="popup_container" id="popup_container">
-        <span class="popup" id="popup">Contact successfully created</span>
+    <div class="popup_container" id="creation_popup_container">
+        <span class="popup" id="creation_popup">Contact successfully created</span>
+    </div>
+
+    <div class="popup_container" id="update_popup_container">
+        <span class="popup" id="update_popup">Contact sucessfully edited</span>
+    </div>
+
+    <div class="popup_container" id="delete_popup_container">
+        <span class="popup" id="delete_popup">Contact successfully deleted</span>
     </div>
 
     <div class="main-container d-flex row">
@@ -60,7 +68,9 @@
 
         <!-- selected contact template -->
         <div id="selected-container" class="selected-contact-container d-none">
-            <div onclick="openNav()" class="open-nav-button d-none">
+           
+           
+           <!--  <div onclick="openNav()" class="open-nav-button d-none">
                 <div class="add-contact-button-text">
                     Add new contact
                 </div>
@@ -177,7 +187,8 @@
                     <div id="selected-mobile" class="selected-contact-phone-adress">+49 111 111 11</div>
                 </div>
 
-            </div>
+            </div> -->
+        
         </div>
         <!-- *-*-*-* -->
     </div>

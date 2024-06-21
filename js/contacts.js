@@ -142,13 +142,27 @@ async function addContact(event) {
     return true
 }
 
-function showPopup() {
-    docID('popup_container').classList.add('show');
-    docID('popup').classList.add('show');
-    /* d-none soll erst nach der animationsdauer eingefügt werden */
+function showCreationPopup() {
+    docID('creation_popup_container').classList.add('show');
+    docID('creation_popup').classList.add('show');
     setTimeout(() => {
-        docID('popup').classList.add('d-none');
-        docID('popup_container').classList.remove('show');
+        docID('creation_popup_container').classList.remove('show');
+    }, 2000);
+}
+
+function showUpdatePopup() {
+    docID('update_popup_container').classList.add('show');
+    docID('update_popup').classList.add('show');
+    setTimeout(() => {
+        docID('update_popup_container').classList.remove('show');
+    }, 2000);
+}
+
+function showDeletePopup() {
+    docID('delete_popup_container').classList.add('show');
+    docID('delete_popup').classList.add('show');
+    setTimeout(() => {
+        docID('delete_popup_container').classList.remove('show');
     }, 2000);
 }
 
@@ -266,6 +280,7 @@ function closeEditContactOverlay() {
 
 function closeSelectedContactOverlay() {
     let overlay = document.getElementById('selected-container');
+    removeBlueBackground();
     overlay.classList.add('d-none');
 }
 
@@ -356,16 +371,12 @@ function closeSelectedContactOverlay() {
 } */
 
 function openContact(i) {
-    let contact = contacts[i];
-    let color = contact.color;
-    let initials = getInitials(contact.name);
-
     addBlueBackground(i);
 
     let selectedContainer = docID('selected-container');
     selectedContainer.innerHTML = `
         <div class="selected-contact-main-container">
-            <div class="open-nav-button d-none" onclick="openNav()">
+            <div class="open-nav-button d-none" onclick="showNav()">
                 <div class="add-contact-button-text">Add new contact</div>
                 <div class="add-contact-button-img">
                     <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -379,7 +390,7 @@ function openContact(i) {
                 </div>
             </div>
             <div class="nav_contact d-none" id="nav_contact">
-                <div class="mobile_nav d-flex_column">
+                <div class="mobile_nav d-flex_column" id="mobileNav">
                     <div class="edit d-flex row s-gap" onclick="openEditContactOverlay(${i})">
                         <div class="edit-img">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -414,16 +425,12 @@ function openContact(i) {
                 </div>
             </div>
             <div class="selected-contact-profil-top d-flex row">
-                    <div class="contact_profil-left>
                     <div id="selected-img">
-                        <svg width="100" height="100">
-                            <circle id="selected-contact-profil-img" cx="50" cy="50" r="50" fill="${color}" />
-                            <text id="selected-contact-profil-text" x="24" y="64" font-size="2.5em" fill="#ffffff">${initials}</text>
-                        </svg>
-                    </div>
-                    </div>
+                        <div style="background-color:${contacts[i].color}; width:90px; height:90px; font-size:1.6em;" class="contact-container-img selected">${contacts[i].initials}</div>
+                    </div>  
+                        
                 <div class="selected-contact-profil-right d-flex">
-                    <div id="selected-name" class="selected-contact-profil-name">${contact.name}</div>
+                    <div id="selected-name" class="selected-contact-profil-name">${contacts[i].name}</div>
                     <div class="selected-contact-profil-nav d-flex row">
                         <div class="edit d-flex row s-gap" onclick="openEditContactOverlay(${i})">
                             <div class="edit-img">
@@ -453,15 +460,16 @@ function openContact(i) {
                     </div>
                 </div>
             </div>
+            </div>
             <div class="selected-contact-profil-bottom d-flex">
                 <div class="selected-contact-headline">Contact Information</div>
                 <div class="selected-contact-email-container d-flex s-gap">
                     <div class="selected-contact-email-name">Email:</div>
-                    <a id="selected-mail" href="mailto:${contact.email}">${contact.email}</a>
+                    <a id="selected-mail" href="mailto:${contacts[i].email}">${contacts[i].email}</a>
                 </div>
                 <div class="selected-contact-phone-container d-flex s-gap">
                     <div class="selected-contact-phone-name">Phone</div>
-                    <div id="selected-mobile" class="selected-contact-phone-adress">${contact.mobile}</div>
+                    <div id="selected-mobile" class="selected-contact-phone-adress">${contacts[i].mobile}</div>
                 </div>
             </div>
         </div>
@@ -476,6 +484,10 @@ function updateEditOverlay(i) {
     docID('edit-email').value = `${contacts[i]['email']}`;
     docID('edit-mobile').value = `${contacts[i]['mobile']}`;
     docID('edit-button-container').innerHTML = editButtonsHTML(i);
+}
+
+function showNav() {
+    docID('nav_contact').classList.remove('d-none');
 }
 
 /* function openContact(i) {
@@ -673,7 +685,10 @@ async function editContact(i) {
         localStorage.setItem('contacts', JSON.stringify(contacts));
         closeEditContactOverlay();
         console.log("Contact updated:", contact);
-        window.location.reload();
+        showUpdatePopup();
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
     }
 }
 
@@ -762,12 +777,21 @@ async function deleteContact(i) {
     window.location.reload();
 }
 
-function openNav() {
+function showMobileNav() {
+    let mobileNav = document.querySelector('.mobile_nav');
+    mobileNav.classList.add('show');
+}
 
-    let nav_contact = docID('nav_contact');
+function hideMobileNav() {
+    let mobileNav = document.querySelector('.mobile_nav');
+    mobileNav.classList.remove('show');
+}
 
-    if (nav_contact.classList.contains('d-none'))
-        nav_contact.classList.remove('d-none');
-    else
-        nav_contact.classList.add('d-none');
+function toggleMobileNav() {
+    let mobileNav = document.getElementById('mobileNav');
+    if (mobileNav.classList.contains('show')) {
+        mobileNav.classList.remove('show');
+    } else {
+        mobileNav.classList.add('show');
+    }
 }
