@@ -13,6 +13,26 @@ async function init() {
     await initContacts();
     groupContacts();
     renderContacts();
+
+    await loadCurrentUsers();
+    showDropUser();
+
+    document.getElementById("log_out").addEventListener('click', logOut)
+
+    document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
+
+    window.addEventListener('click', function (event) {
+        if (!event.target.matches('.drop-logo')) {
+            let dropdowns = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < dropdowns.length; i++) {
+                let openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    });
+
 }
 
 function groupContacts() {
@@ -137,8 +157,11 @@ async function addContact(event) {
     } catch (error) {
         console.error('Fehler beim Hinzufügen des Kontakts:', error);
     }
+    showCreationPopup();
+    setTimeout(() => {
+        window.location.reload();
+    }, 2000);
 
-    init();
     return true
 }
 
@@ -637,7 +660,9 @@ function addBlueBackground(i) {
 
     if (selectedContact !== null) {
         selectedContact.classList.remove('blue-background');
+        
     }
+    
     contactContainer.classList.add('blue-background');
     selectedContact = contactContainer;
 }
@@ -649,6 +674,17 @@ function removeBlueBackground() {
         contactContainer[i].classList.remove('blue-background');
     }
 }
+
+/* function addWhiteText(i) {
+    let contact = docID(`contact-container(${i})`);
+    contact.style.color = "white";
+
+}
+
+function removeWhiteText(i) {
+    let contact = docID(`contact-container(${i})`);
+    contact.style.color = "black";
+} */
 
 async function editContact(i) {
     let contactId = contacts[i].id;
@@ -774,7 +810,10 @@ async function deleteContact(i) {
         console.log("Löschung abgebrochen");
     }
 
-    window.location.reload();
+    showDeletePopup();
+    setTimeout(() => {
+        window.location.reload();
+    }, 2000);
 }
 
 function showMobileNav() {
