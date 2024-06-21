@@ -1,10 +1,15 @@
+.board_container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  box-sizing: border-box;
+  gap: 72px;
+  padding: 20px 0 20px 20px;
+  overflow: hidden;
+}
+
 .board_top_section {
   display: flex;
-  position: fixed;
-  width: 1208px;
-  height: 215px;
-  top: 105px;
-  left: 232px;
   padding: 72px 0px 16px 48px;
   gap: 32px;
 }
@@ -73,7 +78,6 @@
   justify-content: center;
   width: 138px;
   height: 51px;
-  position: fixed;
   padding: 16px 10px 16px 10px;
   border: solid 1px #4589ff;
   border-radius: 10px;
@@ -96,25 +100,15 @@
   height: 23px;
 }
 
-.task_status_bar {
-  display: flex;
-  position: fixed;
-  justify-content: space-between;
-  box-sizing: border-box;
-  height: 28px;
-  margin: 100px 0px 0px 0px;
-  gap: 18px;
-}
-
 .task_status {
   display: flex;
-  width: 244px;
+  justify-content: space-between;
+  width: 235px;
   height: 28px;
 }
 
 .task_status_span {
   margin: 0;
-  width: 244px;
   height: 28px;
   font-weight: 700;
   font-size: 23px;
@@ -144,23 +138,24 @@
 .task_content {
   display: flex;
   box-sizing: border-box;
-  width: 1208px;
-  height: 55vh;
-  position: fixed;
-  top: 323px;
-  left: 232px;
-  padding: 0px 48px;
+  padding-left: 10px;
   gap: 18px;
-  overflow: scroll;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.task_board_column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .task_bar_content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 700px;
-  width: 244px;
-  gap: 7px;
+  gap: 10px;
+  padding: 5px 10px 5px 5px;
+  min-height: 700px;
 }
 
 .no_task_to_do {
@@ -193,9 +188,10 @@
 .add_task_overlay {
   position: fixed;
   top: 0;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  justify-content: end;
   background: rgba(255, 255, 255, 0.8);
   z-index: 1000;
   display: none;
@@ -206,12 +202,7 @@
   transform: translateX(0);
 }
 
-.overlay_left {
-  width: 65vw;
-}
-
 .overlay_right {
-  width: 35vw;
   background-color: white;
   opacity: 1;
   border-radius: 30px 0px 0px 30px;
@@ -228,6 +219,7 @@
   transform: translateX(100%);
   transition: transform 0.3s ease;
   overflow-y: auto;
+
   h1 {
     font-size: 48px;
     margin: 0px;
@@ -237,8 +229,6 @@
 .add_task_header {
   display: flex;
   justify-content: space-between;
-  width: 35vw;
-  height: 80px;
   padding: 40px 0px 40px 0px;
   gap: 49px;
   z-index: 1001;
@@ -264,7 +254,7 @@
 }
 
 .add_task_overlay_content {
-  padding-top: 200px;
+  padding: 0 20px;
 }
 
 .add_task_footer {
@@ -272,12 +262,8 @@
   justify-content: center;
   justify-content: flex-end;
   background-color: white;
-  width: 100%;
-  height: 90px;
+  width: 100%;  
   padding: 5px 30px 15px 0px;
-  z-index: 1001;
-  position: sticky;
-  bottom: 0;
 }
 
 .overlay_top {
@@ -298,36 +284,41 @@
   bottom: 4%;
 }
 
-.overlay_top_content {
-  width: 500px;
+.overlay_border {
   min-height: max-content;
   max-height: 90vh;
   background-color: white;
   border-radius: 30px;
-  padding: 48px 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 2px solid #f2f2f2;
   position: fixed;
   bottom: -100%;
   top: 30px;
   left: 50%;
+  padding-right: 20px;
   transform: translateX(-50%);
   transition: bottom 0.3s ease;
   box-sizing: border-box;
-  gap: 24px;
-  overflow-y: scroll;
 }
 
-/*/ CARD DESIGN /*/ 
+.overlay_top_content {
+  padding: 48px 0 48px 20px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+/*/ CARD DESIGN /*/
 .card_complete {
   display: flex;
   flex-direction: column;
   width: 215px;
+  min-width: 180px;
   gap: 8px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 10px;
   margin-top: 3px;
+  white-space: normal;
 }
 
 .card_complete:hover {
@@ -375,9 +366,6 @@
   line-height: 19px;
 }
 
-.card_task_status {
-}
-
 .card_bottom_section {
   display: flex;
 }
@@ -393,7 +381,7 @@
   align-items: center;
 }
 
-.progress{
+.progress {
   background-color: #F4F4F4;
   border-radius: 13px;
   height: 16px;
@@ -409,7 +397,7 @@
 /*/ OVERLAY BIG CARD DESIGN /*/
 .overlay_edit_return {
   display: flex;
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .overlay_edit_okay {
@@ -477,7 +465,9 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  li {display: flex;
+
+  li {
+    display: flex;
     justify-content: flex-start;
     gap: 30px;
   }
@@ -511,7 +501,7 @@
 }
 
 .overlay_title_span {
-  font-size: 61px;
+  font-size: 55px;
   font-weight: 700;
   line-height: 55px;
 }
@@ -524,7 +514,7 @@
 }
 
 input {
-cursor: pointer;
+  cursor: pointer;
 }
 
 .overlay_icons_span {
@@ -532,10 +522,10 @@ cursor: pointer;
 }
 
 .overlay_icons_span:hover {
-  color: #0038FF; 
+  color: #0038FF;
   cursor: pointer;
   font-weight: bold;
-  }
+}
 
 .overlay_card_icon {
   height: 18px;
@@ -545,4 +535,121 @@ cursor: pointer;
 
 .overlay_card_icon:hover {
   cursor: pointer;
+}
+
+@media(max-width: 1320px) {
+  .task_content {
+    flex-direction: column;
+  }
+
+  .task_board_column {
+    white-space: nowrap;
+  }
+
+  .task_bar_content {
+    min-height: 200px;
+    flex-direction: row;
+    height: auto;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+
+  .task_status {
+    width: auto;
+  }
+}
+
+@media (max-width: 780px) {
+  .board_top_section {
+    padding: 60px 0 0 0;
+  }
+
+  .board_input_section {
+    width: 212px;
+  }
+
+  .find_task_input {
+    width: 130px;
+  }
+
+  .input_search_icon {
+    margin: 0 6px 0 6px;
+  }
+}
+
+@media (max-width: 615px) {
+  .board_top_section {
+    gap: 17px;
+  }
+}
+
+@media (max-width: 600px) {
+  .board_container {
+    padding: 20px 0 81px 10px;
+    gap: 50px;
+  }
+
+  .add_task_header {
+    padding: 40px 0 0 0;
+  }
+
+  .overlay_right {
+    width: 100%;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .add_task_overlay_content {
+    padding: 0;
+  }
+
+  .add_task_form {
+    height: 70vh;
+  }
+
+  .overlay_border {
+    width: 100%;
+    height: 100%;
+    min-height: auto;
+    max-height: none;
+  }
+
+  .overlay_edit_okay {
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .overlay_border {
+    padding-right: 0;
+  }
+
+  .overlay_title_span {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 400px) {
+  .overlay_right {
+    padding-top: 140px;
+  }
+
+  .board_top_section {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  .board_container {
+    gap: 30px;
+  }
+
+  .board_input_section {
+    width: auto;
+  }
+
+  .find_task_input {
+    width: auto;
+    flex: 1;
+  }
 }

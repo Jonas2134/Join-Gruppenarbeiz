@@ -27,11 +27,81 @@ function renderGreeting() {
     }
 }
 
+function countStatuses() {
+    const statusCount = {
+        "To do": 0,
+        "In progress": 0,
+        "Await feedback": 0,
+        "Done": 0
+    };
+
+    tasks.forEach(task => {
+        if (statusCount.hasOwnProperty(task.status)) {
+            statusCount[task.status]++;
+        }
+    });
+
+    return statusCount;
+}
+
+function countUrgentTasks() {
+    let urgentCount = 0;
+
+    tasks.forEach(task => {
+        if (task.priority === "Urgent") {
+            urgentCount++;
+        }
+    });
+
+    return urgentCount;
+}
+
+function renderStatusCount() {
+    const result = countStatuses();
+    const urgentTasksCount = countUrgentTasks();
+
+    document.getElementById('urgent').innerHTML = urgentTasksCount;
+    document.getElementById('all_Tasks').innerHTML = tasks.length;
+    document.getElementById('tasks_todo').innerHTML = result['To do'];
+    document.getElementById('tasks_progress').innerHTML = result['In progress'];
+    document.getElementById('feedback').innerHTML = result['Await feedback'];
+    document.getElementById('tasks_done').innerHTML = result['Done'];
+}
+
+function getEarliestDueDate() {
+    let earliestDate = null;
+
+    tasks.forEach(task => {
+        if (task.priority === "Urgent" && task.status !== "Done") {
+            let dueDate = new Date(task.dueDate);
+            if (!earliestDate || dueDate < earliestDate) {
+                earliestDate = dueDate;
+            }
+        }
+    });
+
+    return earliestDate ? earliestDate.toISOString().split('T')[0] : null;
+}
+
+function renderEarliestDueDate() {
+    const earliestUrgentDueDate = getEarliestDueDate();
+    const dueDate = document.getElementById('dueDate');
+
+    if (earliestUrgentDueDate) {
+        dueDate.innerHTML = earliestUrgentDueDate;
+    } else {
+        dueDate.innerHTML = 'No urgent tasks';
+    }
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
     await includeHTML();
     await loadCurrentUsers();
+    await loadTasks();
     showDropUser();
     renderGreeting();
+    renderStatusCount();
+    renderEarliestDueDate();
 
     document.getElementById("log_out").addEventListener('click', logOut)
 

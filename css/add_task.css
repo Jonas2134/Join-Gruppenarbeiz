@@ -2,11 +2,11 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-* {
+/** {
   scrollbar-width: none;
   scrollbar-color: #A8A8A8 #ffffff;
 
-}
+}*/
 
 
 *::-webkit-scrollbar-track {
@@ -21,7 +21,6 @@ body {
 }
 
 .add_task {
-  width: 488px;
   max-height: calc(100vh - 30px);
   position: fixed;
   top: 96px;
@@ -34,8 +33,10 @@ body {
 .add_task_form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .add_class_top_section {
@@ -141,8 +142,6 @@ body {
 .add_priority {
   display: flex;
   flex-direction: column;
-  width: 440px;
-  height: 82px;
   gap: 8px;
 }
 
@@ -172,7 +171,6 @@ body {
   color: white;
   background-color: #7ae229;
 }
-
 
 .button_low.priority_inactive,
 .button_medium.priority_inactive,
@@ -228,9 +226,7 @@ body {
 }
 
 .add_assigned_to {
-  display: flex;
-  width: 440px;
-  height: 79px;
+  display: flex;  
   /* position: fixed; */
   gap: 8px;
 }
@@ -287,7 +283,6 @@ li {
   line-height: 23px;
   padding: 3px 10px 3px 10px;
   gap: 15px;
-
 }
 
 li.active {
@@ -367,8 +362,6 @@ li.active:hover {
   border-radius: 50%;
 }
 
-
-
 .category_to_dropdown_content {
   display: none;
   background-color: white;
@@ -402,13 +395,8 @@ li.active:hover {
   padding: 10px 0px 4px 10px;
 }
 
-
-
-
 .add_category {
-  display: flex;
-  width: 440px;
-  height: 79px;
+  display: flex;  
   /* position: fixed; */
   gap: 8px;
 }
@@ -501,9 +489,6 @@ li.active:hover {
   border-radius: 50%;
 }
 
-
-
-
 .build_subtask {
   display: flex;
   justify-content: space-between;
@@ -593,7 +578,6 @@ li.active:hover {
   background-color: #d2e3ff;
 }
 
-
 .subtask_icons {
   display: flex;
   align-items: center;
@@ -613,10 +597,6 @@ li.active:hover {
   margin: 5px 0;
   flex-shrink: 0;
 }
-
-
-
-
 
 .add_task_form_buttons {
   display: flex;
@@ -747,10 +727,6 @@ li.active:hover {
 }
 
 @media(max-width: 680px) {
-  .add_task {
-    width: 380px;
-  }
-
   .add_class_top_section {
     width: 380px;
   }
@@ -773,10 +749,6 @@ li.active:hover {
     width: 110px;
     gap: 5px;
     font-size: 16px;
-  }
-
-  .add_assigned_to {
-    width: 370px;
   }
 
   .dropdown_task {
@@ -818,7 +790,6 @@ li.active:hover {
 
 @media (max-width: 430px) {
   .add_task {
-    width: 340px;
     top: 81px;
     padding: 35px 18px 230px 18px;
   }
@@ -851,10 +822,6 @@ li.active:hover {
     height: 10px;
   }
 
-  .add_assigned_to {
-    width: 350px;
-  }
-
   .dropdown_task {
     width: 320px;
   }
@@ -876,7 +843,7 @@ li.active:hover {
 
 @media (max-width: 380px) {
   .add_task {
-    left: 8px;
+    left: 5px;
   }
 
   .add_task_form_buttons {
