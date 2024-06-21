@@ -36,6 +36,7 @@ body {
   align-items: center;
   gap: 24px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .add_class_top_section {

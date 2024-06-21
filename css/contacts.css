@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 /* general classes */
 .d-flex {
     display: flex;
