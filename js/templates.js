@@ -215,10 +215,11 @@ function getPriorityIcon(priority) {
 
 function templateGetContacts(contactsArray) {
   let template = '';
-  
   if(contactsArray) {
     for (let i = 0; i < contactsArray.length; i++) {
-      template += templateUserInitials(getContactById(contactsArray[i]));
+      if (getContactById(contactsArray[i])) {
+        template += templateUserInitials(getContactById(contactsArray[i]));
+      }
     }
   }
   return template;
@@ -229,7 +230,9 @@ function templateBuildOverlayContacts(contactsArray) {
   
   if(contactsArray) {
     for (let i = 0; i < contactsArray.length; i++) {
-      template += templateBuildContacts(getContactById(contactsArray[i]));
+      if (getContactById(contactsArray[i])) {
+        template += templateBuildContacts(getContactById(contactsArray[i]));
+      }      
     }
   }
   return template;
