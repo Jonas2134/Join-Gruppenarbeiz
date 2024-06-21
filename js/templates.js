@@ -57,7 +57,7 @@ function templateBuildSubtask(subtask, index) {
   <div class="subtask_icons_div">
   <img src="./img/delete_icon.png" alt="delete" class="subtask_icon_delete" onclick="deleteSubtask(${index}), event.stopPropagation()">
   <div class="subtask_divider"></div>
-  <img class="subtask_check_icon" src="icons/check.png" onclick="saveSubtask(${index})">
+  <img class="subtask_check_icon" src="./img/check.png" onclick="saveSubtask(${index})">
   </div>
   </div>
   `;
@@ -203,13 +203,13 @@ function renderTask(task, i) {
 
 function getPriorityIcon(priority) {
   if(priority == 'Urgent') {
-    return 'icons/prio_red.png';
+    return './img/prio_red.png';
   }
   else if (priority == 'Medium') {
-    return 'icons/prio_orange.png';
+    return './img/prio_orange.png';
   }
   else if (priority == 'Low') {
-    return 'icons/prio_green.png';
+    return './img/prio_green.png';
   }
 }
 
