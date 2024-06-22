@@ -1,6 +1,6 @@
 const STORAGE_URL =
   'https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/';
-  // 'https://users-31ee0-default-rtdb.europe-west1.firebasedatabase.app/';
+// 'https://users-31ee0-default-rtdb.europe-west1.firebasedatabase.app/';
 const users = [];
 let contacts = [];
 let currentUser = null;
@@ -30,21 +30,21 @@ async function postData(path = '', data = {}) {
   });
   return (responseToJson = await response.json());
 }
-  
+
 async function updateData(path = "", data = {}) {
-    let response = await fetch(STORAGE_URL + path + ".json", {
-        method: "PUT",
-        header: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-    return (responseToJson = await response.json());
+  let response = await fetch(STORAGE_URL + path + ".json", {
+    method: "PUT",
+    header: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return (responseToJson = await response.json());
 }
 
 async function getData(path = "") {
-    let response = await fetch(STORAGE_URL + path + ".json");
-    return (responseToJson = await response.json());
+  let response = await fetch(STORAGE_URL + path + ".json");
+  return (responseToJson = await response.json());
 }
 
 async function getData(path = '') {
@@ -110,8 +110,8 @@ async function loadCurrentUsers() {
 
 /* START: Hilfsfunktionen */
 function sortContacts() {
-  contacts.sort(function(a, b) {
-      return a.name.localeCompare(b.name);
+  contacts.sort(function (a, b) {
+    return a.name.localeCompare(b.name);
   });
 }
 
@@ -119,7 +119,7 @@ function getInitials(name) {
   let parts = name.split(' ');
   let initials = '';
   for (let i = 0; i < parts.length; i++) {
-      initials += parts[i].charAt(0).toUpperCase();
+    initials += parts[i].charAt(0).toUpperCase();
   }
   return initials;
 }
@@ -135,77 +135,93 @@ async function initContacts() {
 function enrichContacts() {
   let colorIndex = 0;
   for (let i = 0; i < contacts.length; i++) {
-      let contact = contacts[i];
-      contact.initials = getInitials(contact.name);
-      contact.color = colors[colorIndex % colors.length];
-      colorIndex++;
+    let contact = contacts[i];
+    contact.initials = getInitials(contact.name);
+    contact.color = colors[colorIndex % colors.length];
+    colorIndex++;
   }
 }
 /* END: contact storage */
 
 
 function showDropUser() {
-    const name = currentUser.user_name.split(" ");
-    let initials;
+  const name = currentUser.user_name.split(" ");
+  let initials;
 
-    if (name.length === 1) {
-        initials = name[0].charAt(0).toUpperCase();
-    } else {
-        const firstNameLetter = name[0].charAt(0).toUpperCase();
-        const lastNameLetter = name[name.length - 1].charAt(0).toUpperCase();
-        initials = firstNameLetter + lastNameLetter;
-    }
+  if (name.length === 1) {
+    initials = name[0].charAt(0).toUpperCase();
+  } else {
+    const firstNameLetter = name[0].charAt(0).toUpperCase();
+    const lastNameLetter = name[name.length - 1].charAt(0).toUpperCase();
+    initials = firstNameLetter + lastNameLetter;
+  }
 
-    document.getElementById("drop_user").innerHTML = initials;
+  document.getElementById("drop_user").innerHTML = initials;
 }
 
 async function logOut() {
-    await deleteData("/currentUser");
-    window.location.href = './index.html';
+  await deleteData("/currentUser");
+  window.location.href = './index.html';
 }
 
 /* START: contact storage */
 
 /* START: Hilfsfunktionen */
 function sortContacts() {
-    contacts.sort(function(a, b) {
-        return a.name.localeCompare(b.name);
-    });
+  contacts.sort(function (a, b) {
+    return a.name.localeCompare(b.name);
+  });
 }
 
 function getInitials(name) {
-    let parts = name.split(' ');
-    let initials = '';
-    for (let i = 0; i < parts.length; i++) {
-        initials += parts[i].charAt(0).toUpperCase();
-    }
-    return initials;
+  let parts = name.split(' ');
+  let initials = '';
+  for (let i = 0; i < parts.length; i++) {
+    initials += parts[i].charAt(0).toUpperCase();
+  }
+  return initials;
 }
 /* END: Hilfsfunktionen */
 
 async function initContacts() {
-    await loadContacts();
-    sortContacts();
-    enrichContacts();
+  await loadContacts();
+  sortContacts();
+  enrichContacts();
 }
 
 async function loadContacts() {
-    contacts = [];
+  contacts = [];
 
-    const loadedContacts = await getData("/contacts");
-    Object.keys(loadedContacts).forEach(key => {
-        const contact = { id: key, ...loadedContacts[key] };
-        contacts.push(contact);
-    });
+  const loadedContacts = await getData("/contacts");
+  Object.keys(loadedContacts).forEach(key => {
+    const contact = { id: key, ...loadedContacts[key] };
+    contacts.push(contact);
+  });
 }
 
 function enrichContacts() {
-    let colorIndex = 0;
-    for (let i = 0; i < contacts.length; i++) {
-        let contact = contacts[i];
-        contact.initials = getInitials(contact.name);
-        contact.color = colors[colorIndex % colors.length];
-        colorIndex++;
-    }
+  let colorIndex = 0;
+  for (let i = 0; i < contacts.length; i++) {
+    let contact = contacts[i];
+    contact.initials = getInitials(contact.name);
+    contact.color = colors[colorIndex % colors.length];
+    colorIndex++;
+  }
 }
 /* END: contact storage */
+
+
+function checkCurrentUser() {
+  if (currentUser === null) {
+    window.location.href = 'index.html';
+  }
+}
+
+function hideElementsForLoggedOutUsers() {  
+  if (currentUser === null) {
+      const elementsToHide = document.querySelectorAll('.hide-if-logged-out');
+      elementsToHide.forEach(element => {
+          element.style.display = 'none';
+      });
+  }
+}

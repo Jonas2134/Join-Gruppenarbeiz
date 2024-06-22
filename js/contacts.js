@@ -15,6 +15,7 @@ async function init() {
     renderContacts();
 
     await loadCurrentUsers();
+    checkCurrentUser();
     showDropUser();
 
     document.getElementById("log_out").addEventListener('click', logOut)
