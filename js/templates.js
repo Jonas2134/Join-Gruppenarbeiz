@@ -108,7 +108,7 @@ function templateBuildOverlayCard(task){
     </div>
     <div class="overlay_icons">
       <img src="./img/delete_icon.png" alt="delete" class="overlay_card_icon">
-      <span class="overlay_icons_span" onclick="deleteTaskById('${task.id}'), closeOverlayTop(), showTasks(false)">Delete</span>
+      <span class="overlay_icons_span" onclick="deleteTaskOnBoard('${task.id}')">Delete</span>
       <div class="subtask_divider"></div>
       <img src="./img/edit_icon.png" alt="edit" class="overlay_card_icon">
       <span class="overlay_icons_span" onclick="editOverlayTask('${task.id}'), event.stopPropagation()">Edit</span>
