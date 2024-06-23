@@ -5,9 +5,11 @@ const users = [];
 let contacts = [];
 let currentUser = null;
 const colors = ['#fe7b02', '#9228ff', '#6e52ff', '#fc71ff', '#ffbb2b', '#21d7c2', '#462f89', '#ff4646']
-
-
 let tasks = [];
+
+function deleteById(array, idToDelete) {
+  return array.filter(item => item.id !== idToDelete);
+}
 
 async function updateData(path = '', data = {}) {
   let response = await fetch(STORAGE_URL + path + '.json', {
