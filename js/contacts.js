@@ -77,7 +77,7 @@ function createContactHtml(contact, index) {
         <div style="background-color:${contact.color}" class="contact-container-img">${contact.initials}</div>
         <div class="contact-container-text d-flex">
             <div class="contact-container-text-name">${contact.name}</div>
-            <a class="contact-container-mail" href="mailto:${contact.email}">${contact.email}</a>
+            <div class="contact-container-mail">${contact.email}</div>
         </div>
     </div>
     `;
@@ -110,14 +110,16 @@ async function addContact(event) {
     try {
         await postData("/contacts", contact);
         clearAddForm();
-        showPopup();
     } catch (error) {
         console.error('Fehler beim Hinzufügen des Kontakts:', error);
     }
     showCreationPopup();
-    setTimeout(() => {
+    closeAddContactOverlay();
+    init();
+
+    /*     setTimeout(() => {
         window.location.reload();
-    }, 2000);
+    }, 2000); */
 
     return true
 }
@@ -299,7 +301,7 @@ function openContact(i) {
                 </div>
                 <div class="selected-contact-phone-container d-flex s-gap">
                     <div class="selected-contact-phone-name">Phone</div>
-                    <div id="selected-mobile" class="selected-contact-phone-adress">${contacts[i].mobile}</div>
+                    <a href="${contacts[i].mobile}" id="selected-mobile" class="selected-contact-phone-adress">${contacts[i].mobile}</a>
                 </div>
             </div>
         </div>
@@ -413,9 +415,11 @@ async function editContact(i) {
         closeEditContactOverlay();
         console.log("Contact updated:", contact);
         showUpdatePopup();
-        setTimeout(() => {
+        closeSelectedContactOverlay();
+        init();
+/*         setTimeout(() => {
             window.location.reload();
-        }, 2000);
+        }, 2000); */
     }
 }
 
@@ -448,9 +452,11 @@ async function deleteContact(i) {
     }
 
     showDeletePopup();
-    setTimeout(() => {
+    
+    init();
+/*     setTimeout(() => {
         window.location.reload();
-    }, 2000);
+    }, 2000); */
 }
 
 function showMobileNav() {

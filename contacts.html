@@ -235,7 +235,7 @@
                     </div>
                     <div class="headline-text">Add Contact</div>
                     <div class="underline-text">Tasks are better with a Team!</div>
-                    <div class="profile-img">
+                    <div class="profile-img contact-container-img-overlay">
                         <svg width="134" height="134" viewBox="0 0 134 134" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_d_753_4544)">
                                 <rect x="7" y="7" width="120" height="120" rx="60" fill="white" />
@@ -271,10 +271,10 @@
             </div>
             <div class="add-contact_bottom-area d-flex_column">
                 <form id="add-contact-form" onsubmit="return addContact(event)" class="d-flex_row">
-                    <div class="name-contacts d-flex_row">
+                    <div class="name-contacts d-flex_row input-container">
                         <input id="name" placeholder="Name" name="name" pattern="^(?=.*[A-Za-zäöüÄÖÜß]{3}).*$"
-                            title="Mindestens drei Buchstaben" class="name-contacts-input" type="text" required>
-                        <div class="name-contacts-img">
+                            title="Mindestens drei Buchstaben" class="name-input" type="text" required>
+                        <div class="name-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_43661_2306" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
@@ -289,10 +289,10 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="email-contacts d-flex_row">
-                        <input id="email" name="email" placeholder="Email" class="email-contacts-input" type="email"
+                    <div class="email-contacts d-flex_row input-container">
+                        <input id="email" name="email" placeholder="Email" class="email-input" type="email"
                             required>
-                        <div class="email-contacts-img">
+                        <div class="email-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_43661_2816" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
@@ -307,11 +307,11 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="phone-contacts d-flex_row">
-                        <input id="mobile" name="tel" pattern="\+?[0-9\s-]{7,15}"
+                    <div class="phone-contacts d-flex_row input-container">
+                        <input id="mobile" name="tel" pattern="\\+?[0-9\\s\\-\\/]{7,15}"
                             title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone"
-                            class="phone-contacts-input" type="tel">
-                        <div class="phone-contacts-img">
+                            class="phone-input" type="tel">
+                        <div class="phone-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_43661_2823" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
@@ -406,7 +406,7 @@
                     <div class="headline-text mgTop-18">Edit Contact</div>
                     
                     <div>
-                        <div id="edit-contact-profile-img" style="width:90px; height:90px; font-size:1.6em;" class="contact-container-img-edit"></div>
+                        <div id="edit-contact-profile-img" style="width:90px; height:90px; font-size:1.6em;" class="contact-container-img-edit contact-container-img-overlay"></div>
                     </div>
                 
                 </div>
@@ -415,10 +415,10 @@
             <div class="edit-area_bottom-area d-flex_column">
 
                 <form id="edit-contact-form">
-                    <div class="name-edit-contacts d-flex_row">
+                    <div class="name-edit-contacts d-flex_row input-container">
                         <input id="edit-name" placeholder="Name" name="name" pattern="[A-Za-zäöüÄÖÜß\s]+"
-                            title="Nur Buchstaben sind erlaubt" class="name-contacts-input" type="text" required>
-                        <div class="name-contacts-img">
+                            title="Nur Buchstaben sind erlaubt" class="name-input" type="text" required>
+                        <div class="name-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_43661_2306" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
@@ -433,10 +433,10 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="email-edit-contacts d-flex_row">
-                        <input id="edit-email" name="email" placeholder="Email" class="email-contacts-input"
+                    <div class="email-edit-contacts d-flex_row input-container">
+                        <input id="edit-email" name="email" placeholder="Email" class="email-input"
                             type="email">
-                        <div class="email-contacts-img">
+                        <div class="email-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_43661_2816" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
@@ -451,11 +451,11 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="phone-edit-contacts d-flex_row">
-                        <input id="edit-mobile" ame="tel" pattern="\+?[0-9\s-]{7,15}"
+                    <div class="phone-edit-contacts d-flex_row input-container">
+                        <input id="edit-mobile" ame="tel" pattern="\\+?[0-9\\s\\-\\/]{7,15}"
                             title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone"
-                            class="phone-contacts-input" type="tel">
-                        <div class="phone-contacts-img">
+                            class="phone-input" type="tel">
+                        <div class="phone-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_43661_2823" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0"
