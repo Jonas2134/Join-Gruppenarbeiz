@@ -4,6 +4,7 @@ async function init() {
     showTasks(true);
   }, 500);
   await loadCurrentUsers();
+  checkCurrentUser();
   showDropUser();
   document.getElementById("log_out").addEventListener('click', logOut);
   document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
@@ -31,8 +32,8 @@ function openOverlayTop() {
   }
 }
 
-async function closeOverlayTop() {
-  await showTasks(false);
+function closeOverlayTop() {
+  renderAllTasks();
 
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {
@@ -103,22 +104,28 @@ function clearBoard(){
   document.getElementById('drag_done').innerHTML = '';
 }
 
+
+//BOARD SWITCH STATUS
 function switchStatusCase(task, i) {
-  switch(task.status) {
-    case 'To do':
+  switch(task.status.toLowerCase()) {
+    case 'to do':
       document.getElementById('drag_to_do').innerHTML += renderTask(task, i);
       break;
-    case 'In progress':
+    case 'in progress':
       document.getElementById('drag_in_progress').innerHTML += renderTask(task, i);
       break;
-    case 'Await feedback':
+    case 'await feedback':
       document.getElementById('drag_await_feedback').innerHTML += renderTask(task, i);
       break;
-    case 'Done':
+    case 'done':
       document.getElementById('drag_done').innerHTML += renderTask(task, i); 
   }
 }
 
+function setSendTaskStatus(status) {
+  sendTaskStatus = status;
+}
+ 
 //RENDER TASKS ON BOARD
 function renderAllTasks() {
   clearBoard();
@@ -151,6 +158,15 @@ function updateTaskStatus(id, status) {
 }
 
 
+//DELETE TASK ON BOARD 
+function deleteTaskOnBoard(id) {
+  tasks = deleteById(tasks, id);
+  deleteTaskById(id);
+  closeOverlayTop();
+  renderAllTasks();
+}
+
+
 //BUILD OVERLAY TASK CARD
 function buildOverlayCard(i) {
   let content = document.getElementById('overlay_top_content');
@@ -171,7 +187,6 @@ async function editOverlayTask(id) {
     });
   let task = getTaskbyId(id);
   content.innerHTML += templateEditOverlayFooter(id);
-
   await addTaskContacs();  
   await fillTask(task);
   await toggleContacsDropdown();
@@ -264,7 +279,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       });
     }
     setTimeout(() => {
-      showTasks();
+      renderAllTasks();
     }, 50);    
   });
 });
@@ -284,12 +299,12 @@ function finishSubtask(subtaskName, id) {
   updateTaskById(id, task);
 }
 
-//SUCH FUNCTION 
+//FILTER FUNCTION 
 function filterTask() { 
   let search = document.getElementById('findTask').value.toLowerCase();
   if(search.length >=3) {
     for (let i = 0; i < tasks.length; i++) {
-      if (tasks[i].title.toLowerCase().includes(search)) {
+      if (tasks[i].title.toLowerCase().includes(search) || tasks[i].description.toLowerCase().includes(search)) {
         document.getElementById(`${tasks[i].id}`).style.display = 'block';
       }  else {
         document.getElementById(`${tasks[i].id}`).style.display = 'none';

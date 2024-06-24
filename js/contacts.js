@@ -15,6 +15,7 @@ async function init() {
     renderContacts();
 
     await loadCurrentUsers();
+    checkCurrentUser();
     showDropUser();
 
     document.getElementById("log_out").addEventListener('click', logOut)
@@ -76,7 +77,7 @@ function createContactHtml(contact, index) {
         <div style="background-color:${contact.color}" class="contact-container-img">${contact.initials}</div>
         <div class="contact-container-text d-flex">
             <div class="contact-container-text-name">${contact.name}</div>
-            <a class="contact-container-mail" href="mailto:${contact.email}">${contact.email}</a>
+            <div class="contact-container-mail">${contact.email}</div>
         </div>
     </div>
     `;
@@ -109,14 +110,16 @@ async function addContact(event) {
     try {
         await postData("/contacts", contact);
         clearAddForm();
-        showPopup();
     } catch (error) {
         console.error('Fehler beim Hinzufügen des Kontakts:', error);
     }
     showCreationPopup();
-    setTimeout(() => {
+    closeAddContactOverlay();
+    init();
+
+    /*     setTimeout(() => {
         window.location.reload();
-    }, 2000);
+    }, 2000); */
 
     return true
 }
@@ -250,7 +253,7 @@ function openContact(i) {
             </div>
             <div class="arrow_return_div d-none">
                 <div class="arrow-container">
-                    <img src="icons/arrow_return.png" alt="go back" class="arrow_return" onclick="closeSelectedContactOverlay()" />
+                    <img src="./img/arrow_return.png" alt="go back" class="arrow_return" onclick="closeSelectedContactOverlay()" />
                 </div>
             </div>
             <div class="selected-contact-profil-top d-flex row">
@@ -298,7 +301,7 @@ function openContact(i) {
                 </div>
                 <div class="selected-contact-phone-container d-flex s-gap">
                     <div class="selected-contact-phone-name">Phone</div>
-                    <div id="selected-mobile" class="selected-contact-phone-adress">${contacts[i].mobile}</div>
+                    <a href="${contacts[i].mobile}" id="selected-mobile" class="selected-contact-phone-adress">${contacts[i].mobile}</a>
                 </div>
             </div>
         </div>
@@ -312,7 +315,9 @@ function openContact(i) {
 }
 
 function updateEditOverlay(i) {
-    docID('edit-contact-profil-img').setAttribute('fill', contacts[i]['color']);
+    docID('edit-contact-profile-img').style.backgroundColor = `${contacts[i]['color']}`;
+    docID('edit-contact-profile-img').innerHTML = `${contacts[i]['initials']}`;
+    
     docID('edit-name').value = `${contacts[i]['name']}`;
     docID('edit-email').value = `${contacts[i]['email']}`;
     docID('edit-mobile').value = `${contacts[i]['mobile']}`;
@@ -410,9 +415,11 @@ async function editContact(i) {
         closeEditContactOverlay();
         console.log("Contact updated:", contact);
         showUpdatePopup();
-        setTimeout(() => {
+        closeSelectedContactOverlay();
+        init();
+/*         setTimeout(() => {
             window.location.reload();
-        }, 2000);
+        }, 2000); */
     }
 }
 
@@ -445,9 +452,11 @@ async function deleteContact(i) {
     }
 
     showDeletePopup();
-    setTimeout(() => {
+    
+    init();
+/*     setTimeout(() => {
         window.location.reload();
-    }, 2000);
+    }, 2000); */
 }
 
 function showMobileNav() {

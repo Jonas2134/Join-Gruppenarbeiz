@@ -97,6 +97,7 @@ function renderEarliestDueDate() {
 document.addEventListener("DOMContentLoaded", async function () {
     await includeHTML();
     await loadCurrentUsers();
+    checkCurrentUser();
     await loadTasks();
     showDropUser();
     renderGreeting();

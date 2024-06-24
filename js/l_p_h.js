@@ -1,6 +1,14 @@
 document.addEventListener("DOMContentLoaded", async function () {
     await includeHTML();
     await loadCurrentUsers();
+
+    const path = window.location.pathname;
+    if (path !== '/index.html' && path !== '/signup.html' && path !== '/privacy_policy.html' && path !== '/legal_notice.html') {
+        checkCurrentUser();
+    } else {
+        hideElementsForLoggedOutUsers();
+    }
+    
     showDropUser();
 
     document.getElementById("log_out").addEventListener('click', logOut)

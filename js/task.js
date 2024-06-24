@@ -1,11 +1,15 @@
 let assignedContacts = [];
 let subtasks = [];
+let sendTaskStatus = 'To do';
 
 function addOffSetToHeight(divWithOffset, divToAdd) {
   if (divWithOffset && divToAdd) {
     let height = divWithOffset.offsetHeight;
     divToAdd.style.marginTop = height + 'px';
+  } else {
+    divToAdd.style.marginTop = '0px';
   }
+  
 }
 
 async function init() {
@@ -14,6 +18,7 @@ async function init() {
     addTaskContacs();
   }, 1000);
   await loadCurrentUsers();
+  checkCurrentUser();
   showDropUser();
   document.getElementById("log_out").addEventListener('click', logOut);
   document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
@@ -28,6 +33,7 @@ async function init() {
       }
     }
   });
+  console.log(window.location.port);
 }
 
 //SEND TASK TO FIREBASE
@@ -46,6 +52,7 @@ async function sendTask(id) {
   }  
   clearAddTask();
   add_animations();
+  redirect();
 }
 
 function getTaskFromForm() {
@@ -57,7 +64,7 @@ function getTaskFromForm() {
     assignedTo: assignedContacts,
     content: document.getElementById('addCategoryInputField').innerHTML,
     subtasks: subtasks,
-    status: 'To do',
+    status: sendTaskStatus
   };
 
   return task;
@@ -70,14 +77,14 @@ function selectPriority(priority) {
     urgentPriority.classList.add('priority_active');
     mediumPriority.classList.add('priority_inactive');
     lowPriority.classList.add('priority_inactive');
-    document.getElementById('prioRed').src = 'icons/prio_red_white.png';
+    document.getElementById('prioRed').src = './img/prio_red_white.png';
   } else if (priority.toLowerCase() == 'medium') {
     clearPriority(true);
   } else if (priority.toLowerCase() == 'low') {
     lowPriority.classList.add('priority_active');
     urgentPriority.classList.add('priority_inactive');
     mediumPriority.classList.add('priority_inactive');
-    document.getElementById('prioGreen').src = 'icons/prio_green_white.png';
+    document.getElementById('prioGreen').src = './img/prio_green_white.png';
   }
 }
 
@@ -89,15 +96,15 @@ function clearPriority(reset) {
   urgentPriority.classList.remove('priority_inactive', 'priority_active');
   mediumPriority.classList.remove('priority_active', 'priority_inactive');
   lowPriority.classList.remove('priority_active', 'priority_inactive');
-  document.getElementById('prioRed').src = 'icons/prio_red.png';
-  document.getElementById('prioOrange').src = 'icons/prio_orange.png';
-  document.getElementById('prioGreen').src = 'icons/prio_green.png';
+  document.getElementById('prioRed').src = './img/prio_red.png';
+  document.getElementById('prioOrange').src = './img/prio_orange.png';
+  document.getElementById('prioGreen').src = './img/prio_green.png';
 
   if (reset) {
     mediumPriority.classList.add('priority_active');
     urgentPriority.classList.add('priority_inactive');
     lowPriority.classList.add('priority_inactive');
-    document.getElementById('prioOrange').src = 'icons/prio_orange_white.png';
+    document.getElementById('prioOrange').src = './img/prio_orange_white.png';
   }
 }
 
@@ -125,7 +132,7 @@ function toggleContacsDropdown() {
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
-      addOffSetToHeight(selectedContacts, category);
+      addOffSetToHeight('', category);
     } else {
       content.classList.add('show');
       addOffSetToHeight(content, category);
@@ -140,7 +147,7 @@ function toggleCategoryDropdown() {
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
-      addSubtasks.style.marginTop = '0px';
+      addOffSetToHeight('', addSubtasks);
     } else {
       content.classList.add('show');
       addOffSetToHeight(content, addSubtasks);
@@ -272,13 +279,13 @@ function clearAddTask() {
 }
 
 function add_animations() {
- /*  document.getElementsByClassName('hidden_container')[0].classList.add('visible');
+  document.getElementsByClassName('hidden_container')[0].classList.add('visible');
   document.getElementsByClassName('hidden_popup')[0].classList.add('visible');
 
   setTimeout(() => {
     document.getElementsByClassName('hidden_container')[0].classList.remove('visible');
     document.getElementsByClassName('hidden_popup')[0].classList.remove('visible');
-  }, 2000); */
+  }, 2000);
 }
 
 //FORM VALIDATION
@@ -303,3 +310,17 @@ function validateFormOverlay() {
   }
 }
 
+//REDIRECT FUNKTION
+function redirect() {
+  var hostname = window.location.hostname;
+  var port = window.location.port;
+  var targetUrl = 'https://' + hostname;
+  if (port) {
+      targetUrl += ':' + port;
+  }
+  targetUrl += '/board.html';
+  console.log(targetUrl);
+  setTimeout(function() {
+      window.location.href = targetUrl;
+  }, 1000);
+}
