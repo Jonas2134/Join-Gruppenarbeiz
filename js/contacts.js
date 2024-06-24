@@ -313,7 +313,9 @@ function openContact(i) {
 }
 
 function updateEditOverlay(i) {
-    docID('edit-contact-profil-img').setAttribute('fill', contacts[i]['color']);
+    docID('edit-contact-profile-img').style.backgroundColor = `${contacts[i]['color']}`;
+    docID('edit-contact-profile-img').innerHTML = `${contacts[i]['initials']}`;
+    
     docID('edit-name').value = `${contacts[i]['name']}`;
     docID('edit-email').value = `${contacts[i]['email']}`;
     docID('edit-mobile').value = `${contacts[i]['mobile']}`;
