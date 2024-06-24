@@ -81,9 +81,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             } else {
                 eraseCookie("currentUser");
             }
-
             await deleteData("/currentUser");
             await postData("/currentUser", currentUser);
+            localStorage.setItem('isLoggedIn', 'true');
             window.location.href = 'summary.html';
         } else {
             loginError();
@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         currentUser = { user_name: "Guest User" };
         await deleteData("/currentUser");
         await postData("/currentUser", currentUser);
+        localStorage.setItem('isLoggedIn', 'true');
         window.location.href = 'summary.html';
     })
 

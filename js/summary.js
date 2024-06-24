@@ -90,14 +90,14 @@ function renderEarliestDueDate() {
     if (earliestUrgentDueDate) {
         dueDate.innerHTML = earliestUrgentDueDate;
     } else {
-        dueDate.innerHTML = 'No urgent tasks';
+        dueDate.innerHTML = 'No urgent Deadline';
     }
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
     await includeHTML();
+    checkFirstPage();
     await loadCurrentUsers();
-    checkCurrentUser();
     await loadTasks();
     showDropUser();
     renderGreeting();

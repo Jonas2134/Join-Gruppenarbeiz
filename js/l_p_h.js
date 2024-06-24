@@ -1,29 +1,42 @@
 document.addEventListener("DOMContentLoaded", async function () {
     await includeHTML();
-    await loadCurrentUsers();
 
     const path = window.location.pathname;
-    if (path !== '/index.html' && path !== '/signup.html' && path !== '/privacy_policy.html' && path !== '/legal_notice.html') {
-        checkCurrentUser();
+    let firstPartTriggered = false;
+
+    if (!['/index.html', '/signup.html', '/privacy_policy.html', '/legal_notice.html'].includes(path)) {
+        checkFirstPage();
+        firstPartTriggered = true;
     } else {
-        hideElementsForLoggedOutUsers();
+        firstPartTriggered = hideElementsForLoggedOutUsers();
     }
-    
-    showDropUser();
 
-    document.getElementById("log_out").addEventListener('click', logOut)
+    if (firstPartTriggered === true) {
+        await loadCurrentUsers();
+        showDropUser();        
 
-    document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
+        document.getElementById("log_out").addEventListener('click', logOut)
 
-    window.addEventListener('click', function (event) {
-        if (!event.target.matches('.drop-logo')) {
-            let dropdowns = document.getElementsByClassName("dropdown-content");
-            for (let i = 0; i < dropdowns.length; i++) {
-                let openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
+        document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
+
+        window.addEventListener('click', function (event) {
+            if (!event.target.matches('.drop-logo')) {
+                let dropdowns = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
                 }
             }
+        });
+    }
+
+    document.getElementById("back").addEventListener("click", function () {
+        if (document.referrer) {
+            window.history.back();
+        } else {
+            window.location.href = './index.html';
         }
     });
 });

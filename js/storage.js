@@ -163,6 +163,7 @@ function showDropUser() {
 
 async function logOut() {
   await deleteData("/currentUser");
+  localStorage.removeItem('isLoggedIn');
   window.location.href = './index.html';
 }
 
@@ -213,17 +214,24 @@ function enrichContacts() {
 /* END: contact storage */
 
 
-function checkCurrentUser() {
-  if (currentUser === null) {
+function checkFirstPage() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const path = window.location.pathname;
+
+  if (!isLoggedIn && path !== '/index.html') {
     window.location.href = 'index.html';
   }
 }
 
-function hideElementsForLoggedOutUsers() {  
-  if (currentUser === null) {
-      const elementsToHide = document.querySelectorAll('.hide-if-logged-out');
-      elementsToHide.forEach(element => {
-          element.style.display = 'none';
-      });
+function hideElementsForLoggedOutUsers() {
+  const isLoggedIn = localStorage.getItem('isLoggedIn');  
+
+  if (!isLoggedIn) {
+    const elementsToHide = document.querySelectorAll('.hide-if-logged-out');
+    elementsToHide.forEach(element => {
+      element.style.display = 'none';
+    });
+    return false;
   }
+  return true;
 }

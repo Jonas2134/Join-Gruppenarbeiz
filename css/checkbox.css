@@ -23,7 +23,6 @@
 	left: 0;
 	height: 20px;
 	width: 20px;
-	background: #94A3B8;
 	transition: background 250ms, transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 	border: 1px solid #4589FF;
 	border-radius: 5px;

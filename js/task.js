@@ -8,17 +8,16 @@ function addOffSetToHeight(divWithOffset, divToAdd) {
     divToAdd.style.marginTop = height + 'px';
   } else {
     divToAdd.style.marginTop = '0px';
-  }
-  
+  }  
 }
 
 async function init() {
   includeHTML();
+  checkFirstPage();
   setTimeout(() => {
     addTaskContacs();
   }, 1000);
   await loadCurrentUsers();
-  checkCurrentUser();
   showDropUser();
   document.getElementById("log_out").addEventListener('click', logOut);
   document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
