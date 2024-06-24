@@ -1,3 +1,5 @@
+let currentDraggedElement;
+
 async function init() {
   includeHTML();  
   setTimeout(() => {
@@ -20,7 +22,6 @@ async function init() {
     }
   });
 }
-
 
 //OVERLAY TOP FUNCTION
 function openOverlayTop() {
@@ -89,6 +90,13 @@ function closeOverlayRight() {
   }
 }
 
+document.addEventListener('click', function(event) {
+  let overlay = document.getElementById('add_task_overlay');
+  if (overlay && overlay === event.target) {
+    closeOverlayRight();
+  }
+});
+
 window.addEventListener('load', function () {
   closeOverlayRight();
 });
@@ -103,7 +111,6 @@ function clearBoard(){
   document.getElementById('drag_await_feedback').innerHTML = '';
   document.getElementById('drag_done').innerHTML = '';
 }
-
 
 //BOARD SWITCH STATUS
 function switchStatusCase(task, i) {
@@ -139,6 +146,40 @@ function renderAllTasks() {
       <span>No Task To Do</span>
     </div>`;
   }
+
+  setDragEventListeners();
+}
+
+function setDragEventListeners() {
+  const allDragElements = document.querySelectorAll(".task_card");
+  allDragElements.forEach((e) => {
+    e.addEventListener("touchmove", function (ev) {
+      ev.preventDefault();
+    });
+    e.addEventListener("touchend", function (ev) {
+      const touchedTask = ev.changedTouches[0];
+      if (insideDiv(touchedTask, "drag_to_do")) {
+        moveTo("drag_to_do");
+      } else if (insideDiv(touchedTask, "drag_in_progress")) {
+        moveTo("drag_in_progress");
+      } else if (insideDiv(touchedTask, "drag_await_feedback")) {
+        moveTo("drag_await_feedback");
+      } else if (insideDiv(touchedTask, "drag_done")) {
+        moveTo("drag_done");
+      } 
+    });
+  });
+}
+
+function insideDiv(touchedTask, id) {
+  const element = document.getElementById(id);
+  rect = element.getBoundingClientRect();
+  return (
+    touchedTask.clientX > rect.left &&
+    touchedTask.clientX < rect.right &&
+    touchedTask.clientY > rect.top &&
+    touchedTask.clientY < rect.bottom
+  );
 }
 
 async function showTasks(reloadContacts) {
@@ -149,14 +190,12 @@ async function showTasks(reloadContacts) {
   renderAllTasks();
 }
 
-
 //UPDATE TASK ON BOARD
 function updateTaskStatus(id, status) {
   let task = getTaskbyId(id);
   task.status = status;
   updateTaskById(task.id, task);
 }
-
 
 //DELETE TASK ON BOARD 
 function deleteTaskOnBoard(id) {
@@ -165,7 +204,6 @@ function deleteTaskOnBoard(id) {
   closeOverlayTop();
   renderAllTasks();
 }
-
 
 //BUILD OVERLAY TASK CARD
 function buildOverlayCard(i) {
@@ -189,8 +227,6 @@ async function editOverlayTask(id) {
   content.innerHTML += templateEditOverlayFooter(id);
   await addTaskContacs();  
   await fillTask(task);
-  await toggleContacsDropdown();
-  toggleContacsDropdown();
 }
 
 function fillTask(task) {
@@ -211,78 +247,38 @@ function fillTask(task) {
 }
 
 // DRAG & DROP FUNCTION
-document.addEventListener('DOMContentLoaded', (event) => {
-  const taskBarContents = document.querySelectorAll('.task_bar_content');
- 
-  document.addEventListener('dragstart', (event) => {
-    if (event.target.classList.contains('task_card')) {
-      event.dataTransfer.setData('text/plain', event.target.id);
-    }
-  });
+function startDragging(id) {
+  currentDraggedElement = id;
+}
 
-  taskBarContents.forEach((bar) => {
-    bar.addEventListener('dragover', (event) => {
-      event.preventDefault();
-      bar.style.backgroundColor = '#4589ff';
-    });
+function allowDrop(ev) {
+    ev.preventDefault();
+}
 
-    bar.addEventListener('dragleave', (event) => {
-      bar.style.backgroundColor = '';
-    });
+function moveTo(status) {
+  updateTaskStatus(currentDraggedElement, getStatusNameByStatusID(status));
+  renderAllTasks();  
+}
 
-    bar.addEventListener('drop', (event) => {
-      event.preventDefault();
-      const id = event.dataTransfer.getData('text');
-      const draggableElement = document.getElementById(id);
-      if (draggableElement) {
-        bar.appendChild(draggableElement);
+function getStatusNameByStatusID(statusId){
+  if (statusId=='drag_to_do') {
+    return 'To do';
+  } else if (statusId=='drag_in_progress') {
+    return 'In progress';
+  } else if (statusId=='drag_await_feedback') {
+    return 'Await feedback';
+  } else if (statusId=='drag_done') {
+    return 'Done';
+  }
+}
 
-        const noTaskElement = bar.querySelector('.no_task_to_do');
-        if (noTaskElement) {
-          noTaskElement.style.display = 'none';
-        }
-      }
+function highlight(id) {
+  document.getElementById(id).classList.add('task_content-highlight');
+}
 
-      let newStatus = '';
-      if (bar.id=='drag_to_do') {
-        newStatus = 'To do';
-      } else if (bar.id=='drag_in_progress') {
-        newStatus = 'In progress';
-      } else if (bar.id=='drag_await_feedback') {
-        newStatus = 'Await feedback';
-      } else if (bar.id=='drag_done') {
-        newStatus = 'Done';
-      }
-    
-      updateTaskStatus(id, newStatus);
-
-      bar.style.backgroundColor = '';
-
-      taskBarContents.forEach((content) => {
-        const noTaskElement = content.querySelector('.no_task_to_do');
-        const taskCards = content.querySelectorAll('.task_card');
-        if (noTaskElement && taskCards.length === 0) {
-          noTaskElement.style.display = 'flex';
-        }
-      });        
-    });
-  });
-
-  document.addEventListener('dragend', (event) => {
-    if (event.target.classList.contains('task_card')) {
-      taskBarContents.forEach((content) => {
-        const noTaskElement = content.querySelector('.no_task_to_do');
-        const taskCards = content.querySelectorAll('.task_card');
-        if (noTaskElement && taskCards.length === 0) {
-          noTaskElement.style.display = 'flex';
-        }
-      });
-    }
-    setTimeout(() => {
-      renderAllTasks();
-    }, 50);    
-  });
-});
+function removeHighlight(id) {
+  document.getElementById(id).classList.remove('task_content-highlight');
+}
 
 //SUBTASK FUNCTIONS
 function finishSubtask(subtaskName, id) {
