@@ -33,6 +33,10 @@ body {
 .blue-background {
     background-color: #4986fe !important;
     color: white !important;
+
+    .contact-container-mail {
+        color: white !important;
+    }
 }
 
 .blue-button-container,
