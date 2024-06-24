@@ -171,7 +171,7 @@ function renderTask(task, i) {
     `;
   }
   return `
-    <div draggable="true" id="${task.id}" class="task_card card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
+    <div draggable="true" id="${task.id}" ondragstart="startDragging('${task.id}')" ontouchstart="startDragging('${task.id}')" class="task_card card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
       <div class="card_category">
     <span class="card_categories_span ${categoryClass}">${task.content}</span>
       </div>

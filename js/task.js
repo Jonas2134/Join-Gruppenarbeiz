@@ -8,7 +8,7 @@ function addOffSetToHeight(divWithOffset, divToAdd) {
     divToAdd.style.marginTop = height + 'px';
   } else {
     divToAdd.style.marginTop = '0px';
-  }  
+  }
 }
 
 async function init() {
@@ -127,7 +127,12 @@ function getPriority() {
 function toggleContacsDropdown() {
   let content = document.getElementById('assignedDropdown');
   let category = document.getElementById('addCategory');
-  let selectedContacts = document.getElementById('selectedContact');
+  let otherDropdown = document.getElementById('categoryDropdown');
+  
+  if (otherDropdown && otherDropdown.classList.contains('show')) {
+    otherDropdown.classList.remove('show');
+    addOffSetToHeight('', document.getElementById('add_subtasks'));
+  }
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
@@ -136,13 +141,20 @@ function toggleContacsDropdown() {
       content.classList.add('show');
       addOffSetToHeight(content, category);
     }
-  }
+  }  
+  event.stopPropagation();
 }
 
 //TOGGLE CATEGORY DROPDOWN
 function toggleCategoryDropdown() {
   let content = document.getElementById('categoryDropdown');
   let addSubtasks = document.getElementById('add_subtasks');
+  let otherDropdown = document.getElementById('assignedDropdown');
+  
+  if (otherDropdown && otherDropdown.classList.contains('show')) {
+    otherDropdown.classList.remove('show');
+    addOffSetToHeight('', document.getElementById('addCategory'));
+  }
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
@@ -152,7 +164,20 @@ function toggleCategoryDropdown() {
       addOffSetToHeight(content, addSubtasks);
     }
   }
+  event.stopPropagation();
 }
+
+//CLOSE DROPDOWNS IF CLICKED OUTSIDE
+document.addEventListener('click', function(event) {
+  ['assignedDropdown', 'categoryDropdown'].forEach(id => {
+    let dropdown = document.getElementById(id);
+    let offsetDivId = id === 'assignedDropdown' ? 'addCategory' : 'add_subtasks';
+    if (dropdown && !dropdown.contains(event.target) && !event.target.closest(`#${id.replace('Dropdown', '')}`)) {
+      dropdown.classList.remove('show');
+      addOffSetToHeight('', document.getElementById(offsetDivId));
+    }
+  });
+});
 
 //ADD CONTACTS
 async function addTaskContacs() {
