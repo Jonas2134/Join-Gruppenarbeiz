@@ -1,12 +1,12 @@
 let currentDraggedElement;
 
 async function init() {
-  includeHTML();  
+  includeHTML();
+  checkFirstPage();
   setTimeout(() => {
     showTasks(true);
   }, 500);
   await loadCurrentUsers();
-  checkCurrentUser();
   showDropUser();
   document.getElementById("log_out").addEventListener('click', logOut);
   document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
