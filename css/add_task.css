@@ -37,6 +37,7 @@ body {
   gap: 24px;
   overflow-y: auto;
   overflow-x: hidden;
+  height: 70vh;
 }
 
 .add_class_top_section {
@@ -417,8 +418,7 @@ li.active:hover {
 .add_subtasks {
   display: flex;
   flex-direction: column;
-  width: 440px;
-  height: 79px;
+  width: 440px;  
   /* position: fixed; */
   gap: 8px;
 }
