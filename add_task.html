@@ -19,22 +19,28 @@
 </head>
 
 <body onload="init()">
-  <div w3-include-html="template_header.html"></div>
-  <div w3-include-html="template_sidebar.html"></div>
+  <div class="container">
+    <div w3-include-html="template_header.html"></div>
 
-  <div class="add_task">
-    <div w3-include-html="template_add_task.html"></div>
+    <div class="main">
+      <div w3-include-html="template_sidebar.html"></div>
+
+      <div class="add_task">
+        <div w3-include-html="template_add_task.html"></div>
+
+        <div class="add_task_form_buttons">
+        <button class="form_button" onclick="clearAddTask(id)">
+          Clear &#10005;
+        </button>
+        <button class="form_create_button" onclick="validateForm()">
+          Create Task &#10004;
+        </button>
+      </div>
+      </div>      
+    </div>
   </div>
 
 
-  <div class="add_task_form_buttons">
-    <button class="form_button" onclick="clearAddTask(id)">
-      Clear &#10005;
-    </button>
-    <button class="form_create_button" onclick="validateForm()">
-      Create Task &#10004;
-    </button>
-  </div>
 
   <div class="hidden_container">
     <div class="hidden_popup">
