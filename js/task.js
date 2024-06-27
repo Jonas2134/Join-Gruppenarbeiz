@@ -32,7 +32,6 @@ async function init() {
       }
     }
   });
-  console.log(window.location.port);
 }
 
 //SEND TASK TO FIREBASE
