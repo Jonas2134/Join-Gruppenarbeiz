@@ -21,13 +21,13 @@ body {
 }
 
 .add_task {
-  max-height: calc(100vh - 30px);
-  position: fixed;
-  top: 96px;
-  left: 232px;
-  padding: 64px 24px 200px 24px;
+  padding: 64px 0 0 40px;
   box-sizing: border-box;
-  overflow-x: hidden;  
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  flex: 1;
+  gap: 10px;
 }
 
 .add_task_form {
@@ -37,6 +37,7 @@ body {
   gap: 24px;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-right: 10px;
   height: 70vh;
 }
 
@@ -279,11 +280,18 @@ ul:hover {
 li {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-radius: 10px;
   font-size: 19px;
   line-height: 23px;
   padding: 3px 10px 3px 10px;
   gap: 15px;
+
+  .contact_div{
+    display: flex;
+    gap: 3vh;
+    align-items: center;
+  }
 }
 
 li.active {
@@ -304,6 +312,7 @@ li.active:hover {
   justify-content: center;
   align-items: center;
   color: white;
+  margin: 0px -8px 0px 0px;
 }
 
 .custom_checkbox label {
@@ -603,16 +612,9 @@ li.active:hover {
 .add_task_form_buttons {
   display: flex;
   justify-content: flex-end;
-  position: fixed;
-  bottom: 0px;
-  right: 0;
-  left: 0;
   background-color: white;
-  margin-left: 202px;
-  padding-top: 10px;
-  padding-bottom: 50px;
-  padding-right: 50px;
   gap: 20px;
+  padding-left: 200px;
 }
 
 .form_button {
@@ -721,12 +723,7 @@ li.active:hover {
   opacity: 1;
 }
 
-@media(max-width: 790px) {
-  .add_task {
-    left: 190px;
-    padding: 50px 18px 230px 18px;
-  }
-}
+
 
 @media(max-width: 680px) {
   .add_class_top_section {
@@ -766,34 +763,54 @@ li.active:hover {
   }
 }
 
-@media(max-width: 600px) {
+@media(max-width: 780px) {
+  .add_task_form_buttons {
+    padding-left: 160px;
+  }
+}
+
+@media(max-width: 740px) {
+  .add_task_form_buttons {
+    padding-left: 130px;
+  }
+}
+
+@media(max-width: 700px) {
+  .add_task_form_buttons {
+    padding-left: 100px;
+  }
+}
+
+@media(max-width: 680px) {
+  .add_task_form_buttons {
+    padding-left: 60px;
+  }
+}
+
+@media(max-width: 630px) {
   .add_task {
-    left: 100px;    
+    padding: 50px 0 0 20px;
   }
 
   .add_task_form_buttons {
-    padding-bottom: 100px;
-    margin-left: 0;
+    padding-left: 40px;
   }
 }
-
-@media (max-width: 520px) {
+@media(max-width: 600px) {
   .add_task {
-    left: 50px;
+    padding: 15px 0 100px 0;
+    align-items: center;
   }
-}
 
-@media (max-width: 480px) {
-  .add_task {
-    left: 20px;
-    padding: 40px 18px 230px 18px;
+  .add_task_form_buttons {
+    padding-right: 15px;
+    padding-left: 0;
   }
 }
 
 @media (max-width: 430px) {
   .add_task {
-    top: 81px;
-    padding: 35px 18px 230px 18px;
+    align-items: flex-end;
   }
 
   .add_class_top_section {
@@ -837,19 +854,35 @@ li.active:hover {
   }
 }
 
-@media (max-width: 410px) {
-  .add_task_form_buttons {
-    padding-right: 30px;
+@media (max-width: 370px) {
+  .add_task_form {
+    padding-right: 0;
   }
 }
 
-@media (max-width: 380px) {
-  .add_task {
-    left: 5px;
+@media (max-height: 850px) {
+  .add_task_form {
+    height: 65vh;
   }
 
-  .add_task_form_buttons {
-    padding-right: 20px;
-    padding-top: 2px;
+  .add_task {
+    gap: 40px;
+  }
+}
+
+@media (max-height: 800px) {
+  .add_task {
+    gap: 30px;
+  }
+}
+
+@media (max-height: 770px) {
+  .add_task_form {
+    height: 60vh;
+    padding-top: 10px;
+  }
+
+  .add_task {
+   gap: 20px;
   }
 }

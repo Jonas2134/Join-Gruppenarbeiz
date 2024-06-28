@@ -1,70 +1,11 @@
-//TEMPLATE ADD TASKS
-function templateBuildContactDropdown(contact, withCheckbox) {
-  let contactName = contact['name'];
-  let contactId = contact['id'];
-  let initials = templateUserInitials(contact);
-  let checkbox = '';
-  
-  if(withCheckbox) {
-    checkbox = `<div>
-        <input class="custom_checkbox" type="checkbox" id="cb${contactId}">
-         </li>
-        </div>`;
-  } 
-  return `
-        <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
-        ${initials}${contactName}
-        </div>
-        <div>        
-        <label class="cr-wrapper">
-        <input id="cb${contactId}" type="checkbox"/>
-        <div class="cr-input";" onclick="event.stopPropagation();"></div>
-        </label>
-        </div>
-        </li>
-        `;
+//TEMPLATE RENDER SPAN IF THERES NO ACTIVE TASK  
+function templateNoTask (status) {
+  return `<div class="no_task_to_do" draggable="false">
+      <span>No Task ${status}</span>
+    </div>`;
 }
 
-function templateBuildContacts(contact) {
-  let contactName = contact['name'];
-  let initials = templateUserInitials(contact);
-  
-  return `
-        <li class="">
-        ${initials}${contactName}
-        </li>
-        `;
-}
-
-function templateUserInitials(contact) {
-  return `
-  <div style="background-color:${contact.color}" class="contact_container_img">${contact.initials}</div>
-  `;
-}
-
-function templateBuildSubtask(subtask, index) {
-  return `
-  <div class="build_subtask" id="subtask_${index}">
-  <li class="build_subtask_span">${subtask}</li>
-  <div class="subtask_icons_div">
-  <img src="./img/edit_icon.png" alt="edit" class="subtask_icon" onclick="editSubtask(${index})">
-  <div class="subtask_divider"></div>
-  <img src="./img/delete_icon.png" alt="delete" class="subtask_icon" onclick="deleteSubtask(${index}), event.stopPropagation()">
-  </div>
-  </div>
-  <div class="build_subtask_2 inactive" id="subtask_edit_${index}">
-  <input class="build_subtask_span_2" value="${subtask}" id="subtask_input_${index}"></input>
-  <div class="subtask_icons_div">
-  <img src="./img/delete_icon.png" alt="delete" class="subtask_icon_delete" onclick="deleteSubtask(${index}), event.stopPropagation()">
-  <div class="subtask_divider"></div>
-  <img class="subtask_check_icon" src="./img/check.png" onclick="saveSubtask(${index})">
-  </div>
-  </div>
-  `;
-}
-
-//TEMPLATE BOARD
-//TEMPLATE BIG BOARD CARD 
+//TEMPLATE RENDER BIG BOARD CARD 
 function templateBuildOverlayCard(task){
   let categoryClass = getTaskCategoryClass(task.content);
   let setPriority = getPriorityIcon(task.priority);
@@ -115,6 +56,7 @@ function templateBuildOverlayCard(task){
     </div>`;
 }
 
+//TEMPLATE BUILD CONTACTS 
 function templateBuildContactList(contact) {
   let contactName = contact['name'];
   let contactId = contact['id'];
@@ -125,6 +67,7 @@ function templateBuildContactList(contact) {
           `;
 }
 
+//GET CATEGORY IN ADD TASK 
 function getTaskCategoryClass(category) {
   if (category == 'User Story') {
   return 'user_story'
@@ -133,6 +76,7 @@ function getTaskCategoryClass(category) {
   }
 }
 
+//TEMPLATE BUILD OVERLAY SUBTASKS
 function templateOverlaySubtasks(subtasksArray, finishedArray, id) {
   let template = '';
   if(subtasksArray) {
@@ -147,7 +91,7 @@ function templateOverlaySubtasks(subtasksArray, finishedArray, id) {
   return template;
 }
 
-//TEMPLATE SMALL BOARD CARD
+//TEMPLATE BUILD SMALL BOARD CARD
 function renderTask(task, i) {
   let categoryClass = getTaskCategoryClass(task.content);
   let setPriority = getPriorityIcon(task.priority);
@@ -201,6 +145,7 @@ function renderTask(task, i) {
     `;
 }
 
+//GET PRIORITY ICON IN ADD TASK FORM
 function getPriorityIcon(priority) {
   if(priority == 'Urgent') {
     return './img/prio_red.png';
@@ -213,18 +158,24 @@ function getPriorityIcon(priority) {
   }
 }
 
+//TEMPLATE BUILD CONTACTS
 function templateGetContacts(contactsArray) {
   let template = '';
   if(contactsArray) {
     for (let i = 0; i < contactsArray.length; i++) {
-      if (getContactById(contactsArray[i])) {
+      if (i > 2) {
+        let addedContacts = contactsArray.length - 3;
+        template += `<span class="added_contacts"> &#43;${addedContacts} </span>`;
+        break;
+      } else if (getContactById(contactsArray[i])) {
         template += templateUserInitials(getContactById(contactsArray[i]));
-      }
+      }      
     }
   }
   return template;
 }
 
+//BUILD OVERLAY CONTACTS
 function templateBuildOverlayContacts(contactsArray) {
   let template = '';
   
