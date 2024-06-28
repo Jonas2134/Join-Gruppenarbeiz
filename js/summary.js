@@ -119,4 +119,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
     });
+
+    window.addEventListener('resize', checkOrientation);
+
+    window.addEventListener('orientationchange', checkOrientation);
+
+    checkOrientation();
+
+    setInterval(checkOrientation, 500);
 });

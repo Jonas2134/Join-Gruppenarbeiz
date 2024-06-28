@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 .legal_notice {
   padding: 20px 50px;
   font-family: 'Open Sans', sans-serif;
