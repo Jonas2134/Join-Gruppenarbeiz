@@ -1,19 +1,11 @@
 let selectedContact = null;
 let groupedContacts = groupContacts();
 
-/**
- * Get an element by its ID.
- * @param {string} id - The ID of the element to get.
- * @returns {HTMLElement} The DOM element with the specified ID.
- */
+/* START: Hilfsfunktionen */
 function docID(id) {
     return document.getElementById(id);
 }
 
-/**
- * Get new contact input values from the form.
- * @returns {{name: string, email: string, mobile: string}} The new contact details.
- */
 function getNewInput() {
     let newName = docID('edit-name').value;
     let newEmail = docID('edit-email').value;
@@ -21,17 +13,10 @@ function getNewInput() {
     return { name: newName, email: newEmail, mobile: newMobile };
 }
 
-/**
- * Clear the add contact form.
- */
 function clearAddForm() {
     docID('add-contact-form').reset();
 }
 
-/**
- * Group contacts by the first letter of their name.
- * @returns {Object} An object with keys as first letters and values as arrays of contacts.
- */
 function groupContacts() {
     let groupedContacts = {};
 
@@ -46,10 +31,8 @@ function groupContacts() {
 
     return groupedContacts;
 }
+/* END: Hilfsfunktionen */
 
-/**
- * Initialize the application.
- */
 async function init() {
     includeHTML();
     checkFirstPage();
@@ -59,7 +42,7 @@ async function init() {
     await loadCurrentUsers();
     showDropUser();
 
-    document.getElementById("log_out").addEventListener('click', logOut);
+    document.getElementById("log_out").addEventListener('click', logOut)
 
     document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
 
@@ -76,9 +59,6 @@ async function init() {
     });
 }
 
-/**
- * Render the contacts grouped by the first letter of their name.
- */
 function renderContacts() {
     let groupedContacts = groupContacts();
     let contactsContainer = docID("contact-filter");
@@ -100,10 +80,6 @@ function renderContacts() {
     }
 }
 
-/**
- * Open the contact details.
- * @param {number} i - The index of the contact to open.
- */
 function openContact(i) {
     let selectedContainer = docID('selected-container');
 
@@ -115,28 +91,19 @@ function openContact(i) {
     }, 10);
 }
 
-/**
- * Open the edit contact overlay.
- * @param {number} i - The index of the contact to edit.
- */
+
 function openEditContactOverlay(i) {
     renderEditOverlay(i);
     let editOverlay = docID("overlay_edit-contact");
     editOverlay.classList.remove('d-none');
 }
 
-/**
- * Open the add contact overlay.
- */
 function openAddContactOverlay() {
     let contactOverlay = docID("overlay_add-contact");
     contactOverlay.classList.remove('d-none');
     activateInputError();
 }
 
-/**
- * Close the add contact overlay.
- */
 function closeAddContactOverlay() {
     let overlay = document.getElementById('overlay_add-contact');
     let mainContainer = document.querySelector('.add-contact_main-container');
@@ -149,9 +116,6 @@ function closeAddContactOverlay() {
     }, 500);
 }
 
-/**
- * Close the edit contact overlay.
- */
 function closeEditContactOverlay() {
     let overlay = document.getElementById('overlay_edit-contact');
     let mainContainer = document.querySelector('.edit-contact_main-container');
@@ -164,9 +128,6 @@ function closeEditContactOverlay() {
     }, 500);
 }
 
-/**
- * Close the selected contact overlay.
- */
 function closeSelectedContactOverlay() {
     let overlay = docID('selected-container');
     
@@ -178,11 +139,6 @@ function closeSelectedContactOverlay() {
     }, 2000);
 }
 
-/**
- * Add a new contact.
- * @param {Event} event - The event triggered by the form submission.
- * @returns {Promise<boolean>} Whether the contact was added successfully.
- */
 async function addContact(event) {
     event.preventDefault();
 
@@ -206,13 +162,9 @@ async function addContact(event) {
     showCreationPopup();
     closeAddContactOverlay();
     init();
-    return true;
+    return true
 }
 
-/**
- * Delete a contact.
- * @param {number} i - The index of the contact to delete.
- */
 async function deleteContact(i) {
     let contactId = contacts[i].id;
 
@@ -227,10 +179,6 @@ async function deleteContact(i) {
     showDeletePopup();
 }
 
-/**
- * Edit a contact.
- * @param {number} i - The index of the contact to edit.
- */
 async function editContact(i) {
     toggleConfirmationOverlay();
     let contactId = contacts[i].id;
@@ -248,10 +196,6 @@ async function editContact(i) {
     init();
 }
 
-/**
- * Show confirmation overlay for editing a contact.
- * @param {number} i - The index of the contact to confirm editing.
- */
 async function confirmationEdit(i) {
     let confirmationOverlay = docID('confirmation_overlay');
     let contactId = contacts[i].id;
@@ -267,10 +211,6 @@ async function confirmationEdit(i) {
     toggleConfirmationOverlay();
 }
 
-/**
- * Show confirmation overlay for deleting a contact.
- * @param {number} i - The index of the contact to confirm deletion.
- */
 function confirmationDelete(i) {
     let confirmationOverlay = docID('confirmation_overlay');
 
@@ -278,10 +218,6 @@ function confirmationDelete(i) {
     toggleConfirmationOverlay();
 }
 
-/**
- * Add a blue background to the selected contact.
- * @param {number} i - The index of the contact to highlight.
- */
 function addBlueBackground(i) {
     let contactContainer = docID(`contact-container(${i})`);
 
@@ -294,16 +230,13 @@ function addBlueBackground(i) {
             selectedContact.classList.remove('blue-background');
         }
 
-        contactContainer.classList.add('blue-background');
+        contactContainer.classList.add('blue-background')
         docID('selected-container').classList.add('show');
 
         selectedContact = contactContainer;
     }
 }
 
-/**
- * Remove the blue background from all contacts.
- */
 function removeBlueBackground() {
     const contactContainer = document.querySelectorAll('.contact-container');
 
@@ -312,9 +245,6 @@ function removeBlueBackground() {
     }
 }
 
-/**
- * Show the creation popup.
- */
 function showCreationPopup() {
     docID('creation_popup_container').classList.add('show');
     docID('creation_popup').classList.add('show');
@@ -323,9 +253,6 @@ function showCreationPopup() {
     }, 1000);
 }
 
-/**
- * Show the update popup.
- */
 function showUpdatePopup() {
     docID('update_popup_container').classList.add('show');
     docID('update_popup').classList.add('show');
@@ -334,9 +261,6 @@ function showUpdatePopup() {
     }, 1000);
 }
 
-/**
- * Show the delete popup.
- */
 function showDeletePopup() {
     docID('delete_popup_container').classList.add('show');
     docID('delete_popup').classList.add('show');
@@ -345,9 +269,6 @@ function showDeletePopup() {
     }, 1000);
 }
 
-/**
- * Toggle the navigation visibility.
- */
 function toggleNav() {
     let navContainer = docID('nav_contact');
 
@@ -358,9 +279,6 @@ function toggleNav() {
     }
 }
 
-/**
- * Toggle the confirmation overlay visibility.
- */
 function toggleConfirmationOverlay() {
     let confirmationOverlay = docID('confirmation_overlay');
 
@@ -373,9 +291,6 @@ function toggleConfirmationOverlay() {
     }
 }
 
-/**
- * Activate input error handling.
- */
 function activateInputError() {
     const fields = [
         { fieldId: 'email', parentId: 'email-contacts' },
@@ -404,9 +319,6 @@ function activateInputError() {
     });
 }
 
-/**
- * Add error animation to input fields.
- */
 async function addErrorAnimation() {
     const fields = [
         { fieldId: 'edit-name', parentId: 'edit-name-contacts' },
@@ -421,12 +333,9 @@ async function addErrorAnimation() {
         parentDiv.addEventListener('animationend', function () {
             parentDiv.classList.remove('input-error');
         }, { once: true });
-    });
+    })
 }
 
-/**
- * Add slide animation to the selected contact.
- */
 function addSelectedSlideAnimation() {
     let selectedContainer = document.getElementById('selected-container');
     if (selectedContainer.classList.contains('show')) {
