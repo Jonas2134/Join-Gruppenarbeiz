@@ -488,6 +488,43 @@ body {
 
 /* END add_contact-overlay */
 
+/* START confirmation-overlay */
+#confirmation_overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 104;
+}
+
+.confirmation_main-container {
+    display: flex;
+    background-color: white;
+    border-radius: 9px;
+    padding: 18px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 105;
+}
+
+.confirmation_top-area * {
+    color: black;
+    font-size: 1.2em;
+}
+
+.confirmation_bottom-area {
+    display: flex;
+    gap: 12px;
+}
+
+
+/* END confirmation-overlay */
+
 /* START edit_contact-overlay */
 .edit-contact_main-container {
     position: absolute;
@@ -603,7 +640,7 @@ body {
 
 .blue-button-container {
     padding: 8px;
-    color: white;
+    color: #005eff;
     border-radius: 9px;
     display: flex;
     align-items: center;
@@ -619,6 +656,7 @@ body {
 .blue-button-container:hover {
     cursor: pointer;
     background-color: #005eff;
+    color: white;
 
     .blue-button-text {
         transform: scale(1.02);
@@ -800,6 +838,10 @@ body {
 /* 700 px */
 @media (max-width: 700px) {
 
+    .add-contact-button {
+        padding: 8px 35px;
+    }
+
     .edit-area_bottom-area,
     .edit-area_top-area,
     .add-contact_bottom-area,
@@ -838,6 +880,11 @@ body {
 
 /* 600 px */
 @media (max-width: 600px) {
+
+    .add-contact-button {
+        padding: 8px 15px;
+        font-size: 1.2em;
+    }
 
     .contacts-main-container,
     .edit-contact_main-container {
@@ -898,6 +945,7 @@ body {
     #add-contact-form,
     #edit-contact-form {
         width: 60%;
+        height: 50%;
     }
 
     .profile-img {
