@@ -3,26 +3,12 @@ let subtasks = [];
 let sendTaskStatus = 'To do';
 
 async function init() {
-  includeHTML();
-  checkFirstPage();
+  await initCurrentUser();
+
   setTimeout(() => {
     addTaskContacs();
   }, 1000);
-  await loadCurrentUsers();
-  showDropUser();
-  document.getElementById("log_out").addEventListener('click', logOut);
-  document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
-  window.addEventListener('click', function (event) {
-    if (!event.target.matches('.drop-logo')) {
-      let dropdowns = document.getElementsByClassName("dropdown-content");
-      for (let i = 0; i < dropdowns.length; i++) {
-        let openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  });
+
   setDateRestriction('taskDueDate');
 }
 
@@ -77,6 +63,13 @@ function selectPriority(priority) {
 }
 
 //RESET PRIORITY IN ADD TASK 
+function resetPriorityDOM(){
+  mediumPriority.classList.add('priority_active');
+  urgentPriority.classList.add('priority_inactive');
+  lowPriority.classList.add('priority_inactive');
+  document.getElementById('prioOrange').src = './img/prio_orange_white.png';
+}
+
 function clearPriority(reset) {
   let urgentPriority = document.getElementById('urgentPriority');
   let mediumPriority = document.getElementById('mediumPriority');
@@ -88,11 +81,9 @@ function clearPriority(reset) {
   document.getElementById('prioOrange').src = './img/prio_orange.png';
   document.getElementById('prioGreen').src = './img/prio_green.png';
   if (reset) {
-    mediumPriority.classList.add('priority_active');
-    urgentPriority.classList.add('priority_inactive');
-    lowPriority.classList.add('priority_inactive');
-    document.getElementById('prioOrange').src = './img/prio_orange_white.png';
-  }}
+    resetPriorityDOM()
+  }
+}
 
 //GET PRIORITY IN ADD TASK
 function getPriority() {
@@ -112,24 +103,26 @@ function getPriority() {
 }
 
 //TOGGLE CONTACTS DROPDOWN
+function closeOtherDropdown(otherDropdown, id) {
+  if (otherDropdown && otherDropdown.classList.contains('show')) {
+    otherDropdown.classList.remove('show');
+    addOffSetToHeight('', document.getElementById(id));
+  }
+}
+
 function toggleContacsDropdown() {
   let content = document.getElementById('assignedDropdown');
   let category = document.getElementById('addCategory');
   let otherDropdown = document.getElementById('categoryDropdown');
   
-  if (otherDropdown && otherDropdown.classList.contains('show')) {
-    otherDropdown.classList.remove('show');
-    addOffSetToHeight('', document.getElementById('add_subtasks'));
-  }
-  if (content) {
-    if (content.classList.contains('show')) {
-      content.classList.remove('show');
-      addOffSetToHeight('', category);
-    } else {
-      content.classList.add('show');
-      addOffSetToHeight(content, category);
-    }
-  }  
+  closeOtherDropdown(otherDropdown, 'add_subtasks');
+  if (content.classList.contains('show')) {
+    content.classList.remove('show');
+    addOffSetToHeight('', category);
+  } else {
+    content.classList.add('show');
+    addOffSetToHeight(content, category);
+  } 
   event.stopPropagation();
 }
 
@@ -139,10 +132,7 @@ function toggleCategoryDropdown() {
   let addSubtasks = document.getElementById('add_subtasks');
   let otherDropdown = document.getElementById('assignedDropdown');
   
-  if (otherDropdown && otherDropdown.classList.contains('show')) {
-    otherDropdown.classList.remove('show');
-    addOffSetToHeight('', document.getElementById('addCategory'));
-  }
+  closeOtherDropdown(otherDropdown, 'addCategory');
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
