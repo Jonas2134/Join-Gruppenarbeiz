@@ -32,7 +32,10 @@ async function init() {
       }
     }
   });
-  console.log(window.location.port);
+  window.addEventListener('resize', checkOrientation);
+  window.addEventListener('orientationchange', checkOrientation);
+  checkOrientation();
+  setInterval(checkOrientation, 500);  
 }
 
 //SEND TASK TO FIREBASE

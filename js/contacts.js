@@ -33,6 +33,10 @@ async function init() {
             }
         }
     });
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    checkOrientation();
+    setInterval(checkOrientation, 500);
 }
 
 function groupContacts() {
@@ -159,7 +163,7 @@ function clearEditForm() {
 function openAddContactOverlay() {
     let contactOverlay = docID("overlay_add-contact");
     contactOverlay.classList.remove('d-none');
-    
+
 }
 
 function openEditContactOverlay(i) {
@@ -209,7 +213,7 @@ function openContact(i) {
     let selectedContainer = docID('selected-container');
 
     selectedContainer.innerHTML = generateContactHTML(i);
-    
+
     /* `
         <div class="selected-contact-main-container">
             <div class="open-nav-button d-none" onclick="showNav()">
@@ -314,7 +318,7 @@ function openContact(i) {
 
     setTimeout(() => {
         addBlueBackground(i);
-    }, 10); 
+    }, 10);
 }
 
 

@@ -22,7 +22,7 @@ function populateRememberMe() {
         const user = JSON.parse(userData);
         document.getElementById("user_email").value = user.email;
         document.getElementById("user_password").value = user.password;
-        document.getElementById("remember_me").checked = true;        
+        document.getElementById("remember_me").checked = true;
     }
 }
 
@@ -70,14 +70,14 @@ document.addEventListener("DOMContentLoaded", async function () {
             const user = users[i];
             if (user.user_email === email && user.user_password === password) {
                 currentUser = user;
-                found = true;                
+                found = true;
                 break;
             }
         }
 
         if (found) {
             if (rememberMe) {
-                setCookie("currentUser", JSON.stringify({ email: email , password: password }), 7);
+                setCookie("currentUser", JSON.stringify({ email: email, password: password }), 7);
             } else {
                 eraseCookie("currentUser");
             }
@@ -108,4 +108,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.getElementById('user_email').addEventListener('keyup', removeClasses);
 
     document.getElementById('user_password').addEventListener('keyup', removeClasses);
+
+    window.addEventListener('resize', checkOrientation);
+
+    window.addEventListener('orientationchange', checkOrientation);
+
+    checkOrientation();
+
+    setInterval(checkOrientation, 500);
 });
