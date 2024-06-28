@@ -2,18 +2,9 @@ let assignedContacts = [];
 let subtasks = [];
 let sendTaskStatus = 'To do';
 
-function addOffSetToHeight(divWithOffset, divToAdd) {
-  if (divWithOffset && divToAdd) {
-    let height = divWithOffset.offsetHeight;
-    divToAdd.style.marginTop = height + 'px';
-  } else {
-    divToAdd.style.marginTop = '0px';
-  }
-}
-
 async function init() {
-  includeHTML();
-  checkFirstPage();
+  await initCurrentUser();
+
   setTimeout(() => {
     addTaskContacs();
   }, 1000);
@@ -36,12 +27,13 @@ async function init() {
   window.addEventListener('orientationchange', checkOrientation);
   checkOrientation();
   setInterval(checkOrientation, 500);  
+
+  setDateRestriction('taskDueDate');
 }
 
 //SEND TASK TO FIREBASE
 async function sendTask(id) {
   let task = getTaskFromForm();
-
   if (id) {
     let updatingTask = getTaskbyId(id);
     if (updatingTask.finishedSubtasks) {
@@ -57,6 +49,7 @@ async function sendTask(id) {
   redirect();
 }
 
+//FILL IN FORM TASK
 function getTaskFromForm() {
   let task = {
     title: document.getElementById('taskTitle').value,
@@ -67,12 +60,10 @@ function getTaskFromForm() {
     content: document.getElementById('addCategoryInputField').innerHTML,
     subtasks: subtasks,
     status: sendTaskStatus
-  };
-
-  return task;
+  }; return task;
 }
 
-//SELECT PRIORITY BUTTON
+//SELECT PRIORITY BASED ON CLASS
 function selectPriority(priority) {
   clearPriority(false);
   if (priority.toLowerCase() == 'urgent') {
@@ -90,26 +81,30 @@ function selectPriority(priority) {
   }
 }
 
+//RESET PRIORITY IN ADD TASK 
+function resetPriorityDOM(){
+  mediumPriority.classList.add('priority_active');
+  urgentPriority.classList.add('priority_inactive');
+  lowPriority.classList.add('priority_inactive');
+  document.getElementById('prioOrange').src = './img/prio_orange_white.png';
+}
+
 function clearPriority(reset) {
   let urgentPriority = document.getElementById('urgentPriority');
   let mediumPriority = document.getElementById('mediumPriority');
   let lowPriority = document.getElementById('lowPriority');
-
   urgentPriority.classList.remove('priority_inactive', 'priority_active');
   mediumPriority.classList.remove('priority_active', 'priority_inactive');
   lowPriority.classList.remove('priority_active', 'priority_inactive');
   document.getElementById('prioRed').src = './img/prio_red.png';
   document.getElementById('prioOrange').src = './img/prio_orange.png';
   document.getElementById('prioGreen').src = './img/prio_green.png';
-
   if (reset) {
-    mediumPriority.classList.add('priority_active');
-    urgentPriority.classList.add('priority_inactive');
-    lowPriority.classList.add('priority_inactive');
-    document.getElementById('prioOrange').src = './img/prio_orange_white.png';
+    resetPriorityDOM()
   }
 }
 
+//GET PRIORITY IN ADD TASK
 function getPriority() {
   if (
     document.getElementById('urgentPriority').classList.contains('priority_active')
@@ -127,24 +122,26 @@ function getPriority() {
 }
 
 //TOGGLE CONTACTS DROPDOWN
+function closeOtherDropdown(otherDropdown, id) {
+  if (otherDropdown && otherDropdown.classList.contains('show')) {
+    otherDropdown.classList.remove('show');
+    addOffSetToHeight('', document.getElementById(id));
+  }
+}
+
 function toggleContacsDropdown() {
   let content = document.getElementById('assignedDropdown');
   let category = document.getElementById('addCategory');
   let otherDropdown = document.getElementById('categoryDropdown');
   
-  if (otherDropdown && otherDropdown.classList.contains('show')) {
-    otherDropdown.classList.remove('show');
-    addOffSetToHeight('', document.getElementById('add_subtasks'));
-  }
-  if (content) {
-    if (content.classList.contains('show')) {
-      content.classList.remove('show');
-      addOffSetToHeight('', category);
-    } else {
-      content.classList.add('show');
-      addOffSetToHeight(content, category);
-    }
-  }  
+  closeOtherDropdown(otherDropdown, 'add_subtasks');
+  if (content.classList.contains('show')) {
+    content.classList.remove('show');
+    addOffSetToHeight('', category);
+  } else {
+    content.classList.add('show');
+    addOffSetToHeight(content, category);
+  } 
   event.stopPropagation();
 }
 
@@ -154,10 +151,7 @@ function toggleCategoryDropdown() {
   let addSubtasks = document.getElementById('add_subtasks');
   let otherDropdown = document.getElementById('assignedDropdown');
   
-  if (otherDropdown && otherDropdown.classList.contains('show')) {
-    otherDropdown.classList.remove('show');
-    addOffSetToHeight('', document.getElementById('addCategory'));
-  }
+  closeOtherDropdown(otherDropdown, 'addCategory');
   if (content) {
     if (content.classList.contains('show')) {
       content.classList.remove('show');
@@ -182,7 +176,17 @@ document.addEventListener('click', function(event) {
   });
 });
 
-//ADD CONTACTS
+//ADDED HEIGHT TO DROPDOWN 
+function addOffSetToHeight(divWithOffset, divToAdd) {
+  if (divWithOffset && divToAdd) {
+    let height = divWithOffset.offsetHeight;
+    divToAdd.style.marginTop = height + 'px';
+  } else {
+    divToAdd.style.marginTop = '0px';
+  }
+}
+
+//ADD CONTACTS TO TASK 
 async function addTaskContacs() {
   await initContacts();
   let contactDropwdown = document.getElementById('assignedDropdown');
@@ -193,6 +197,7 @@ async function addTaskContacs() {
   }
 }
 
+//SELECT ADDED CONTACTS
 function selectContact(contactId) {
   let assignedContact = document.getElementById(contactId);
   let index = assignedContacts.indexOf(contactId);
@@ -209,7 +214,7 @@ function selectContact(contactId) {
   renderAssignedContact();
 }
 
-//RENDER CONTACTS
+//RENDER CONTACTS FOR TASK 
 function renderAssignedContact() {
   let content = document.getElementById('selectedContact');
   content.innerHTML = '';
@@ -220,13 +225,13 @@ function renderAssignedContact() {
   }
 }
 
-// SELECT CATEGORY
+//SELECT CATEGORY FOR TASK 
 function selectCategory(text) {
   let inputField = document.getElementById('addCategoryInputField');
   inputField.innerHTML = text;
 }
 
-//ADD SUBTASKS
+//ADD SUBTASKS TO TASK 
 function addSubtask() {
   let subtaskInput = document.getElementById('inputSubtasks');
   let subtask = subtaskInput.value.trim();
@@ -237,7 +242,7 @@ function addSubtask() {
   onInputSubtask();
 }
 
-//RENDER SUBTASKS
+//RENDER SUBTASKS IN TASK 
 function renderSubtasks() {
   let subtaskContent = document.getElementById('subtaskContent');
   subtaskContent.innerHTML = '';
@@ -245,14 +250,14 @@ function renderSubtasks() {
     subtaskContent.innerHTML += templateBuildSubtask(subtask, index);
   });
 }
-
-//DELETE SUBTASKS
+  
+//DELETE SUBTASKS IN TASK 
 function deleteSubtask(index) {
   subtasks.splice(index, 1);
   renderSubtasks();
 }
 
-//EDIT SUBTASKS
+//EDIT SUBTASKS IN TASK 
 function editSubtask(index) {
   let subTaskContent = document.getElementById(`subtask_${index}`);
   let subTaskText = document.getElementById(`subtask_edit_${index}`);
@@ -260,6 +265,7 @@ function editSubtask(index) {
   subTaskText.classList.remove('inactive');
 }
 
+// EDITED SUBTASK IN ADD TASK
 function onInputSubtask() {
   let subtaskInput = document.getElementById('inputSubtasks').value;
   let subtaskIconActive = document.getElementById('subtaskIconsActive');
@@ -282,15 +288,17 @@ function saveSubtask(index) {
   }
 }
 
-//CLEAR ADD TASK FORMULAR
+//HELPFUL - CLEAR INPUT FIELDS IN ADD TASK FORMULAR
 function clearInput(id) {
   document.getElementById(id).value = '';
 }
 
+//HELPFUL - CLEAR HTML LINES IN ADD TASK FORMULAR
 function clearHtml(id, html) {
   document.getElementById(id).innerHTML = html;
 }
 
+//CLEAR WHOLE ADD TASK FORMULAR
 function clearAddTask() {
   clearInput('taskTitle');
   clearInput('taskDescription');
@@ -305,6 +313,7 @@ function clearAddTask() {
   subtasks = [];
 }
 
+//ADD ANIMATIONS FOR SEND TASK
 function add_animations() {
   document.getElementsByClassName('hidden_container')[0].classList.add('visible');
   document.getElementsByClassName('hidden_popup')[0].classList.add('visible');
@@ -315,7 +324,7 @@ function add_animations() {
   }, 2000);
 }
 
-//FORM VALIDATION
+//FORM VALIDATION ON ADD TASK BUTTON CLICK 
 function validateForm() {
   let form = document.getElementById('myForm');
 
@@ -326,6 +335,7 @@ function validateForm() {
   }
 }
 
+//FORM VALIDATION ON OVERLAY ADD TASK BUTTON CLICK
 function validateFormOverlay() {
   let form = document.getElementById('myForm');
   if (form.checkValidity()) {
@@ -337,7 +347,7 @@ function validateFormOverlay() {
   }
 }
 
-//REDIRECT FUNKTION
+//REDIRECT - FROM ADDED TASK TO BOARD
 function redirect() {
   var hostname = window.location.hostname;
   var port = window.location.port;
@@ -346,7 +356,6 @@ function redirect() {
       targetUrl += ':' + port;
   }
   targetUrl += '/board.html';
-  console.log(targetUrl);
   setTimeout(function() {
       window.location.href = targetUrl;
   }, 1000);

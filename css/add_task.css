@@ -281,11 +281,18 @@ ul:hover {
 li {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-radius: 10px;
   font-size: 19px;
   line-height: 23px;
   padding: 3px 10px 3px 10px;
   gap: 15px;
+
+  .contact_div{
+    display: flex;
+    gap: 3vh;
+    align-items: center;
+  }
 }
 
 li.active {
@@ -306,6 +313,7 @@ li.active:hover {
   justify-content: center;
   align-items: center;
   color: white;
+  margin: 0px -8px 0px 0px;
 }
 
 .custom_checkbox label {

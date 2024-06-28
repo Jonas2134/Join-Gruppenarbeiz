@@ -377,12 +377,27 @@ body {
 .card_bottom_section {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .overlay_bottom {
   display: flex;
   justify-content: space-between;
 }
+
+.added_contacts{
+background-color: #E7E7E7;
+border-radius: 50%;
+width: 37px;
+height: 37px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-weight: 400;
+color: black;
+margin-left: 2px;
+}
+
 
 .progress-div {
   display: flex;
