@@ -107,16 +107,20 @@ async function loadCurrentUsers() {
   }
 }
 
+async function initContacts() {
+  await loadContacts();
+  sortContacts();
+  enrichContacts();
+}
 
-/* START: contact storage */
-
-/* START: Hilfsfunktionen */
+//SORT CONTACTS
 function sortContacts() {
   contacts.sort(function (a, b) {
     return a.name.localeCompare(b.name);
   });
 }
 
+//GET INITIALS FROM CONTACT NAMES
 function getInitials(name) {
   let parts = name.split(' ');
   let initials = '';
@@ -125,15 +129,8 @@ function getInitials(name) {
   }
   return initials;
 }
-/* END: Hilfsfunktionen */
 
-async function initContacts() {
-  contacts = await loadContacts();
-  sortContacts();
-  enrichContacts();
-}
-
-
+//ADDED COLORS TO CONTACT ICONS
 function enrichContacts() {
   let colorIndex = 0;
   for (let i = 0; i < contacts.length; i++) {
@@ -143,53 +140,29 @@ function enrichContacts() {
     colorIndex++;
   }
 }
-/* END: contact storage */
 
+//FILTER CONTACT / USER 
+function showDropUser() {  
+  if (currentUser) {
+    const name = currentUser.user_name.split(" ");
+    let initials;
 
-function showDropUser() {
-  const name = currentUser.user_name.split(" ");
-  let initials;
+    if (name.length === 1) {
+      initials = name[0].charAt(0).toUpperCase();
+    } else {
+      const firstNameLetter = name[0].charAt(0).toUpperCase();
+      const lastNameLetter = name[name.length - 1].charAt(0).toUpperCase();
+      initials = firstNameLetter + lastNameLetter;
+    }
 
-  if (name.length === 1) {
-    initials = name[0].charAt(0).toUpperCase();
-  } else {
-    const firstNameLetter = name[0].charAt(0).toUpperCase();
-    const lastNameLetter = name[name.length - 1].charAt(0).toUpperCase();
-    initials = firstNameLetter + lastNameLetter;
+    document.getElementById("drop_user").innerHTML = initials;
   }
-
-  document.getElementById("drop_user").innerHTML = initials;
 }
 
 async function logOut() {
   await deleteData("/currentUser");
   localStorage.removeItem('isLoggedIn');
   window.location.href = './index.html';
-}
-
-/* START: contact storage */
-
-/* START: Hilfsfunktionen */
-function sortContacts() {
-  contacts.sort(function (a, b) {
-    return a.name.localeCompare(b.name);
-  });
-}
-
-function getInitials(name) {
-  let parts = name.split(' ');
-  let initials = '';
-  for (let i = 0; i < parts.length; i++) {
-    initials += parts[i].charAt(0).toUpperCase();
-  }
-  return initials;
-}
-/* END: Hilfsfunktionen */
-
-async function initContacts() {
-  await loadContacts();
-  sortContacts();
-  enrichContacts();
 }
 
 async function loadContacts() {
@@ -201,18 +174,6 @@ async function loadContacts() {
     contacts.push(contact);
   });
 }
-
-function enrichContacts() {
-  let colorIndex = 0;
-  for (let i = 0; i < contacts.length; i++) {
-    let contact = contacts[i];
-    contact.initials = getInitials(contact.name);
-    contact.color = colors[colorIndex % colors.length];
-    colorIndex++;
-  }
-}
-/* END: contact storage */
-
 
 function checkFirstPage() {
   const isLoggedIn = localStorage.getItem('isLoggedIn');

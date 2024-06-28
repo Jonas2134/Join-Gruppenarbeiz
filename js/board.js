@@ -1,29 +1,14 @@
 let currentDraggedElement;
 
 async function init() {
-  includeHTML();
-  checkFirstPage();
+  await initCurrentUser();
+
   setTimeout(() => {
     showTasks(true);
   }, 500);
-  await loadCurrentUsers();
-  showDropUser();
-  document.getElementById("log_out").addEventListener('click', logOut);
-  document.querySelector('.drop-logo').addEventListener('click', toggleDropdown);
-  window.addEventListener('click', function (event) {
-    if (!event.target.matches('.drop-logo')) {
-      let dropdowns = document.getElementsByClassName("dropdown-content");
-      for (let i = 0; i < dropdowns.length; i++) {
-        let openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  });
 }
 
-//OVERLAY TOP FUNCTION
+//OVERLAY OPEN BIG TASK CARD
 function openOverlayTop() {
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {    
@@ -33,9 +18,9 @@ function openOverlayTop() {
   }
 }
 
+//OVERLAY CLOSE BIG TASK CARD
 function closeOverlayTop() {
   renderAllTasks();
-
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {
     overlay.classList.remove('show');
@@ -48,6 +33,7 @@ function closeOverlayTop() {
   }    
 }
 
+//OVERLAY CLOSE BIG TASK CARD EVENT LISTENER
 document.addEventListener('DOMContentLoaded', () => {  
   const cardOverlay = document.getElementById('card_top_overlay');
   const overlayContent = document.getElementById('overlay_top_content');
@@ -60,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }  
 });
 
-//OVERLAY RIGHT FUNCTION
+//OVERLAY OPEN ADD TASK ON BOARD
 async function openOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
@@ -74,9 +60,11 @@ async function openOverlayRight() {
     setTimeout(() => {
       overlay.classList.add('show');
     }, 10);
+    setDateRestriction('taskDueDate');
   }
 }
 
+//OVERLAY CLOSE ADD TASK ON BOARD
 function closeOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
@@ -90,6 +78,7 @@ function closeOverlayRight() {
   }
 }
 
+//OVERLAY CLOSE ADD TASK ON BOARD EVENT LISTENER
 document.addEventListener('click', function(event) {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay && overlay === event.target) {
@@ -105,6 +94,8 @@ window.addEventListener('beforeunload', function () {
   closeOverlayRight();
 });
 
+
+//CLEAR WHOLE BOARD TO RENDER PROPERLY
 function clearBoard(){
   document.getElementById('drag_to_do').innerHTML = '';
   document.getElementById('drag_in_progress').innerHTML = '';
@@ -112,7 +103,7 @@ function clearBoard(){
   document.getElementById('drag_done').innerHTML = '';
 }
 
-//BOARD SWITCH STATUS
+//BOARD SWITCH CARD STATUS
 function switchStatusCase(task, i) {
   switch(task.status.toLowerCase()) {
     case 'to do':
@@ -129,6 +120,7 @@ function switchStatusCase(task, i) {
   }
 }
 
+//SET CARD STATUS
 function setSendTaskStatus(status) {
   sendTaskStatus = status;
 }
@@ -136,20 +128,30 @@ function setSendTaskStatus(status) {
 //RENDER TASKS ON BOARD
 function renderAllTasks() {
   clearBoard();
-
   for (let i = 0; i < tasks.length; i++) {    
     switchStatusCase(tasks[i], i);
   }  
-  if (document.getElementById('drag_to_do').innerHTML == '') {
-    document.getElementById('drag_to_do').innerHTML = `
-    <div class="no_task_to_do" draggable="false">
-      <span>No Task To Do</span>
-    </div>`;
-  }
-
+  renderNoTask();
   setDragEventListeners();
 }
 
+//RENDER "NO TASK"-BADGE IF THERE ARE NO TASKS
+function renderNoTask() {
+  if (document.getElementById('drag_to_do').innerHTML == '') {
+    document.getElementById('drag_to_do').innerHTML = templateNoTask('To do');
+  }
+  if (document.getElementById('drag_in_progress').innerHTML == '') {
+    document.getElementById('drag_in_progress').innerHTML = templateNoTask('In progress');
+  }
+  if (document.getElementById('drag_await_feedback').innerHTML == '' ) {
+    document.getElementById('drag_await_feedback').innerHTML = templateNoTask('Awaiting feedback');
+  }
+  if (document.getElementById('drag_done').innerHTML == '' ) {
+    document.getElementById('drag_done').innerHTML = templateNoTask('Done');
+  }
+}
+
+//FUNCTION DRAG & DROP EVENT LISTENER
 function setDragEventListeners() {
   const allDragElements = document.querySelectorAll(".task_card");
   allDragElements.forEach((e) => {
@@ -171,6 +173,7 @@ function setDragEventListeners() {
   });
 }
 
+//FUNCTION DRAG & DROP WHICH TASK DRAGGED
 function insideDiv(touchedTask, id) {
   const element = document.getElementById(id);
   rect = element.getBoundingClientRect();
@@ -182,6 +185,7 @@ function insideDiv(touchedTask, id) {
   );
 }
 
+//RENDER ALL TASK ON BOARD
 async function showTasks(reloadContacts) {
   await loadTasks();
   if (reloadContacts) {
@@ -190,7 +194,7 @@ async function showTasks(reloadContacts) {
   renderAllTasks();
 }
 
-//UPDATE TASK ON BOARD
+//UPDATE TASK STATUS ON BOARD
 function updateTaskStatus(id, status) {
   let task = getTaskbyId(id);
   task.status = status;
@@ -205,7 +209,7 @@ function deleteTaskOnBoard(id) {
   renderAllTasks();
 }
 
-//BUILD OVERLAY TASK CARD
+//BUILD OVERLAY BIG TASK CARD
 function buildOverlayCard(i) {
   let content = document.getElementById('overlay_top_content');
   let task = tasks[i];
@@ -226,9 +230,11 @@ async function editOverlayTask(id) {
   let task = getTaskbyId(id);
   content.innerHTML += templateEditOverlayFooter(id);
   await addTaskContacs();  
-  await fillTask(task);
+  fillTask(task);
+  setDateRestriction('taskDueDate');
 }
 
+//FILLED IN ADD TASK TEMPLATE TO EDIT 
 function fillTask(task) {
   document.getElementById('taskTitle').value = task.title;
   document.getElementById('taskDescription').value = task.description;
@@ -246,20 +252,32 @@ function fillTask(task) {
   renderSubtasks();
 }
 
-// DRAG & DROP FUNCTION
+//DRAG & DROP - DRAG START 
 function startDragging(id) {
   currentDraggedElement = id;
 }
 
+//DRAG & DROP - DROP 
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+//DRAG & DROP - MOVE TO 
 function moveTo(status) {
   updateTaskStatus(currentDraggedElement, getStatusNameByStatusID(status));
   renderAllTasks();  
 }
 
+//DRAG & DROP - HIGHLIGHT TASK DIV
+function highlight(id) {
+  document.getElementById(id).classList.add('task_content-highlight');
+}
+
+function removeHighlight(id) {
+  document.getElementById(id).classList.remove('task_content-highlight');
+}
+
+//GET STATUS BY ID 
 function getStatusNameByStatusID(statusId){
   if (statusId=='drag_to_do') {
     return 'To do';
@@ -272,18 +290,9 @@ function getStatusNameByStatusID(statusId){
   }
 }
 
-function highlight(id) {
-  document.getElementById(id).classList.add('task_content-highlight');
-}
-
-function removeHighlight(id) {
-  document.getElementById(id).classList.remove('task_content-highlight');
-}
-
-//SUBTASK FUNCTIONS
+//UPDATE FINISHED SUBTASK 
 function finishSubtask(subtaskName, id) {
   let task = getTaskbyId(id);
-
   if (!task.finishedSubtasks) {
     task.finishedSubtasks = [];
     task.finishedSubtasks.push(subtaskName);
@@ -304,8 +313,7 @@ function filterTask() {
         document.getElementById(`${tasks[i].id}`).style.display = 'block';
       }  else {
         document.getElementById(`${tasks[i].id}`).style.display = 'none';
-      }
-    }
+ }}
   } else {
     for (let i = 0; i< tasks.length; i++) {
       document.getElementById(`${tasks[i].id}`).style.display = 'block';
