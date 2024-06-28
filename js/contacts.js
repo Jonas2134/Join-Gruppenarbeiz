@@ -450,7 +450,7 @@ function renderEditOverlay(i) {
                 </div>
             </div>
             <div class="edit-area_bottom-area d-flex_column">
-                <form id="edit-contact-form" onsubmit="editContact(${i}); return false;">
+                <form id="edit-contact-form" onsubmit="editContact(event, ${i}); return false;">
                     <div id="edit-name-contacts" class="name-edit-contacts d-flex_row input-container">
                         <input id="edit-name" placeholder="Name" name="name" pattern="^(?=.*[A-Za-zäöüÄÖÜß]{3}).*$"
                             title="Mindestens drei Buchstaben" class="name-input" type="text" value="${contacts[i]['name']}" required>
@@ -466,7 +466,8 @@ function renderEditOverlay(i) {
                         </div>
                     </div>
                     <div id="edit-email-contacts" class="email-edit-contacts d-flex_row input-container">
-                    <input id="edit-email" name="email" placeholder="Email" class="email-input" type="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Bitte geben Sie eine gültige E-Mail-Adresse ein" value="${contacts[i]['email']}" required>
+                    <input id="edit-email" name="email" placeholder="Email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" class="email-input" type="email" title="Bitte geben Sie eine gültige E-Mail-Adresse ein" value="${contacts[i]['email']}" required>
+                   
                         <div class="email-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <mask id="mask0_43661_2816" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="25">
@@ -519,6 +520,47 @@ function renderEditOverlay(i) {
     docID('overlay_edit-contact').classList.remove('d-none');
     activateInputError();
 }
+
+async function editContact(event, i) {
+    event.preventDefault(); // Verhindert das automatische Absenden des Formulars
+
+    let contactId = contacts[i].id;
+    let contact = await getData(`/contacts/${contactId}`);
+
+    let newName = document.getElementById('edit-name').value;
+    let newEmail = document.getElementById('edit-email').value;
+    let newMobile = document.getElementById('edit-mobile').value;
+
+    let confirmationMessage = `
+        Sind Sie sicher, dass Sie die folgenden Änderungen durchführen wollen?
+        \nName: ${contact.name} zu ${newName}
+        \nEmail: ${contact.email} zu ${newEmail}
+        \nMobil: ${contact.mobile} zu ${newMobile}
+    `;
+
+    // HTML5 Validierung wird automatisch durch den submit-Event überprüft
+
+    if (contact.name === newName && contact.email === newEmail && contact.mobile === newMobile) {
+        console.log("Keine Änderungen vorgenommen");
+        return;
+    }
+
+    if (confirm(confirmationMessage)) {
+        contact.name = newName;
+        contact.email = newEmail;
+        contact.mobile = newMobile;
+
+        await updateData(`/contacts/${contactId}`, contact);
+
+        console.log("Contact updated:", contact);
+        showUpdatePopup();
+        closeSelectedContactOverlay();
+        closeEditContactOverlay();
+        init();
+    }
+}
+
+
 
 /* async function editContact(i) {
     let contactId = contacts[i].id;
@@ -586,7 +628,7 @@ function renderEditOverlay(i) {
 } */
 
 
-async function editContact(i) {
+/* async function editContact(i) {
     let contactId = contacts[i].id;
     let contact = await getData(`/contacts/${contactId}`);
 
@@ -639,7 +681,7 @@ function validateInput(input) {
         return false;
     }
     return true;
-}
+} */
 
 
 async function deleteContact(i) {
