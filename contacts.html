@@ -7,16 +7,17 @@
     <title>Contacts</title>
 
     <!-- script implementation -->
-    <script src="./js/storage.js"></script>
+    <script src="./js/script.js"></script>
     <script src="./js/include_html.js"></script>
     <script src="./js/contacts.js"></script>
+    <script src="./js/contacts_templates.js"></script>
     <!-- *-*-*-* -->
     <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
     <link rel="stylesheet" href="./css/contacts.css">
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="stylesheet" href="./css/template_header.css">
     <link rel="stylesheet" href="./css/template_sidebar.css">
-    <!-- <link rel="stylesheet" href="./css/scrollbar.css"> -->
+    <link rel="stylesheet" href="./css/scrollbar.css">
     <link rel="stylesheet" href="./css/button.css">
 </head>
 
@@ -192,7 +193,7 @@
                         </div>
                     </div>
                     <div id="mobile-contacts" class="phone-contacts d-flex_row input-container">
-                        <input id="mobile" name="tel" pattern="\\+?[0-9\s\-\/]{7,15}"
+                        <input id="mobile" name="tel"
                             title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone (optional)"
                             class="phone-input" type="tel">
                         <div class="phone-contacts-img target">
@@ -284,14 +285,13 @@
                     <div>
                         <div id="edit-contact-profile-img"
                             class="contact-container-img-edit contact-container-img-overlay"
-                            style="width:90px; height:90px; font-size:1.6em; background-color: ${contacts[i]['color']}">
-                            ${contacts[i]['initials']}
+                            style="width:90px; height:90px; font-size:1.6em;">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="edit-area_bottom-area d-flex_column">
-                <form id="edit-contact-form" onsubmit="editContact(${i}); return false;">
+                <form id="edit-contact-form" onsubmit="editContact(i); return false;">
                     <div id="edit-name-contacts" class="name-edit-contacts d-flex_row input-container">
                         <input id="edit-name" placeholder="Name" name="name" pattern="^(?=.*[A-Za-zäöüÄÖÜß]{3}).*$"
                             title="Mindestens drei Buchstaben" class="name-input" type="text"
@@ -331,7 +331,7 @@
                         </div>
                     </div>
                     <div id="edit-mobile-contacts" class="phone-edit-contacts d-flex_row input-container">
-                        <input id="edit-mobile" name="tel" pattern="\\+?[0-9\\s\\-]{7,15}"
+                        <input id="edit-mobile" name="tel"
                             title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone" class="phone-input"
                             type="tel" value="${contacts[i]['mobile']}">
 
@@ -376,6 +376,13 @@
                 </form>
             </div>
         </div>
+    </div>
+    <!-- *-*-*-* -->
+
+
+    <!-- Edit Confirmation window -->
+    <div id="confirmation_overlay" class="d-none">
+
     </div>
     <!-- *-*-*-* -->
 
