@@ -485,6 +485,10 @@ margin-left: 2px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  height: auto;
+  max-height: 500px;
+  overflow: hidden;
+  overflow-y: auto;
 
   li {
     display: flex;

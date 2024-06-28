@@ -290,8 +290,7 @@
                         </div>
                     </div>
                     <div class="email-contacts d-flex_row input-container">
-                        <input id="email" name="email" placeholder="Email" class="email-input" type="email"
-                            required>
+                        <input id="email" name="email" placeholder="Email" class="email-input" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Bitte geben Sie eine gültige E-Mail-Adresse ein" required>
                         <div class="email-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -308,9 +307,7 @@
                         </div>
                     </div>
                     <div class="phone-contacts d-flex_row input-container">
-                        <input id="mobile" name="tel" pattern="\\+?[0-9\\s\\-\\/]{7,15}"
-                            title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone"
-                            class="phone-input" type="tel">
+                        <input id="mobile" name="tel" pattern="\\+?[0-9\s\-\/]{7,15}" title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone (optional)" class="phone-input" type="tel">
                         <div class="phone-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -368,7 +365,7 @@
 
     <!-- overlay_edit-contact -->
     <div id="overlay_edit-contact" class="d-none">
-        <div onclick="closeEditContactOverlay()" id="close-edit-area"></div>
+        <!-- <div onclick="closeEditContactOverlay()" id="close-edit-area"></div>
         <div class="edit-contact_main-container">
             <div class="edit-area_top-area d-flex_column">
                 <div class="close-container d-flex_column">
@@ -416,8 +413,8 @@
 
                 <form id="edit-contact-form">
                     <div class="name-edit-contacts d-flex_row input-container">
-                        <input id="edit-name" placeholder="Name" name="name" pattern="[A-Za-zäöüÄÖÜß\s]+"
-                            title="Nur Buchstaben sind erlaubt" class="name-input" type="text" required>
+                        <input id="edit-name" placeholder="Name" name="name" pattern="^(?=.*[A-Za-zäöüÄÖÜß]{3}).*$"
+                            title="Mindestens drei Buchstaben" class="name-input" type="text" required>
                         <div class="name-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -434,8 +431,7 @@
                         </div>
                     </div>
                     <div class="email-edit-contacts d-flex_row input-container">
-                        <input id="edit-email" name="email" placeholder="Email" class="email-input"
-                            type="email">
+                        <input id="edit-email" name="email" placeholder="Email" class="email-input" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Bitte geben Sie eine gültige E-Mail-Adresse ein" required>
                         <div class="email-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -452,9 +448,7 @@
                         </div>
                     </div>
                     <div class="phone-edit-contacts d-flex_row input-container">
-                        <input id="edit-mobile" ame="tel" pattern="\\+?[0-9\\s\\-\\/]{7,15}"
-                            title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone"
-                            class="phone-input" type="tel">
+                        <input id="edit-mobile" name="tel" pattern="\\+?[0-9\s\-\/]{7,15}" title="Geben Sie eine gültige Telefonnummer ein" placeholder="Phone" class="phone-input" type="tel">
                         <div class="phone-contacts-img target">
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -476,7 +470,7 @@
                 </form>
 
             </div>
-        </div>
+        </div> -->
     </div>
     <!-- *-*-*-* -->
 
