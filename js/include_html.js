@@ -14,7 +14,12 @@ async function includeHTML() {
 
 
 // Dropdown Function
-
 function toggleDropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// restrict date field to future dates
+function setDateRestriction(id) {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById(id).setAttribute('min', today);
 }
