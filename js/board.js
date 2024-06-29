@@ -12,7 +12,7 @@ async function init() {
 
   setTimeout(() => {
     showTasks(true);
-  }, 500);
+  }, 500);  
 }
 
 /**

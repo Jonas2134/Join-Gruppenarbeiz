@@ -329,3 +329,17 @@ function hideElementsForLoggedOutUsers() {
   }
   return true;
 }
+
+function checkOrientation() {  
+  if (isMobileDevice() && window.innerHeight < window.innerWidth) {
+    document.getElementById('landscape_format_message').classList.add('hidden');
+    document.getElementById('landscape_format_message_container').classList.add('hidden');
+  } else {
+    document.getElementById('landscape_format_message').classList.remove('hidden');
+    document.getElementById('landscape_format_message_container').classList.remove('hidden');
+  }
+}
+
+function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}

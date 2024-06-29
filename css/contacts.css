@@ -30,6 +30,10 @@ body {
     display: none;
 }
 
+.mybtn:active {
+    animation: click-animation 0.2s ease-in-out;
+}
+
 .blue-background {
     background-color: #4986fe !important;
     color: white !important;
@@ -53,6 +57,21 @@ body {
     left: 0;
     bottom: 0;
 }
+
+.input-error {
+    border-radius: 3px;
+    background-color: rgba(255, 107, 107, 0.5);
+    animation: shake 0.5s;
+    z-index: 2;
+  }
+
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
 
 /* *-*-*-* */
 
@@ -110,7 +129,7 @@ body {
 
 /* START contact-book */
 .contact-book {
-    height: calc(100vh - 200px);
+    height: calc(100vh - 160px);
     overflow: auto;
 }
 
@@ -398,7 +417,8 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: space-evenly;
-    width: 80%;
+    width: 60%;
+    height: 80%;
 }
 
 /* bottom-area */
@@ -467,6 +487,43 @@ body {
 }
 
 /* END add_contact-overlay */
+
+/* START confirmation-overlay */
+#confirmation_overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 104;
+}
+
+.confirmation_main-container {
+    display: flex;
+    background-color: white;
+    border-radius: 9px;
+    padding: 18px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 105;
+}
+
+.confirmation_top-area * {
+    color: black;
+    font-size: 1.2em;
+}
+
+.confirmation_bottom-area {
+    display: flex;
+    gap: 12px;
+}
+
+
+/* END confirmation-overlay */
 
 /* START edit_contact-overlay */
 .edit-contact_main-container {
@@ -550,7 +607,7 @@ body {
     border-bottom: solid gray 1px;
     margin-top: 8px;
     transition: transform 0.3s ease, font-size 0.3s ease;
-
+    padding: 4px;
 }
 
 .name-input,
@@ -558,7 +615,9 @@ body {
 .phone-input {
     transition: all 0.3s ease;
     border: none;
-    flex: 1;
+    flex: 0.9;
+    padding: 0px 6px;
+    background: transparent;
 }
 
 
@@ -581,7 +640,7 @@ body {
 
 .blue-button-container {
     padding: 8px;
-    color: white;
+    color: #005eff;
     border-radius: 9px;
     display: flex;
     align-items: center;
@@ -597,6 +656,7 @@ body {
 .blue-button-container:hover {
     cursor: pointer;
     background-color: #005eff;
+    color: white;
 
     .blue-button-text {
         transform: scale(1.02);
@@ -763,13 +823,13 @@ body {
         justify-content: flex-end;
     }
 
-    .arrow-container img {
+    .my-arrow-container img {
         width: 44px;
         transition: transform 0.3s ease-in-out;
         margin-bottom: 20px;
     }
 
-    .arrow-container img:hover {
+    .my-arrow-container img:hover {
         cursor: pointer;
         transform: scale(1.2);
     }
@@ -777,6 +837,10 @@ body {
 
 /* 700 px */
 @media (max-width: 700px) {
+
+    .add-contact-button {
+        padding: 8px 35px;
+    }
 
     .edit-area_bottom-area,
     .edit-area_top-area,
@@ -817,6 +881,11 @@ body {
 /* 600 px */
 @media (max-width: 600px) {
 
+    .add-contact-button {
+        padding: 8px 15px;
+        font-size: 1.2em;
+    }
+
     .contacts-main-container,
     .edit-contact_main-container {
         margin: 0;
@@ -854,16 +923,15 @@ body {
     .add-contact_bottom-area,
     .edit-area_bottom-area {
         position: absolute;
-        height: calc(60vh - 40px);
+        height: 60vh;
         padding: 0;
         border-radius: 0 0 25px 25px;
         width: 92vw;
-        bottom: 190px;
+        top: 250px;
     }
 
     .add-contact_top-area,
     .edit-area_top-area {
-        height: 340px;
         border-radius: 25px 25px 0 0;
         width: 92vw;
     }
@@ -877,6 +945,7 @@ body {
     #add-contact-form,
     #edit-contact-form {
         width: 60%;
+        height: 50%;
     }
 
     .profile-img {
@@ -952,4 +1021,32 @@ body {
     }
 }
 
+@media (max-height: 700px) and (max-width: 600px) {
+    .edit-area_top-area, .add-contact_top-area {
+/*         display: none; */
+        display: flex;
+        height: 230px;
+    }
+
+    .edit-area_bottom-area, .add-contact_bottom-area {
+/*         position: absolute;
+        top: 5vh;
+        bottom: 5vh;
+        left: 5vw;
+        right: 5vw; */
+        flex: 1;
+        height: auto;
+        margin-bottom: 5vh;
+        top: 230px;
+    }
+
+    .edit-contact_main-container {
+        display: flex;
+
+    }
+
+    .contact-container-img-overlay {
+        margin-top: 8px;
+    }
+}
 /* END Responsiveness */

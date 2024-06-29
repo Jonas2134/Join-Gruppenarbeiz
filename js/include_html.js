@@ -59,4 +59,8 @@ async function initCurrentUser(){
       }
     }
   });
+  window.addEventListener('resize', checkOrientation);
+  window.addEventListener('orientationchange', checkOrientation);
+  checkOrientation();
+  setInterval(checkOrientation, 500);
 }

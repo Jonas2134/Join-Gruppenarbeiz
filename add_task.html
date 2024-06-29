@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="./css/template_sidebar.css" />
   <link rel="stylesheet" href="./css/checkbox.css">
   <link rel="stylesheet" href="./css/scrollbar.css">
+  <link rel="stylesheet" href="./css/landscape_format.css">
   <script src="./js/script.js"></script>
   <script src="./js/task.js"></script>
   <script src="./js/task_help_functions.js"></script>
@@ -30,14 +31,14 @@
         <div w3-include-html="template_add_task.html"></div>
 
         <div class="add_task_form_buttons">
-        <button class="form_button" onclick="clearAddTask(id)">
-          Clear &#10005;
-        </button>
-        <button class="form_create_button" onclick="validateForm()">
-          Create Task &#10004;
-        </button>
+          <button class="form_button" onclick="clearAddTask(id)">
+            Clear &#10005;
+          </button>
+          <button class="form_create_button" onclick="validateForm()">
+            Create Task &#10004;
+          </button>
+        </div>
       </div>
-      </div>      
     </div>
   </div>
 
@@ -57,6 +58,11 @@
     </div>
   </div>
 
+  <div id="landscape_format_message" class="landscape_format_message">
+    <div id="landscape_format_message_container" class="landscape_format_message_container">
+      Please switch back to portrait format.
+    </div>
+  </div>
 </body>
 
 </html>
