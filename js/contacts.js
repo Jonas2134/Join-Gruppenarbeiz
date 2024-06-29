@@ -57,10 +57,6 @@ async function init() {
             }
         }
     });
-    window.addEventListener('resize', checkOrientation);
-    window.addEventListener('orientationchange', checkOrientation);
-    checkOrientation();
-    setInterval(checkOrientation, 500);
 }
 
 function renderContacts() {
