@@ -10,14 +10,6 @@ function templateBuildContactDropdown(contact, withCheckbox) {
   let initials = templateUserInitials(contact);
   let checkbox = '';
 
-  if (withCheckbox) {
-    checkbox = `
-      <div>
-        <input class="custom_checkbox" type="checkbox" id="cb${contactId}">
-      </div>
-    `;
-  }
-
   return `
     <li onclick="selectContact('${contactId}')" class="" id="${contactId}">
       <div class="contact_div">${initials}${contactName}</div>
