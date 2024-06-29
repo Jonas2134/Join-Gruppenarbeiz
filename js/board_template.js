@@ -1,11 +1,30 @@
-//TEMPLATE RENDER SPAN IF THERES NO ACTIVE TASK  
-function templateNoTask (status) {
+/**
+ * Generates HTML template for displaying a "No Task" message.
+ *
+ * @param {string} status - The status to be displayed in the message.
+ * @returns {string} - The HTML string for the "No Task" message.
+ */
+function templateNoTask(status) {
   return `<div class="no_task_to_do" draggable="false">
       <span>No Task ${status}</span>
     </div>`;
 }
 
-//TEMPLATE RENDER BIG BOARD CARD 
+/**
+ * Generates HTML template for a detailed overlay card displaying task information.
+ *
+ * @param {Object} task - The task object containing task details.
+ * @param {string} task.content - The content or category of the task.
+ * @param {string} task.priority - The priority level of the task.
+ * @param {Array} task.assignedTo - The list of contacts assigned to the task.
+ * @param {Array} [task.subtasks] - The list of subtasks for the task (optional).
+ * @param {Array} [task.finishedSubtasks] - The list of completed subtasks (optional).
+ * @param {string} task.id - The unique identifier of the task.
+ * @param {string} task.title - The title of the task.
+ * @param {string} task.description - The description of the task.
+ * @param {string} task.dueDate - The due date of the task.
+ * @returns {string} - The HTML string for the task overlay card.
+ */
 function templateBuildOverlayCard(task){
   let categoryClass = getTaskCategoryClass(task.content);
   let setPriority = getPriorityIcon(task.priority);
@@ -56,7 +75,14 @@ function templateBuildOverlayCard(task){
     </div>`;
 }
 
-//TEMPLATE BUILD CONTACTS 
+/**
+ * Generates HTML template for a contact list item.
+ *
+ * @param {Object} contact - The contact object containing contact details.
+ * @param {string} contact.name - The name of the contact.
+ * @param {string} contact.id - The unique identifier of the contact.
+ * @returns {string} - The HTML string for the contact list item.
+ */
 function templateBuildContactList(contact) {
   let contactName = contact['name'];
   let contactId = contact['id'];
@@ -67,7 +93,12 @@ function templateBuildContactList(contact) {
           `;
 }
 
-//GET CATEGORY IN ADD TASK 
+/**
+ * Gets the CSS class for the task category.
+ *
+ * @param {string} category - The category of the task.
+ * @returns {string} - The CSS class corresponding to the category.
+ */
 function getTaskCategoryClass(category) {
   if (category == 'User Story') {
   return 'user_story'
@@ -76,7 +107,14 @@ function getTaskCategoryClass(category) {
   }
 }
 
-//TEMPLATE BUILD OVERLAY SUBTASKS
+/**
+ * Generates HTML template for displaying the subtasks within an overlay.
+ *
+ * @param {Array} subtasksArray - The array of subtasks.
+ * @param {Array} finishedArray - The array of completed subtasks.
+ * @param {string} id - The unique identifier of the task.
+ * @returns {string} - The HTML string for the subtasks.
+ */
 function templateOverlaySubtasks(subtasksArray, finishedArray, id) {
   let template = '';
   if(subtasksArray) {
@@ -91,7 +129,21 @@ function templateOverlaySubtasks(subtasksArray, finishedArray, id) {
   return template;
 }
 
-//TEMPLATE BUILD SMALL BOARD CARD
+/**
+ * Generates HTML template for a small board task card.
+ *
+ * @param {Object} task - The task object containing task details.
+ * @param {number} i - The index of the task.
+ * @param {string} task.content - The content or category of the task.
+ * @param {string} task.priority - The priority level of the task.
+ * @param {Array} task.assignedTo - The list of contacts assigned to the task.
+ * @param {Array} [task.subtasks] - The list of subtasks for the task (optional).
+ * @param {Array} [task.finishedSubtasks] - The list of completed subtasks (optional).
+ * @param {string} task.id - The unique identifier of the task.
+ * @param {string} task.title - The title of the task.
+ * @param {string} task.description - The description of the task.
+ * @returns {string} - The HTML string for the small board task card.
+ */
 function renderTask(task, i) {
   let categoryClass = getTaskCategoryClass(task.content);
   let setPriority = getPriorityIcon(task.priority);
@@ -114,54 +166,62 @@ function renderTask(task, i) {
       <span>0/${task.subtasks.length}</span>
     `;
   }
+
   return `
     <div draggable="true" id="${task.id}" ondragstart="startDragging('${task.id}')" ontouchstart="startDragging('${task.id}')" class="task_card card_complete" onclick="buildOverlayCard(${i}), openOverlayTop()"> 
       <div class="card_category">
-    <span class="card_categories_span ${categoryClass}">${task.content}</span>
+        <span class="card_categories_span ${categoryClass}">${task.content}</span>
       </div>
-    <div class="card_top_section">
+      <div class="card_top_section">
         <div class="card_title">
-    <b>${task.title}</b>
+          <b>${task.title}</b>
         </div>
-      <div class="card_description">
-    ${task.description}
-      </div>
-    </div>
-        <div class="card_task_status">
-      <div class="progress-div">
-    ${progressBarHTML}
-      </div>
+        <div class="card_description">
+          ${task.description}
         </div>
+      </div>
+      <div class="card_task_status">
+        <div class="progress-div">
+          ${progressBarHTML}
+        </div>
+      </div>
       <div class="overlay_bottom">  
-    <div class="card_bottom_section">    
-    ${contactLogo}
-    </div>
+        <div class="card_bottom_section">    
+          ${contactLogo}
+        </div>
         <div class="card_prio">
-    <img src="${setPriority}" class="prio_icons">
-        </div>
+          <img src="${setPriority}" class="prio_icons">
         </div>
       </div>
-      </div>
-    `;
+    </div>
+  `;
 }
 
-//GET PRIORITY ICON IN ADD TASK FORM
+/**
+ * Gets the icon URL for the specified priority level.
+ *
+ * @param {string} priority - The priority level of the task.
+ * @returns {string} - The URL of the priority icon.
+ */
 function getPriorityIcon(priority) {
-  if(priority == 'Urgent') {
+  if (priority === 'Urgent') {
     return './img/prio_red.png';
-  }
-  else if (priority == 'Medium') {
+  } else if (priority === 'Medium') {
     return './img/prio_orange.png';
-  }
-  else if (priority == 'Low') {
+  } else if (priority === 'Low') {
     return './img/prio_green.png';
   }
 }
 
-//TEMPLATE BUILD CONTACTS
+/**
+ * Generates HTML template for displaying contact initials in a task card.
+ *
+ * @param {Array} contactsArray - Array of contact IDs assigned to the task.
+ * @returns {string} - The HTML string for displaying contact initials.
+ */
 function templateGetContacts(contactsArray) {
   let template = '';
-  if(contactsArray) {
+  if (contactsArray) {
     for (let i = 0; i < contactsArray.length; i++) {
       if (i > 2) {
         let addedContacts = contactsArray.length - 3;
@@ -169,39 +229,54 @@ function templateGetContacts(contactsArray) {
         break;
       } else if (getContactById(contactsArray[i])) {
         template += templateUserInitials(getContactById(contactsArray[i]));
-      }      
+      }
     }
   }
   return template;
 }
 
-//BUILD OVERLAY CONTACTS
+/**
+ * Generates HTML template for displaying detailed contact information in an overlay.
+ *
+ * @param {Array} contactsArray - Array of contact IDs assigned to the task.
+ * @returns {string} - The HTML string for displaying detailed contact information.
+ */
 function templateBuildOverlayContacts(contactsArray) {
   let template = '';
-  
-  if(contactsArray) {
+
+  if (contactsArray) {
     for (let i = 0; i < contactsArray.length; i++) {
       if (getContactById(contactsArray[i])) {
         template += templateBuildContacts(getContactById(contactsArray[i]));
-      }      
+      }
     }
   }
   return template;
 }
 
-//EDIT OVERLAY TASK
+/**
+ * Generates HTML template for the header of the edit overlay.
+ *
+ * @returns {string} - The HTML string for the edit overlay header.
+ */
 function templateEditOverlayHeader() {
   return `<div class="overlay_top_header" id="overlay_top_header">
-  <div class="overlay_edit_return">
-    <img src="./img/add_task_escape_img.png" alt="close"
-    class="add_task_escape_img" onclick="closeOverlayTop()">
-  </div>`;
+    <div class="overlay_edit_return">
+      <img src="./img/add_task_escape_img.png" alt="close"
+      class="add_task_escape_img" onclick="closeOverlayTop()">
+    </div>`;
 }
 
+/**
+ * Generates HTML template for the footer of the edit overlay.
+ *
+ * @param {string} id - The unique identifier of the task.
+ * @returns {string} - The HTML string for the edit overlay footer.
+ */
 function templateEditOverlayFooter(id) {
   return `<div class="overlay_edit_okay">
-  <button class="form_okay_button" onclick="sendTask('${id}'), closeOverlayTop(), showTasks(false);">
-    Okay ✔
-  </button>
+    <button class="form_okay_button" onclick="sendTask('${id}'), closeOverlayTop(), showTasks(false);">
+      Okay ✔
+    </button>
   </div>`;
 }

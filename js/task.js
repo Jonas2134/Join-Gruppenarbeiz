@@ -2,6 +2,9 @@ let assignedContacts = [];
 let subtasks = [];
 let sendTaskStatus = 'To do';
 
+/**
+ * Initializes the current user and sets up the task form.
+ */
 async function init() {
   await initCurrentUser();
 
@@ -31,25 +34,33 @@ async function init() {
   setDateRestriction('taskDueDate');
 }
 
-//SEND TASK TO FIREBASE
+/**
+ * Sends a task to the server (e.g., Firebase). If an ID is provided, the task is updated; otherwise, a new task is created.
+ *
+ * @param {string} [id] - The ID of the task to update (optional).
+ */
 async function sendTask(id) {
   let task = getTaskFromForm();
   if (id) {
     let updatingTask = getTaskbyId(id);
     if (updatingTask.finishedSubtasks) {
       task.finishedSubtasks = updatingTask.finishedSubtasks;
-    }    
+    }
     task.status = updatingTask.status;
     await updateTaskById(id, task);
   } else {
     await postData('/tasks', task);
-  }  
+  }
   clearAddTask();
   add_animations();
   redirect();
 }
 
-//FILL IN FORM TASK
+/**
+ * Retrieves task data from the form fields.
+ *
+ * @returns {Object} - The task object.
+ */
 function getTaskFromForm() {
   let task = {
     title: document.getElementById('taskTitle').value,
@@ -60,10 +71,15 @@ function getTaskFromForm() {
     content: document.getElementById('addCategoryInputField').innerHTML,
     subtasks: subtasks,
     status: sendTaskStatus
-  }; return task;
+  };
+  return task;
 }
 
-//SELECT PRIORITY BASED ON CLASS
+/**
+ * Selects the priority of the task based on the provided priority level.
+ *
+ * @param {string} priority - The priority level (Urgent, Medium, Low).
+ */
 function selectPriority(priority) {
   clearPriority(false);
   if (priority.toLowerCase() == 'urgent') {
@@ -81,14 +97,21 @@ function selectPriority(priority) {
   }
 }
 
-//RESET PRIORITY IN ADD TASK 
-function resetPriorityDOM(){
+/**
+ * Resets the priority in the add task form to the default state.
+ */
+function resetPriorityDOM() {
   mediumPriority.classList.add('priority_active');
   urgentPriority.classList.add('priority_inactive');
   lowPriority.classList.add('priority_inactive');
   document.getElementById('prioOrange').src = './img/prio_orange_white.png';
 }
 
+/**
+ * Clears the priority selections in the add task form.
+ *
+ * @param {boolean} reset - If true, reset the priority to default state.
+ */
 function clearPriority(reset) {
   let urgentPriority = document.getElementById('urgentPriority');
   let mediumPriority = document.getElementById('mediumPriority');
@@ -100,28 +123,31 @@ function clearPriority(reset) {
   document.getElementById('prioOrange').src = './img/prio_orange.png';
   document.getElementById('prioGreen').src = './img/prio_green.png';
   if (reset) {
-    resetPriorityDOM()
+    resetPriorityDOM();
   }
 }
 
-//GET PRIORITY IN ADD TASK
+/**
+ * Gets the selected priority in the add task form.
+ *
+ * @returns {string} - The priority level ('Urgent', 'Medium', 'Low').
+ */
 function getPriority() {
-  if (
-    document.getElementById('urgentPriority').classList.contains('priority_active')
-  ) {
+  if (document.getElementById('urgentPriority').classList.contains('priority_active')) {
     return 'Urgent';
-  } else if (
-    document.getElementById('mediumPriority').classList.contains('priority_active')
-  ) {
+  } else if (document.getElementById('mediumPriority').classList.contains('priority_active')) {
     return 'Medium';
-  } else if (
-    document.getElementById('lowPriority').classList.contains('priority_active')
-  ) {
+  } else if (document.getElementById('lowPriority').classList.contains('priority_active')) {
     return 'Low';
   }
 }
 
-//TOGGLE CONTACTS DROPDOWN
+/**
+ * Closes other dropdowns if they are open.
+ *
+ * @param {HTMLElement} otherDropdown - The other dropdown element.
+ * @param {string} id - The ID of the element to adjust height.
+ */
 function closeOtherDropdown(otherDropdown, id) {
   if (otherDropdown && otherDropdown.classList.contains('show')) {
     otherDropdown.classList.remove('show');
@@ -129,11 +155,14 @@ function closeOtherDropdown(otherDropdown, id) {
   }
 }
 
+/**
+ * Toggles the display of the contacts dropdown.
+ */
 function toggleContacsDropdown() {
   let content = document.getElementById('assignedDropdown');
   let category = document.getElementById('addCategory');
   let otherDropdown = document.getElementById('categoryDropdown');
-  
+
   closeOtherDropdown(otherDropdown, 'add_subtasks');
   if (content.classList.contains('show')) {
     content.classList.remove('show');
@@ -141,16 +170,18 @@ function toggleContacsDropdown() {
   } else {
     content.classList.add('show');
     addOffSetToHeight(content, category);
-  } 
+  }
   event.stopPropagation();
 }
 
-//TOGGLE CATEGORY DROPDOWN
+/**
+ * Toggles the display of the category dropdown.
+ */
 function toggleCategoryDropdown() {
   let content = document.getElementById('categoryDropdown');
   let addSubtasks = document.getElementById('add_subtasks');
   let otherDropdown = document.getElementById('assignedDropdown');
-  
+
   closeOtherDropdown(otherDropdown, 'addCategory');
   if (content) {
     if (content.classList.contains('show')) {
@@ -164,7 +195,9 @@ function toggleCategoryDropdown() {
   event.stopPropagation();
 }
 
-//CLOSE DROPDOWNS IF CLICKED OUTSIDE
+/**
+ * Closes dropdowns if clicked outside of them.
+ */
 document.addEventListener('click', function(event) {
   ['assignedDropdown', 'categoryDropdown'].forEach(id => {
     let dropdown = document.getElementById(id);
@@ -176,7 +209,12 @@ document.addEventListener('click', function(event) {
   });
 });
 
-//ADDED HEIGHT TO DROPDOWN 
+/**
+ * Adds offset height to the specified div based on another div's height.
+ *
+ * @param {HTMLElement} divWithOffset - The div to get height from.
+ * @param {HTMLElement} divToAdd - The div to apply the offset height.
+ */
 function addOffSetToHeight(divWithOffset, divToAdd) {
   if (divWithOffset && divToAdd) {
     let height = divWithOffset.offsetHeight;
@@ -186,52 +224,64 @@ function addOffSetToHeight(divWithOffset, divToAdd) {
   }
 }
 
-//ADD CONTACTS TO TASK 
+/**
+ * Adds contacts to the task form's contacts dropdown.
+ */
 async function addTaskContacs() {
   await initContacts();
-  let contactDropwdown = document.getElementById('assignedDropdown');
-  contactDropwdown.innerHTML = '';
-  for (i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];    
-    contactDropwdown.innerHTML += templateBuildContactDropdown(contact, true);
+  let contactDropdown = document.getElementById('assignedDropdown');
+  contactDropdown.innerHTML = '';
+  for (let i = 0; i < contacts.length; i++) {
+    const contact = contacts[i];
+    contactDropdown.innerHTML += templateBuildContactDropdown(contact, true);
   }
 }
 
-//SELECT ADDED CONTACTS
+/**
+ * Selects or deselects a contact for the task.
+ *
+ * @param {string} contactId - The ID of the contact to select or deselect.
+ */
 function selectContact(contactId) {
   let assignedContact = document.getElementById(contactId);
   let index = assignedContacts.indexOf(contactId);
   let checkbox = document.getElementById('cb' + contactId);
-  if (index == -1) {
+  if (index === -1) {
     assignedContacts.push(contactId);
     assignedContact.classList.add('active');
     checkbox.checked = true;
   } else {
-    assignedContacts.splice(assignedContacts.indexOf(contactId), 1);
+    assignedContacts.splice(index, 1);
     assignedContact.classList.remove('active');
     checkbox.checked = false;
   }
   renderAssignedContact();
 }
 
-//RENDER CONTACTS FOR TASK 
+/**
+ * Renders the selected contacts for the task.
+ */
 function renderAssignedContact() {
   let content = document.getElementById('selectedContact');
   content.innerHTML = '';
   for (let i = 0; i < assignedContacts.length; i++) {
-    content.innerHTML += templateUserInitials(
-      getContactById(assignedContacts[i])
-    );
+    content.innerHTML += templateUserInitials(getContactById(assignedContacts[i]));
   }
 }
 
-//SELECT CATEGORY FOR TASK 
+/**
+ * Selects a category for the task.
+ *
+ * @param {string} text - The category text to select.
+ */
 function selectCategory(text) {
   let inputField = document.getElementById('addCategoryInputField');
   inputField.innerHTML = text;
 }
 
-//ADD SUBTASKS TO TASK 
+/**
+ * Adds a subtask to the task.
+ */
 function addSubtask() {
   let subtaskInput = document.getElementById('inputSubtasks');
   let subtask = subtaskInput.value.trim();
@@ -242,7 +292,9 @@ function addSubtask() {
   onInputSubtask();
 }
 
-//RENDER SUBTASKS IN TASK 
+/**
+ * Renders the subtasks in the task.
+ */
 function renderSubtasks() {
   let subtaskContent = document.getElementById('subtaskContent');
   subtaskContent.innerHTML = '';
@@ -251,13 +303,21 @@ function renderSubtasks() {
   });
 }
   
-//DELETE SUBTASKS IN TASK 
+/**
+ * Deletes a subtask from the task.
+ *
+ * @param {number} index - The index of the subtask to delete.
+ */
 function deleteSubtask(index) {
   subtasks.splice(index, 1);
   renderSubtasks();
 }
 
-//EDIT SUBTASKS IN TASK 
+/**
+ * Edits a subtask in the task.
+ *
+ * @param {number} index - The index of the subtask to edit.
+ */
 function editSubtask(index) {
   let subTaskContent = document.getElementById(`subtask_${index}`);
   let subTaskText = document.getElementById(`subtask_edit_${index}`);
@@ -265,7 +325,9 @@ function editSubtask(index) {
   subTaskText.classList.remove('inactive');
 }
 
-// EDITED SUBTASK IN ADD TASK
+/**
+ * Handles the input event for the subtask input field.
+ */
 function onInputSubtask() {
   let subtaskInput = document.getElementById('inputSubtasks').value;
   let subtaskIconActive = document.getElementById('subtaskIconsActive');
@@ -279,7 +341,11 @@ function onInputSubtask() {
   }
 }
 
-//SAVE SUBTASKS
+/**
+ * Saves the edited subtask.
+ *
+ * @param {number} index - The index of the subtask to save.
+ */
 function saveSubtask(index) {
   let subtaskInput = document.getElementById(`subtask_input_${index}`).value;
   if (subtaskInput !== null && subtaskInput.trim() !== '') {
@@ -288,32 +354,26 @@ function saveSubtask(index) {
   }
 }
 
-//HELPFUL - CLEAR INPUT FIELDS IN ADD TASK FORMULAR
-function clearInput(id) {
-  document.getElementById(id).value = '';
-}
-
-//HELPFUL - CLEAR HTML LINES IN ADD TASK FORMULAR
-function clearHtml(id, html) {
-  document.getElementById(id).innerHTML = html;
-}
-
-//CLEAR WHOLE ADD TASK FORMULAR
+/**
+ * Clears the entire Add Task form.
+ */
 function clearAddTask() {
   clearInput('taskTitle');
   clearInput('taskDescription');
   clearInput('taskDueDate');
   clearPriority(true);
-  clearHtml('selectAssignedTo', `Select contacts to assign`);
+  clearHtml('selectAssignedTo', 'Select contacts to assign');
   assignedContacts = [];
   renderAssignedContact();
-  clearHtml('addCategoryInputField', `Select task category`);
+  clearHtml('addCategoryInputField', 'Select task category');
   clearInput('inputSubtasks');
   clearHtml('subtaskContent', '');
   subtasks = [];
 }
 
-//ADD ANIMATIONS FOR SEND TASK
+/**
+ * Adds animations for sending the task.
+ */
 function add_animations() {
   document.getElementsByClassName('hidden_container')[0].classList.add('visible');
   document.getElementsByClassName('hidden_popup')[0].classList.add('visible');
@@ -324,30 +384,9 @@ function add_animations() {
   }, 2000);
 }
 
-//FORM VALIDATION ON ADD TASK BUTTON CLICK 
-function validateForm() {
-  let form = document.getElementById('myForm');
-
-  if (form.checkValidity()) {
-    sendTask();
-  } else {
-    form.reportValidity();
-  }
-}
-
-//FORM VALIDATION ON OVERLAY ADD TASK BUTTON CLICK
-function validateFormOverlay() {
-  let form = document.getElementById('myForm');
-  if (form.checkValidity()) {
-    sendTask();
-    closeOverlayRight();
-    showTasks(false);
-  } else {
-    form.reportValidity();
-  }
-}
-
-//REDIRECT - FROM ADDED TASK TO BOARD
+/**
+ * Redirects from the added task to the board.
+ */
 function redirect() {
   var hostname = window.location.hostname;
   var port = window.location.port;
