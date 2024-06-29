@@ -1,3 +1,9 @@
+/**
+ * Generates HTML for a single contact container.
+ * @param {Object} contact - The contact object containing details like name, email, initials, and color.
+ * @param {number} index - The index of the contact in the list.
+ * @returns {string} HTML string representing the contact container.
+ */
 function createContactHtml(contact, index) {
     return `
     <div id="contact-container(${index})" onclick="openContact(${index})" class="contact-container d-flex_column">
@@ -10,6 +16,12 @@ function createContactHtml(contact, index) {
     `;
 }
 
+/**
+ * Generates HTML for a group of contacts under a specific letter.
+ * @param {string} letter - The letter representing the group.
+ * @param {string} contactsHtml - HTML string containing contact containers for the group.
+ * @returns {string} HTML string representing the group of contacts.
+ */
 function createGroupHtml(letter, contactsHtml) {
     return `
     <div class="filter-card d-flex">
@@ -20,6 +32,12 @@ function createGroupHtml(letter, contactsHtml) {
     `;
 }
 
+
+/**
+ * Generates HTML for displaying detailed information of a selected contact.
+ * @param {number} i - The index of the selected contact in the contacts array.
+ * @returns {string} HTML string representing the detailed view of the selected contact.
+ */
 function generateSelectedContactHTML(i) {
     return `
         <div class="selected-contact-main-container">
@@ -123,6 +141,13 @@ function generateSelectedContactHTML(i) {
     `;
 }
 
+/**
+ * Renders an edit overlay for a specific contact based on index.
+ * This function populates the overlay with contact details and sets up event handlers.
+ *
+ * @param {number} i - Index of the contact in the 'contacts' array to be edited.
+ * @returns {void}
+ */
 function renderEditOverlay(i) {
     const overlayHTML = `
         <div onclick="closeEditContactOverlay()" id="close-edit-area"></div>
@@ -230,6 +255,12 @@ function renderEditOverlay(i) {
     activateInputError();
 }
 
+/**
+ * Generates HTML markup for the confirmation dialog for deleting a contact.
+ *
+ * @param {number} i - Index of the contact to be deleted.
+ * @returns {string} HTML markup for the confirmation dialog.
+ */
 function confirmationDeleteHTML(i) {
     return `
     <div class="confirmation_main-container">
@@ -246,6 +277,12 @@ function confirmationDeleteHTML(i) {
     `;
 }
 
+/**
+ * Generates HTML markup for the confirmation dialog for editing a contact.
+ *
+ * @param {number} i - Index of the contact to be edited.
+ * @returns {string} HTML markup for the confirmation dialog.
+ */
 function confirmationEditHTML(i) {
     return `
     <div class="confirmation_main-container">
