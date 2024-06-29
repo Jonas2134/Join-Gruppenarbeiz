@@ -1,5 +1,12 @@
 let currentDraggedElement;
 
+/**
+ * Initializes the application by setting up the current user and displaying tasks.
+ * 
+ * @async
+ * @function init
+ * @returns {Promise<void>}
+ */
 async function init() {
   await initCurrentUser();
 
@@ -8,7 +15,11 @@ async function init() {
   }, 500);
 }
 
-//OVERLAY OPEN BIG TASK CARD
+/**
+ * Opens the overlay displaying a big task card.
+ * 
+ * @function openOverlayTop
+ */
 function openOverlayTop() {
   let overlay = document.getElementById('card_top_overlay');
   if (overlay) {    
@@ -18,7 +29,11 @@ function openOverlayTop() {
   }
 }
 
-//OVERLAY CLOSE BIG TASK CARD
+/**
+ * Closes the overlay displaying a big task card.
+ * 
+ * @function closeOverlayTop
+ */
 function closeOverlayTop() {
   renderAllTasks();
   let overlay = document.getElementById('card_top_overlay');
@@ -33,7 +48,12 @@ function closeOverlayTop() {
   }    
 }
 
-//OVERLAY CLOSE BIG TASK CARD EVENT LISTENER
+/**
+ * Sets up the event listener to close the big task card overlay when clicking outside its content area.
+ * 
+ * @function
+ * @name EventListener#DOMContentLoaded
+ */
 document.addEventListener('DOMContentLoaded', () => {  
   const cardOverlay = document.getElementById('card_top_overlay');
   const overlayContent = document.getElementById('overlay_top_content');
@@ -46,7 +66,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }  
 });
 
-//OVERLAY OPEN ADD TASK ON BOARD
+/**
+ * Opens the overlay for adding a task to the board.
+ * 
+ * @async
+ * @function openOverlayRight
+ * @returns {Promise<void>}
+ */
 async function openOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
@@ -55,7 +81,7 @@ async function openOverlayRight() {
     const form = document.getElementById('add_task_overlay_content');
     await fetch('template_add_task.html')
       .then(response => response.text())
-      .then(html => { form.innerHTML = html;});
+      .then(html => { form.innerHTML = html; });
     addTaskContacs();   
     setTimeout(() => {
       overlay.classList.add('show');
@@ -64,7 +90,11 @@ async function openOverlayRight() {
   }
 }
 
-//OVERLAY CLOSE ADD TASK ON BOARD
+/**
+ * Closes the overlay for adding a task to the board.
+ * 
+ * @function closeOverlayRight
+ */
 function closeOverlayRight() {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay) {
@@ -78,7 +108,12 @@ function closeOverlayRight() {
   }
 }
 
-//OVERLAY CLOSE ADD TASK ON BOARD EVENT LISTENER
+/**
+ * Sets up the event listener to close the add task overlay when clicking outside it.
+ * 
+ * @function
+ * @name EventListener#click
+ */
 document.addEventListener('click', function(event) {
   let overlay = document.getElementById('add_task_overlay');
   if (overlay && overlay === event.target) {
@@ -86,26 +121,46 @@ document.addEventListener('click', function(event) {
   }
 });
 
+/**
+ * Closes the add task overlay when the window loads.
+ * 
+ * @function
+ * @name EventListener#load
+ */
 window.addEventListener('load', function () {
   closeOverlayRight();
 });
 
+/**
+ * Closes the add task overlay before the window unloads.
+ * 
+ * @function
+ * @name EventListener#beforeunload
+ */
 window.addEventListener('beforeunload', function () {
   closeOverlayRight();
 });
 
-
-//CLEAR WHOLE BOARD TO RENDER PROPERLY
-function clearBoard(){
+/**
+ * Clears all task columns on the board.
+ * 
+ * @function clearBoard
+ */
+function clearBoard() {
   document.getElementById('drag_to_do').innerHTML = '';
   document.getElementById('drag_in_progress').innerHTML = '';
   document.getElementById('drag_await_feedback').innerHTML = '';
   document.getElementById('drag_done').innerHTML = '';
 }
 
-//BOARD SWITCH CARD STATUS
+/**
+ * Switches the status of a task and renders it in the appropriate column on the board.
+ * 
+ * @param {Object} task - The task object.
+ * @param {number} i - The index of the task.
+ */
 function switchStatusCase(task, i) {
-  switch(task.status.toLowerCase()) {
+  switch (task.status.toLowerCase()) {
     case 'to do':
       document.getElementById('drag_to_do').innerHTML += renderTask(task, i);
       break;
@@ -116,16 +171,24 @@ function switchStatusCase(task, i) {
       document.getElementById('drag_await_feedback').innerHTML += renderTask(task, i);
       break;
     case 'done':
-      document.getElementById('drag_done').innerHTML += renderTask(task, i); 
+      document.getElementById('drag_done').innerHTML += renderTask(task, i);
   }
 }
 
-//SET CARD STATUS
+/**
+ * Sets the status for sending a task.
+ * 
+ * @param {string} status - The status to be set.
+ */
 function setSendTaskStatus(status) {
   sendTaskStatus = status;
 }
- 
-//RENDER TASKS ON BOARD
+
+/**
+ * Renders all tasks on the board.
+ * 
+ * @function renderAllTasks
+ */
 function renderAllTasks() {
   clearBoard();
   for (let i = 0; i < tasks.length; i++) {    
@@ -135,7 +198,11 @@ function renderAllTasks() {
   setDragEventListeners();
 }
 
-//RENDER "NO TASK"-BADGE IF THERE ARE NO TASKS
+/**
+ * Renders a "No Task" badge if there are no tasks in a column.
+ * 
+ * @function renderNoTask
+ */
 function renderNoTask() {
   if (document.getElementById('drag_to_do').innerHTML == '') {
     document.getElementById('drag_to_do').innerHTML = templateNoTask('To do');
@@ -151,41 +218,14 @@ function renderNoTask() {
   }
 }
 
-//FUNCTION DRAG & DROP EVENT LISTENER
-function setDragEventListeners() {
-  const allDragElements = document.querySelectorAll(".task_card");
-  allDragElements.forEach((e) => {
-    e.addEventListener("touchmove", function (ev) {
-      ev.preventDefault();
-    });
-    e.addEventListener("touchend", function (ev) {
-      const touchedTask = ev.changedTouches[0];
-      if (insideDiv(touchedTask, "drag_to_do")) {
-        moveTo("drag_to_do");
-      } else if (insideDiv(touchedTask, "drag_in_progress")) {
-        moveTo("drag_in_progress");
-      } else if (insideDiv(touchedTask, "drag_await_feedback")) {
-        moveTo("drag_await_feedback");
-      } else if (insideDiv(touchedTask, "drag_done")) {
-        moveTo("drag_done");
-      } 
-    });
-  });
-}
-
-//FUNCTION DRAG & DROP WHICH TASK DRAGGED
-function insideDiv(touchedTask, id) {
-  const element = document.getElementById(id);
-  rect = element.getBoundingClientRect();
-  return (
-    touchedTask.clientX > rect.left &&
-    touchedTask.clientX < rect.right &&
-    touchedTask.clientY > rect.top &&
-    touchedTask.clientY < rect.bottom
-  );
-}
-
-//RENDER ALL TASK ON BOARD
+/**
+ * Loads tasks and renders them on the board.
+ * 
+ * @async
+ * @function showTasks
+ * @param {boolean} reloadContacts - Whether to reload contacts.
+ * @returns {Promise<void>}
+ */
 async function showTasks(reloadContacts) {
   await loadTasks();
   if (reloadContacts) {
@@ -194,14 +234,25 @@ async function showTasks(reloadContacts) {
   renderAllTasks();
 }
 
-//UPDATE TASK STATUS ON BOARD
+/**
+ * Updates the status of a task on the board.
+ * 
+ * @function updateTaskStatus
+ * @param {string} id - The ID of the task.
+ * @param {string} status - The new status of the task.
+ */
 function updateTaskStatus(id, status) {
   let task = getTaskbyId(id);
   task.status = status;
   updateTaskById(task.id, task);
 }
 
-//DELETE TASK ON BOARD 
+/**
+ * Deletes a task from the board.
+ * 
+ * @function deleteTaskOnBoard
+ * @param {string} id - The ID of the task.
+ */
 function deleteTaskOnBoard(id) {
   tasks = deleteById(tasks, id);
   deleteTaskById(id);
@@ -209,14 +260,26 @@ function deleteTaskOnBoard(id) {
   renderAllTasks();
 }
 
-//BUILD OVERLAY BIG TASK CARD
+/**
+ * Builds and displays the overlay for a big task card.
+ * 
+ * @function buildOverlayCard
+ * @param {number} i - The index of the task.
+ */
 function buildOverlayCard(i) {
   let content = document.getElementById('overlay_top_content');
   let task = tasks[i];
   content.innerHTML = templateBuildOverlayCard(task);
 }
 
-//EDIT OVERLAY TASK CARD
+/**
+ * Edits a task in the overlay.
+ * 
+ * @async
+ * @function editOverlayTask
+ * @param {string} id - The ID of the task.
+ * @returns {Promise<void>}
+ */
 async function editOverlayTask(id) {
   document.getElementById('add_task_overlay_content').innerHTML = '';
   const content = document.getElementById('overlay_top_content');
@@ -234,7 +297,11 @@ async function editOverlayTask(id) {
   setDateRestriction('taskDueDate');
 }
 
-//FILLED IN ADD TASK TEMPLATE TO EDIT 
+/**
+ * Fills the add task template with existing task data for editing.
+ * 
+ * @param {Object} task - The task object.
+ */
 function fillTask(task) {
   document.getElementById('taskTitle').value = task.title;
   document.getElementById('taskDescription').value = task.description;
@@ -252,70 +319,60 @@ function fillTask(task) {
   renderSubtasks();
 }
 
-//DRAG & DROP - DRAG START 
-function startDragging(id) {
-  currentDraggedElement = id;
-}
-
-//DRAG & DROP - DROP 
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-//DRAG & DROP - MOVE TO 
-function moveTo(status) {
-  updateTaskStatus(currentDraggedElement, getStatusNameByStatusID(status));
-  renderAllTasks();  
-}
-
-//DRAG & DROP - HIGHLIGHT TASK DIV
-function highlight(id) {
-  document.getElementById(id).classList.add('task_content-highlight');
-}
-
-function removeHighlight(id) {
-  document.getElementById(id).classList.remove('task_content-highlight');
-}
-
-//GET STATUS BY ID 
-function getStatusNameByStatusID(statusId){
-  if (statusId=='drag_to_do') {
+/**
+ * Gets the status name based on the status ID.
+ * 
+ * @param {string} statusId - The status ID.
+ * @returns {string} - The status name.
+ */
+function getStatusNameByStatusID(statusId) {
+  if (statusId == 'drag_to_do') {
     return 'To do';
-  } else if (statusId=='drag_in_progress') {
+  } else if (statusId == 'drag_in_progress') {
     return 'In progress';
-  } else if (statusId=='drag_await_feedback') {
+  } else if (statusId == 'drag_await_feedback') {
     return 'Await feedback';
-  } else if (statusId=='drag_done') {
+  } else if (statusId == 'drag_done') {
     return 'Done';
   }
 }
 
-//UPDATE FINISHED SUBTASK 
+/**
+ * Updates the status of a subtask as finished or unfinished.
+ * 
+ * @param {string} subtaskName - The name of the subtask.
+ * @param {string} id - The ID of the task.
+ */
 function finishSubtask(subtaskName, id) {
   let task = getTaskbyId(id);
   if (!task.finishedSubtasks) {
     task.finishedSubtasks = [];
     task.finishedSubtasks.push(subtaskName);
-  } else if (task.finishedSubtasks.indexOf(subtaskName) > -1){
+  } else if (task.finishedSubtasks.indexOf(subtaskName) > -1) {
     task.finishedSubtasks.splice(task.finishedSubtasks.indexOf(subtaskName), 1);
   } else {
     task.finishedSubtasks.push(subtaskName);
-  } 
+  }
   updateTaskById(id, task);
 }
 
-//FILTER FUNCTION 
-function filterTask() { 
+/**
+ * Filters tasks based on the search input.
+ * 
+ * @function filterTask
+ */
+function filterTask() {
   let search = document.getElementById('findTask').value.toLowerCase();
-  if(search.length >=3) {
+  if (search.length >= 3) {
     for (let i = 0; i < tasks.length; i++) {
       if (tasks[i].title.toLowerCase().includes(search) || tasks[i].description.toLowerCase().includes(search)) {
         document.getElementById(`${tasks[i].id}`).style.display = 'block';
-      }  else {
+      } else {
         document.getElementById(`${tasks[i].id}`).style.display = 'none';
- }}
+      }
+    }
   } else {
-    for (let i = 0; i< tasks.length; i++) {
+    for (let i = 0; i < tasks.length; i++) {
       document.getElementById(`${tasks[i].id}`).style.display = 'block';
     }
   }

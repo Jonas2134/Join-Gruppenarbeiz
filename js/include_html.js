@@ -1,3 +1,8 @@
+/**
+ * Includes HTML content into elements marked with 'w3-include-html' attribute.
+ * Fetches the specified HTML file and inserts its content into the element.
+ * If the fetch fails (HTTP status not OK), displays "Page not found" in the element.
+ */
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
   for (let i = 0; i < includeElements.length; i++) {
@@ -12,18 +17,30 @@ async function includeHTML() {
   }
 }
 
-
-// Dropdown Function
+/**
+ * Toggles the visibility of the dropdown menu associated with 'myDropdown' element.
+ */
 function toggleDropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-// restrict date field to future dates
+/**
+ * Sets the minimum date of the input field specified by 'id' to today's date.
+ * Prevents selection of past dates.
+ *
+ * @param {string} id - The ID of the date input field to set the restriction on.
+ */
 function setDateRestriction(id) {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById(id).setAttribute('min', today);
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById(id).setAttribute('min', today);
 }
 
+/**
+ * Initializes the current user session.
+ * Includes HTML content, checks the first page, loads current user data,
+ * shows the user dropdown, and sets event listeners for logout and dropdown toggle.
+ * Hides dropdown menus when clicking outside of the dropdown area.
+ */
 async function initCurrentUser(){
   includeHTML();
   checkFirstPage();
