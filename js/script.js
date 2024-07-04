@@ -3,7 +3,7 @@
  * @constant {string} STORAGE_URL
  */
 const STORAGE_URL =
-  'https://join-gruppenarbeit-c2942-default-rtdb.europe-west1.firebasedatabase.app/';
+  'https://join-ed6b2-default-rtdb.europe-west1.firebasedatabase.app/';
 
 /**
  * Array to store user objects retrieved from the database.
